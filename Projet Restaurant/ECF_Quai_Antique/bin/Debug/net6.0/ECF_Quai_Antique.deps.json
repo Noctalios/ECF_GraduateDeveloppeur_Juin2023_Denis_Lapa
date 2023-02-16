@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "ECF_Quai_Antique/1.0.0": {
+        "runtime": {
+          "ECF_Quai_Antique.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ECF_Quai_Antique/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
