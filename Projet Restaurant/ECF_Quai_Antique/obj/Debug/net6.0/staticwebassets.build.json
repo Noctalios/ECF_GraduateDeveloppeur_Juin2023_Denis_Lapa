@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "VSoTvJ/urZ47nzjd86vdLuhEKjerYcJP/DYUiLiSXxE=",
+  "Hash": "6ZabfGP/XnMK8DzZMz1ujCy7QlkWuhIeXuXKj1e6ejc=",
   "Source": "ECF_Quai_Antique",
   "BasePath": "_content/ECF_Quai_Antique",
   "Mode": "Default",
@@ -16,6 +16,40 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "C:\\Users\\denpa\\.nuget\\packages\\mudblazor\\6.1.9\\staticwebassets\\MudBlazor.min.css",
+      "SourceId": "MudBlazor",
+      "SourceType": "Package",
+      "ContentRoot": "C:\\Users\\denpa\\.nuget\\packages\\mudblazor\\6.1.9\\staticwebassets\\",
+      "BasePath": "_content/MudBlazor",
+      "RelativePath": "MudBlazor.min.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\denpa\\.nuget\\packages\\mudblazor\\6.1.9\\staticwebassets\\MudBlazor.min.css"
+    },
+    {
+      "Identity": "C:\\Users\\denpa\\.nuget\\packages\\mudblazor\\6.1.9\\staticwebassets\\MudBlazor.min.js",
+      "SourceId": "MudBlazor",
+      "SourceType": "Package",
+      "ContentRoot": "C:\\Users\\denpa\\.nuget\\packages\\mudblazor\\6.1.9\\staticwebassets\\",
+      "BasePath": "_content/MudBlazor",
+      "RelativePath": "MudBlazor.min.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\denpa\\.nuget\\packages\\mudblazor\\6.1.9\\staticwebassets\\MudBlazor.min.js"
+    },
     {
       "Identity": "D:\\ECF\\ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa\\Projet Restaurant\\ECF_Quai_Antique\\obj\\Debug\\net6.0\\scopedcss\\bundle\\ECF_Quai_Antique.styles.css",
       "SourceId": "ECF_Quai_Antique",

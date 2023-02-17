@@ -30,3 +30,14 @@ D:\ECF\ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa\Projet Restaurant\ECF_Quai_An
 D:\ECF\ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa\Projet Restaurant\ECF_Quai_Antique\obj\Debug\net6.0\ECF_Quai_Antique.pdb
 D:\ECF\ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa\Projet Restaurant\ECF_Quai_Antique\obj\Debug\net6.0\ECF_Quai_Antique.genruntimeconfig.cache
 D:\ECF\ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa\Projet Restaurant\ECF_Quai_Antique\obj\Debug\net6.0\ref\ECF_Quai_Antique.dll
+D:\ECF\ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa\Projet Restaurant\ECF_Quai_Antique\bin\Debug\net6.0\Microsoft.AspNetCore.Authorization.dll
+D:\ECF\ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa\Projet Restaurant\ECF_Quai_Antique\bin\Debug\net6.0\Microsoft.AspNetCore.Components.dll
+D:\ECF\ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa\Projet Restaurant\ECF_Quai_Antique\bin\Debug\net6.0\Microsoft.AspNetCore.Components.Forms.dll
+D:\ECF\ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa\Projet Restaurant\ECF_Quai_Antique\bin\Debug\net6.0\Microsoft.AspNetCore.Components.Web.dll
+D:\ECF\ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa\Projet Restaurant\ECF_Quai_Antique\bin\Debug\net6.0\Microsoft.AspNetCore.Metadata.dll
+D:\ECF\ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa\Projet Restaurant\ECF_Quai_Antique\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+D:\ECF\ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa\Projet Restaurant\ECF_Quai_Antique\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\ECF\ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa\Projet Restaurant\ECF_Quai_Antique\bin\Debug\net6.0\Microsoft.JSInterop.dll
+D:\ECF\ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa\Projet Restaurant\ECF_Quai_Antique\bin\Debug\net6.0\MudBlazor.dll
+D:\ECF\ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa\Projet Restaurant\ECF_Quai_Antique\bin\Debug\net6.0\System.IO.Pipelines.dll
+D:\ECF\ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa\Projet Restaurant\ECF_Quai_Antique\obj\Debug\net6.0\ECF_Quai_Antique.csproj.CopyComplete
