@@ -6,7 +6,7 @@
 
         private string Name { get; set; }
 
-        private Allergie(string name)
+        public Allergie(string name)
         {
             Name = name;
         }

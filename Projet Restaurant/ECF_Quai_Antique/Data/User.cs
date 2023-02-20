@@ -12,11 +12,14 @@
 
         private int? Guest { get; set; }
 
-        public User(string email, string password, int guest) 
+        private List<Allergie> Allergies { get; set; }
+
+        public User(string email, string password, int guest, List<Allergie> allergies) 
         {
             this.Email = email;
             this.Password = password;
             this.Guest = guest;
+            this.Allergies = allergies;
         }
     }
 }
