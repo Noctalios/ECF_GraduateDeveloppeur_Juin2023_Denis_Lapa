@@ -8,5 +8,7 @@
 
         private int Guest { get; set; }
 
+        private List<WorkDay> WorkDays { get; set; } 
+
     }
 }
