@@ -14,11 +14,6 @@ D:\ECF\ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa\Projet Restaurant\ECF_Quai_An
 D:\ECF\ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa\Projet Restaurant\ECF_Quai_Antique\obj\Debug\net6.0\ECF_Quai_Antique.MvcApplicationPartsAssemblyInfo.cache
 D:\ECF\ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa\Projet Restaurant\ECF_Quai_Antique\obj\Debug\net6.0\ECF_Quai_Antique.RazorAssemblyInfo.cache
 D:\ECF\ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa\Projet Restaurant\ECF_Quai_Antique\obj\Debug\net6.0\ECF_Quai_Antique.RazorAssemblyInfo.cs
-D:\ECF\ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa\Projet Restaurant\ECF_Quai_Antique\obj\Debug\net6.0\staticwebassets\msbuild.ECF_Quai_Antique.Microsoft.AspNetCore.StaticWebAssets.props
-D:\ECF\ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa\Projet Restaurant\ECF_Quai_Antique\obj\Debug\net6.0\staticwebassets\msbuild.build.ECF_Quai_Antique.props
-D:\ECF\ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa\Projet Restaurant\ECF_Quai_Antique\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.ECF_Quai_Antique.props
-D:\ECF\ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa\Projet Restaurant\ECF_Quai_Antique\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.ECF_Quai_Antique.props
-D:\ECF\ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa\Projet Restaurant\ECF_Quai_Antique\obj\Debug\net6.0\staticwebassets.pack.json
 D:\ECF\ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa\Projet Restaurant\ECF_Quai_Antique\obj\Debug\net6.0\staticwebassets.build.json
 D:\ECF\ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa\Projet Restaurant\ECF_Quai_Antique\obj\Debug\net6.0\staticwebassets.development.json
 D:\ECF\ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa\Projet Restaurant\ECF_Quai_Antique\obj\Debug\net6.0\scopedcss\Shared\MainLayout.razor.rz.scp.css
