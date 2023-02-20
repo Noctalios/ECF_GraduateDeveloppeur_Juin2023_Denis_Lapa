@@ -1,8 +1,14 @@
-﻿namespace ECF_Quai_Antique.Data;
-
-public class DishType
+﻿namespace ECF_Quai_Antique.Data
 {
-    private int Id { get; set; }
+    public class DishType
+    {
+        private int Id { get; set; }
 
-    private string Name { get; set; }
+        private string Name { get; set; }
+
+        public DishType(string name) 
+        {
+            this.Name = name;
+        }
+    }
 }
