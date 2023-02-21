@@ -5,5 +5,5 @@
 	[Description]	VARCHAR(MAX)	NOT NULL,
 	[Price]			DECIMAL(12, 2)	NOT NULL,
 	PRIMARY KEY (Id),
-	CONSTRAINT FK_Dishes__DishType FOREIGN KEY (DishTypeId) REFERENCES DishType(Id),
+	CONSTRAINT FK_Dish__DishType FOREIGN KEY (DishTypeId) REFERENCES DishType(Id),
 );

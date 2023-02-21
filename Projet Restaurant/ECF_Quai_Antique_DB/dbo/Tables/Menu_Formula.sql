@@ -1,0 +1,9 @@
+﻿CREATE TABLE [dbo].[Menu_Formula]
+(
+	[Id]		INT	IDENTITY (1, 1),
+	[MenuId]	INT	NOT NULL,
+	[FormulaId] INT NOT NULL,
+	PRIMARY KEY (Id),
+	CONSTRAINT FK_MF__Menu		FOREIGN KEY (MenuId)	REFERENCES Menu(Id),
+	CONSTRAINT FK_MF__Formula	FOREIGN KEY (FormulaId) REFERENCES Formula(Id)
+);
