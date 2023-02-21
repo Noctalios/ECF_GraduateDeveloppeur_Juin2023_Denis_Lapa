@@ -396,3 +396,5 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/Projet Restaurant/ECF_Quai_Antique/.vs/ProjectEvaluation/ecf_quai_antique.projects.v5.2
+/Projet Restaurant/ECF_Quai_Antique/ECF_Quai_Antique.sln
