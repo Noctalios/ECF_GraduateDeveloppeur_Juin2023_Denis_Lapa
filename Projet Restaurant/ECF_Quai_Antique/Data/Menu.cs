@@ -8,13 +8,16 @@
 
         private string Description { get; set; }
 
+        private List<Dish> Dishes { get; set; }
+        
         private List<Formula> Formulas { get; set; }
 
-        public Menu(string name, string description, List<Formula> formulas) 
+        public Menu(string name, string description, List<Dish> dishes,List<Formula> formulas) 
         {
             this.Name = name;
             this.Description = description;
             this.Formulas = formulas;
+            this.Dishes = dishes;
         }
     }
 }
