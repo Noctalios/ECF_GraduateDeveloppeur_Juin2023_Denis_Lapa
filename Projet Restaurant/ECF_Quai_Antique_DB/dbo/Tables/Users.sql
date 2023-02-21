@@ -6,5 +6,5 @@
 	[Guest]		INT				NOT NULL,
 	[RoleId]	INT				NOT NULL,
 	PRIMARY KEY (Id),
-	CONSTRAINT FK_UserRole FOREIGN KEY (RoleId) REFERENCES Roles(Id)
+	CONSTRAINT FK_User__Role FOREIGN KEY (RoleId) REFERENCES Roles(Id)
 );

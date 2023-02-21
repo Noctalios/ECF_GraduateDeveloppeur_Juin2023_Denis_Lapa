@@ -4,6 +4,6 @@
 	[UserId]	 INT	NOT NULL,
 	[AllergieId] INT	NOT NULL,
 	PRIMARY KEY (Id),
-	CONSTRAINT FK_Users		FOREIGN KEY (UserId)		REFERENCES Users(Id),
-	CONSTRAINT FK_Allergies FOREIGN KEY (AllergieId)	REFERENCES Allergies(Id)
+	CONSTRAINT FK_UA__Users		FOREIGN KEY (UserId)		REFERENCES Users(Id),
+	CONSTRAINT FK_UA__Allergies FOREIGN KEY (AllergieId)	REFERENCES Allergies(Id)
 )
