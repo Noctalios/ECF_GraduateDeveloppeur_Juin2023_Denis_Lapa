@@ -5,4 +5,4 @@
 	[Name]	VARCHAR(50) NOT NULL,
 	[Guest] INT			NULL,
  	PRIMARY KEY (Id)
-)
+);

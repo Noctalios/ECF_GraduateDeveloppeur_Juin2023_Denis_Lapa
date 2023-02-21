@@ -4,4 +4,4 @@
 	[Description] VARCHAR(MAX)		NOT NULL,
 	[Price]		  DECIMAL(12, 2)	NOT NULL,
 	PRIMARY KEY (Id)
-)
+);

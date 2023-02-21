@@ -5,4 +5,3 @@
     [Guest] INT          NOT NULL,
     PRIMARY KEY (Id),
 );
-

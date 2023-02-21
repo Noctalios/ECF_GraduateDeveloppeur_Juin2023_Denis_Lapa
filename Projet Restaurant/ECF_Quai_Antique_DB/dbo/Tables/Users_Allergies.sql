@@ -6,4 +6,4 @@
 	PRIMARY KEY (Id),
 	CONSTRAINT FK_UA__Users		FOREIGN KEY (UserId)		REFERENCES Users(Id),
 	CONSTRAINT FK_UA__Allergies FOREIGN KEY (AllergieId)	REFERENCES Allergies(Id)
-)
+);

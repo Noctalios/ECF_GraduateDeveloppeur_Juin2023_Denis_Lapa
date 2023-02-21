@@ -6,4 +6,4 @@
 	PRIMARY KEY (Id),
 	CONSTRAINT FK_BA__Bookings			FOREIGN KEY (BookingId)		REFERENCES Bookings(Id),
 	CONSTRAINT FK_BA__BookingAllergie	FOREIGN KEY (AllergieId)	REFERENCES Allergies(Id),
-)
+);
