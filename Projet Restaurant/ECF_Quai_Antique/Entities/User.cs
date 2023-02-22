@@ -8,18 +8,19 @@
 
         public string Password { get; set; }
 
-        public int Role { get; set; }
+        public string Role { get; set; }
 
         private int? Guest { get; set; }
 
         private List<Allergie> Allergies { get; set; }
 
-        public User(string email, string password, int guest, List<Allergie> allergies) 
+        public User(string email, string password, int guest, List<Allergie> allergies, string role) 
         {
             this.Email = email;
             this.Password = password;
             this.Guest = guest;
             this.Allergies = allergies;
+            this.Role = role;
         }
     }
 }

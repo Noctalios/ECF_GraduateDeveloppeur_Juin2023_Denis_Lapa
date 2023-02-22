@@ -1,4 +1,4 @@
-using ECF_Quai_Antique.Data;
+using ECF_Quai_Antique.Entities;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using MudBlazor.Services;
