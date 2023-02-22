@@ -1,4 +1,4 @@
-﻿namespace ECF_Quai_Antique.Data
+﻿namespace ECF_Quai_Antique.Entities
 {
     public class Booking
     {
@@ -8,7 +8,7 @@
         
         private int ClientId { get; set; }
         
-        private int Guest { get; set; }
+        private int Guest { get; set; } 
 
         private List<Allergie> Allergens { get; set; }
 

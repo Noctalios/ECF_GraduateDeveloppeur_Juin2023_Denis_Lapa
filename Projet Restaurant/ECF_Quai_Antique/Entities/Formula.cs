@@ -1,4 +1,4 @@
-﻿namespace ECF_Quai_Antique.Data
+﻿namespace ECF_Quai_Antique.Entities
 {
     public class Formula
     {
