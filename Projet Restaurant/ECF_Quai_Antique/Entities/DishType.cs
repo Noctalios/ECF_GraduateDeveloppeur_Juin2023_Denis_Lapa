@@ -6,9 +6,10 @@
 
         private string Name { get; set; }
 
-        public DishType(string name) 
+        public DishType(int id, string name) 
         {
-            this.Name = name;
+            Id = id;
+            Name = name;
         }
     }
 }

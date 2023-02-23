@@ -10,8 +10,9 @@
 
         List<Dish> Dishes { get; set; }
 
-        public RestaurantMenu(string name, List<Menu> menus, List<Dish> dishes)
+        public RestaurantMenu(int id, string name, List<Menu> menus, List<Dish> dishes)
         {
+            Id = id;
             Name = name;
             Menus = menus;
             Dishes = dishes;

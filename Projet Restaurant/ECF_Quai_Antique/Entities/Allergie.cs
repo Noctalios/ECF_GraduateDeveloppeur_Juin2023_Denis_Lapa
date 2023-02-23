@@ -6,8 +6,9 @@
 
         private string Name { get; set; }
 
-        public Allergie(string name)
+        public Allergie(int id, string name)
         {
+            Id = id;
             Name = name;
         }
     }

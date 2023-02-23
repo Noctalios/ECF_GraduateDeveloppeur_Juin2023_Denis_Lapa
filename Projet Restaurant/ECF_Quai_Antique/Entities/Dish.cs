@@ -12,12 +12,13 @@
 
         private decimal Price { get; set; }
 
-        public Dish(string name, string description, DishType dishType, decimal price) 
+        public Dish(int id, string name, string description, DishType dishType, decimal price) 
         {
-            this.Name = name;
-            this.Description = description;
-            this.DishType = dishType;
-            this.Price = price;
+            Id = id;
+            Name = name;
+            Description = description;
+            DishType = dishType;
+            Price = price;
         }
     }
 }

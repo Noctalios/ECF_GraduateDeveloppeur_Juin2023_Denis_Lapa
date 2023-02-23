@@ -10,11 +10,12 @@
 
         private List<DishType> DishTypes { get; set; }
 
-        public Formula(string description, decimal price, List<DishType> DishTypes) 
+        public Formula(int id, string description, decimal price, List<DishType> dishTypes) 
         {
-            this.Description = description;
-            this.Price = price;
-            this.DishTypes = DishTypes;
+            Id = id;
+            Description = description;
+            Price = price;
+            DishTypes = dishTypes;
         }
     }
 }

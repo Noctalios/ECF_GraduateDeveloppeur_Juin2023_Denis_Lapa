@@ -14,13 +14,14 @@
 
         private List<Allergie> Allergies { get; set; }
 
-        public User(string email, string password, int guest, List<Allergie> allergies, string role) 
+        public User(int id, string email, string password, int guest, List<Allergie> allergies, string role) 
         {
-            this.Email = email;
-            this.Password = password;
-            this.Guest = guest;
-            this.Allergies = allergies;
-            this.Role = role;
+            Id = id;
+            Email = email;
+            Password = password;
+            Guest = guest;
+            Allergies = allergies;
+            Role = role;
         }
     }
 }

@@ -3,8 +3,7 @@
 -- Create date: 22/02/2022
 -- Description:	During the connexion retrieve the user
 -- =============================================
-CREATE PROCEDURE [dbo].[UserConnexion] 
-	-- Add the parameters for the stored procedure here
+CREATE PROCEDURE [dbo].[GetUser] 
 	@Email VARCHAR(255)
 AS
 	BEGIN

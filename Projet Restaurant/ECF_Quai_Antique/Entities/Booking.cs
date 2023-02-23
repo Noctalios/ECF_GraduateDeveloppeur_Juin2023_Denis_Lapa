@@ -6,18 +6,19 @@
      
         private DateTime Date { get; set; }
         
-        private int ClientId { get; set; }
+        private string ClientName { get; set; }
         
         private int Guest { get; set; } 
 
         private List<Allergie> Allergens { get; set; }
 
-        public Booking(DateTime date, int clientId, int guest, List<Allergie> allergens)
+        public Booking(int id, DateTime date, string clientName, int guest, List<Allergie> allergens)
         {
-            this.Date = date;
-            this.ClientId = clientId;
-            this.Guest = guest;
-            this.Allergens = allergens;
+            Id = id;
+            Date = date;
+            ClientName = clientName;
+            Guest = guest;
+            Allergens = allergens;
         }
     }
 }

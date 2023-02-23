@@ -4,12 +4,12 @@
     {
         private DayOfWeek DayOfWeek { get; set; }
 
-        private List<Period> periods { get; set; }
+        private List<Period> Periods { get; set; }
 
         public WorkDay(DayOfWeek dayOfWeek, List<Period> periods)
         {
-            this.DayOfWeek = dayOfWeek;
-            this.periods = periods;
+            DayOfWeek = dayOfWeek;
+            Periods = periods;
         }
     }
 }
