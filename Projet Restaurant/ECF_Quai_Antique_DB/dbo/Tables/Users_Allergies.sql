@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Users_Allergies]
 (
-	[Id]		 INT	NOT NULL,
+	[Id]		 INT	IDENTITY (1, 1),
 	[UserId]	 INT	NOT NULL,
 	[AllergieId] INT	NOT NULL,
 	PRIMARY KEY (Id),
