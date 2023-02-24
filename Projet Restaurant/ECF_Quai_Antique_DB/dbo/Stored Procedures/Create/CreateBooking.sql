@@ -7,7 +7,7 @@ CREATE PROCEDURE [dbo].[CreateBooking]
 	@Date		DATE,
 	@Name		VARCHAR(50),
 	@Guest		INT,
-	@Allergens	AllerTableType READONLY
+	@Allergens	AllergiesTableType READONLY
 AS
 	BEGIN
 		SET NOCOUNT ON;

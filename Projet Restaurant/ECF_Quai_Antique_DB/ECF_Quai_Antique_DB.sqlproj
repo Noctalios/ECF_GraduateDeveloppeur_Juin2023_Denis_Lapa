@@ -85,15 +85,14 @@
     <Build Include="dbo\Tables\Menu_RestaurantMenu.sql" />
     <Build Include="dbo\Tables\Dish_RestaurantMenu.sql" />
     <Build Include="dbo\Stored Procedures\Create\CreateBooking.sql" />
-    <Build Include="dbo\User Defined Types\AllerTableType.sql" />
-    <Build Include="dbo\Stored Procedures\GetUser.sql" />
-    <Build Include="dbo\Stored Procedures\GetBookings.sql" />
     <Build Include="dbo\Tables\Periods.sql" />
     <Build Include="dbo\Tables\Days.sql" />
-    <Build Include="dbo\Stored Procedures\UpdatePeriods.sql" />
-    <Build Include="dbo\Stored Procedures\GetRestaurant.sql" />
-    <Build Include="dbo\Stored Procedures\CreateUser.sql" />
     <Build Include="dbo\User Defined Types\PeriodsTableType.sql" />
     <Build Include="dbo\User Defined Types\AllergiesTableType.sql" />
+    <Build Include="dbo\Stored Procedures\Create\CreateUser.sql" />
+    <Build Include="dbo\Stored Procedures\Read\GetBookings.sql" />
+    <Build Include="dbo\Stored Procedures\Read\GetRestaurant.sql" />
+    <Build Include="dbo\Stored Procedures\Read\GetUser.sql" />
+    <Build Include="dbo\Stored Procedures\Update\UpdatePeriods.sql" />
   </ItemGroup>
 </Project>
