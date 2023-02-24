@@ -90,5 +90,6 @@
     <Build Include="dbo\Stored Procedures\Read\GetRestaurant.sql" />
     <Build Include="dbo\Stored Procedures\Read\GetUser.sql" />
     <Build Include="dbo\Stored Procedures\Update\UpdateRestaurant.sql" />
+    <Build Include="dbo\Tables\Formula_DishType.sql" />
   </ItemGroup>
 </Project>
