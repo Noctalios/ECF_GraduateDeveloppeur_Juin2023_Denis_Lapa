@@ -1,9 +1,0 @@
-﻿CREATE TABLE [dbo].[Dish_RestaurantMenu]
-(
-	[Id]		INT IDENTITY (1, 1),
-	[MenuId]	INT NOT NULL,
-	[DishId]	INT NOT NULL,
-	PRIMARY KEY (Id),
-	CONSTRAINT FK_DRM__Menu FOREIGN KEY (MenuId) REFERENCES Menu(Id),
-	CONSTRAINT FK_DRM__Dish FOREIGN KEY (MenuId) REFERENCES Dish(Id)
-);

@@ -78,12 +78,8 @@
     <Build Include="dbo\Tables\DishType.sql" />
     <Build Include="dbo\Tables\Dish.sql" />
     <Build Include="dbo\Tables\Formula.sql" />
-    <Build Include="dbo\Tables\Formula_DishType.sql" />
     <Build Include="dbo\Tables\Menu.sql" />
     <Build Include="dbo\Tables\Menu_Formula.sql" />
-    <Build Include="dbo\Tables\RestaurantMenu.sql" />
-    <Build Include="dbo\Tables\Menu_RestaurantMenu.sql" />
-    <Build Include="dbo\Tables\Dish_RestaurantMenu.sql" />
     <Build Include="dbo\Stored Procedures\Create\CreateBooking.sql" />
     <Build Include="dbo\Tables\Periods.sql" />
     <Build Include="dbo\Tables\Days.sql" />
@@ -93,6 +89,6 @@
     <Build Include="dbo\Stored Procedures\Read\GetBookings.sql" />
     <Build Include="dbo\Stored Procedures\Read\GetRestaurant.sql" />
     <Build Include="dbo\Stored Procedures\Read\GetUser.sql" />
-    <Build Include="dbo\Stored Procedures\Update\UpdatePeriods.sql" />
+    <Build Include="dbo\Stored Procedures\Update\UpdateRestaurant.sql" />
   </ItemGroup>
 </Project>

@@ -8,14 +8,11 @@
 
         private decimal Price { get; set; }
 
-        private List<DishType> DishTypes { get; set; }
-
-        public Formula(int id, string description, decimal price, List<DishType> dishTypes) 
+        public Formula(int id, string description, decimal price) 
         {
             Id = id;
             Description = description;
             Price = price;
-            DishTypes = dishTypes;
         }
     }
 }

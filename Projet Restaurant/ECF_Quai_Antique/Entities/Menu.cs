@@ -8,8 +8,6 @@
 
         private string Description { get; set; }
 
-        private List<Dish> Dishes { get; set; }
-        
         private List<Formula> Formulas { get; set; }
 
         public Menu(int id, string name, string description, List<Dish> dishes,List<Formula> formulas) 
@@ -18,7 +16,6 @@
             Name = name;
             Description = description;
             Formulas = formulas;
-            Dishes = dishes;
         }
     }
 }
