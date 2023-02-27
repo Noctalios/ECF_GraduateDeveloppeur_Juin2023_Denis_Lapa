@@ -64,8 +64,8 @@
     <Folder Include="dbo\Stored Procedures\Create" />
     <Folder Include="dbo\Stored Procedures\Update" />
     <Folder Include="dbo\Stored Procedures\Read" />
-    <Folder Include="dbo\Stored Procedures\Delete" />
     <Folder Include="dbo\User Defined Types\" />
+    <Folder Include="dbo\Stored Procedures\Save" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Restaurant.sql" />
@@ -91,5 +91,15 @@
     <Build Include="dbo\Stored Procedures\Read\GetUser.sql" />
     <Build Include="dbo\Stored Procedures\Update\UpdateRestaurant.sql" />
     <Build Include="dbo\Tables\Formula_DishType.sql" />
+    <Build Include="dbo\User Defined Types\MenuTableType.sql" />
+    <Build Include="dbo\User Defined Types\MenuFormulaTable.sql" />
+    <Build Include="dbo\User Defined Types\FormulaTableType.sql" />
+    <Build Include="dbo\User Defined Types\FormulaDishTypeTable.sql" />
+    <Build Include="dbo\User Defined Types\DishTableType.sql" />
+    <Build Include="dbo\Stored Procedures\Read\GetDishes.sql" />
+    <Build Include="dbo\Stored Procedures\Read\GetMenus.sql" />
+    <Build Include="dbo\Stored Procedures\Save\SaveMenus.sql" />
+    <Build Include="dbo\Stored Procedures\Save\SaveFormulas.sql" />
+    <Build Include="dbo\Stored Procedures\Save\SaveDishes.sql" />
   </ItemGroup>
 </Project>
