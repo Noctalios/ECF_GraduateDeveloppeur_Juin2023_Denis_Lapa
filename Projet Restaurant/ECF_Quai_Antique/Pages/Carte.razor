@@ -1,4 +1,7 @@
 ﻿@using ECF_Quai_Antique.DAL
+@using ECF_Quai_Antique.Entities
+@using ECF_Quai_Antique.Interfaces
+
 @page "/carte"
 
 <PageTitle>Counter</PageTitle>
@@ -6,21 +9,37 @@
 <h1>Counter</h1>
 
 <p role="status">Current count: @currentCount</p>
-
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<div>Le nom d'utilisateur est @CurrentUser.Email et son rôle est @CurrentUser.Role.Label</div>
+<button class="btn btn-secondary" @onclick="CreateUser">Click to create User</button>
 
 @code {
     private int currentCount = 0;
 
-    private AccesData accesData = new AccesData();
+    private string email = "lapa.denis.pro@gmail.com";
+    private string password = "Lux&leona225";
+
+    private User CurrentUser = new User();
+    private UserData accessData = new UserData();
+
     protected override void OnInitialized()
     {
-        accesData.TestConnexion();
+        CurrentUser = accessData.GetUser(email, password);
     }
 
     private void IncrementCount()
     {
         currentCount++;
+    }
+
+    private void CreateUser()
+    {
+        List<Allergie> allergies = new List<Allergie>()
+        {
+            new Allergie(19, "lait"){},
+            new Allergie(56, "opiacés"){}
+        };
+        accessData.CreateUser("test", "test", 3, 2, allergies);
     }
 }

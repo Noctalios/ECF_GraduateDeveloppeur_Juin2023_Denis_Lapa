@@ -2,9 +2,9 @@
 {
     public class Role
     {
-        private int Id { get; set; }
+        public int Id { get; set; }
 
-        private string Label { get; set; }
+        public string Label { get; set; }
 
         public Role(int id, string label) 
         {

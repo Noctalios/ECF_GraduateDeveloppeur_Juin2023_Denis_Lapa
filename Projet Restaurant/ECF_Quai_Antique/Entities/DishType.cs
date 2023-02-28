@@ -2,9 +2,9 @@
 {
     public class DishType
     {
-        private int Id { get; set; }
+        public int Id { get; set; }
 
-        private string Name { get; set; }
+        public string Name { get; set; }
 
         public DishType(int id, string name) 
         {

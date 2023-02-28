@@ -2,13 +2,13 @@
 {
     public class Period
     {
-        private int Id { get; set; }
+        public int Id { get; set; }
 
-        private int Service { get; set; }
+        public int Service { get; set; }
 
-        private decimal Open { get; set; }
+        public decimal Open { get; set; }
 
-        private decimal Close { get; set; }
+        public decimal Close { get; set; }
 
         public Period(int id, int service, decimal open, decimal close)
         {

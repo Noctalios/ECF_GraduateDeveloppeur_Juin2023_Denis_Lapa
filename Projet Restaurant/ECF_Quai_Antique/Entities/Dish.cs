@@ -2,15 +2,15 @@
 {
     public class Dish
     {
-        private int Id { get; set; }
+        public int Id { get; set; }
         
-        private string Name { get; set; }
+        public string Name { get; set; }
 
-        private string Description { get; set; }
+        public string Description { get; set; }
 
-        private DishType DishType { get; set; }
+        public DishType DishType { get; set; }
 
-        private decimal Price { get; set; }
+        public decimal Price { get; set; }
 
         public Dish(int id, string name, string description, DishType dishType, decimal price) 
         {

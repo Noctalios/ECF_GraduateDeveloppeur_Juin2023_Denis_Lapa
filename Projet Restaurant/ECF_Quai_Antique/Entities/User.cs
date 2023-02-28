@@ -2,19 +2,21 @@
 {
     public class User
     {
-        private int Id { get; set; }
+        public int Id { get; set; }
 
         public string Email { get; set; }
 
         public string Password { get; set; }
 
-        public string Role { get; set; }
+        public int? Guest { get; set; }
 
-        private int? Guest { get; set; }
+        public Role Role { get; set; }
 
-        private List<Allergie> Allergies { get; set; }
+        public List<Allergie> Allergies { get; set; }
 
-        public User(int id, string email, string password, int guest, List<Allergie> allergies, string role) 
+        public User() { }
+
+        public User(int id, string email, string password, int guest, List<Allergie> allergies, Role role) 
         {
             Id = id;
             Email = email;

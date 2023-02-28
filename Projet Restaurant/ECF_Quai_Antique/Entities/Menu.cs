@@ -2,13 +2,14 @@
 {
     public class Menu
     {
-        private int Id { get; set; }
+        public int Id { get; set; }
 
-        private string Name { get; set; }
+        public string Name { get; set; }
 
-        private string Description { get; set; }
+        public string Description { get; set; }
+        public string Description { get; set; }
 
-        private List<Formula> Formulas { get; set; }
+        public List<Formula> Formulas { get; set; }
 
         public Menu(int id, string name, string description, List<Dish> dishes,List<Formula> formulas) 
         {

@@ -2,17 +2,20 @@
 {
     public class Formula
     {
-        private int Id { get; set; }
+        public int Id { get; set; }
 
-        private string Description { get; set; }
+        public string Description { get; set; }
 
-        private decimal Price { get; set; }
+        public decimal Price { get; set; }
 
-        public Formula(int id, string description, decimal price) 
+        public List<DishType> DishTypes { get; set; }
+
+        public Formula(int id, string description, decimal price, List<DishType>  dishTypes) 
         {
             Id = id;
             Description = description;
             Price = price;
+            DishTypes = dishTypes;
         }
     }
 }

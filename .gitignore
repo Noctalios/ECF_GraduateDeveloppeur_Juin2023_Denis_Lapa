@@ -397,3 +397,7 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
+/Projet Restaurant/ECF_Quai_Antique/obj/Debug/net6.0/ECF_Quai_Antique.assets.cache
+/Projet Restaurant/ECF_Quai_Antique/obj/Debug/net6.0/ECF_Quai_Antique.csproj.FileListAbsolute.txt
+/Projet Restaurant/ECF_Quai_Antique/obj/Debug/net6.0/ECF_Quai_Antique.csproj.AssemblyReference.cache
+/Projet Restaurant/ECF_Quai_Antique/obj/project.nuget.cache
