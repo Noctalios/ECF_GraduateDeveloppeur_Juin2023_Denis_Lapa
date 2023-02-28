@@ -1,18 +1,52 @@
-﻿using Microsoft.Data.SqlClient;
-using ECF_Quai_Antique.Entities;
+﻿using ECF_Quai_Antique.Entities;
+using Microsoft.Data.SqlClient;
 
 namespace ECF_Quai_Antique.DAL
 {
-    public class UserData 
+    public class UserData
     {
+        #region CREATE
+
+        public void CreateUser(string email, string password, int guest, int roleId, List<Allergie> allergies)
+        {
+            try
+            {
+                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+                builder.ConnectionString = "Data Source=localhost\\SQLEXPRESS01;Initial Catalog=Restaurant;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False";
+                string sql = "EXEC [dbo].[CreateUser] @Email, @Password, @Guest, @RoleId, @Allergens ;";
+
+                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                {
+                    SqlCommand command = new SqlCommand(sql, connection);
+
+                    command.Parameters.AddWithValue("@Email", email);
+                    command.Parameters.AddWithValue("@Password", password);
+                    command.Parameters.AddWithValue("@Guest", guest);
+                    command.Parameters.AddWithValue("@RoleId", roleId);
+                    //Fill parameter @AllergiesTableType with allergies.Name
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        #endregion
+
+        #region READ
+
         public User GetUser(string email, string password)
         {
-            try 
+            try
             {
                 User CurrentUser = new User();
 
                 SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-
                 builder.ConnectionString = "Data Source=localhost\\SQLEXPRESS01;Initial Catalog=Restaurant;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False";
                 string sql = "EXEC [dbo].[GetUser] @Email, @Password ;";
 
@@ -34,6 +68,7 @@ namespace ECF_Quai_Antique.DAL
                             CurrentUser.Password = reader.GetString(reader.GetOrdinal("Password"));
                             CurrentUser.Guest = reader.IsDBNull(reader.GetOrdinal("Guest")) ? null : reader.GetInt32(reader.GetOrdinal("Guest"));
                             CurrentUser.Role = new Role(reader.GetInt32(reader.GetOrdinal("Id")), reader.GetString(reader.GetOrdinal("Label")));
+                            //CurrentUser.allergies a garnir mais c'est une liste
                             Console.WriteLine($"Id : {CurrentUser.Id}");
                             Console.WriteLine($"Email : {CurrentUser.Email}");
                             Console.WriteLine($"Password : {CurrentUser.Password}");
@@ -55,33 +90,6 @@ namespace ECF_Quai_Antique.DAL
             }
         }
 
-        public void CreateUser(string email, string password, int guest, int roleId, List<Allergie> allergies)
-        {
-            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-
-            builder.ConnectionString = "Data Source=localhost\\SQLEXPRESS01;Initial Catalog=Restaurant;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False";
-            string sql = "EXEC [dbo].[CreateUser] @Email, @Password, @Guest, @RoleId, @Allergens ;";
-
-            using (SqlConnection  connection = new SqlConnection(builder.ConnectionString)) 
-            {
-                SqlCommand command = new SqlCommand(sql, connection);
-
-                command.Parameters.AddWithValue("@Email", email);
-                command.Parameters.AddWithValue("@Password", password);
-                command.Parameters.AddWithValue("@Guest", guest);
-                command.Parameters.AddWithValue("@RoleId", roleId);
-                foreach (var allergie in allergies) 
-                {
-                    //Fill parameter AllergiesTableType with allergies.Name
-
-                }
-
-                connection.Open();
-                command.ExecuteNonQuery();
-                connection.Close();
-
-
-            }
-        }
+        #endregion
     }
 }

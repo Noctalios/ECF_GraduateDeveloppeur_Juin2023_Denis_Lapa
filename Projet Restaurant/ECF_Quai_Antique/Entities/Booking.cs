@@ -12,6 +12,8 @@
 
         public List<Allergie> Allergens { get; set; }
 
+        public Booking(){}
+
         public Booking(int id, DateTime date, string clientName, int guest, List<Allergie> allergens)
         {
             Id = id;

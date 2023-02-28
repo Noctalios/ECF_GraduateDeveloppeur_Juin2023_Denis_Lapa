@@ -4,7 +4,7 @@
 -- Description:	<Insert a new booking into the database>
 -- =============================================
 CREATE PROCEDURE [dbo].[CreateBooking]
-	@Date		DATE,
+	@Date		DATETIME,
 	@Name		VARCHAR(50),
 	@Guest		INT,
 	@Allergens	AllergiesTableType READONLY
