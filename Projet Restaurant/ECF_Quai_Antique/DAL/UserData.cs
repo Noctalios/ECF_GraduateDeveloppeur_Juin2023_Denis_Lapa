@@ -69,12 +69,6 @@ namespace ECF_Quai_Antique.DAL
                             CurrentUser.Guest = reader.IsDBNull(reader.GetOrdinal("Guest")) ? null : reader.GetInt32(reader.GetOrdinal("Guest"));
                             CurrentUser.Role = new Role(reader.GetInt32(reader.GetOrdinal("Id")), reader.GetString(reader.GetOrdinal("Label")));
                             //CurrentUser.allergies a garnir mais c'est une liste
-                            Console.WriteLine($"Id : {CurrentUser.Id}");
-                            Console.WriteLine($"Email : {CurrentUser.Email}");
-                            Console.WriteLine($"Password : {CurrentUser.Password}");
-                            Console.WriteLine($"Guest : {CurrentUser.Guest}");
-                            Console.WriteLine($"RoleId : {CurrentUser.Role.Id}");
-                            Console.WriteLine($"RoleLabel : {CurrentUser.Role.Label}");
                         }
                     }
 

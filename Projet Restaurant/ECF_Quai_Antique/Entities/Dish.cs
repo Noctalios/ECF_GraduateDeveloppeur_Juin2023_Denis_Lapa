@@ -12,6 +12,8 @@
 
         public decimal Price { get; set; }
 
+        public Dish() { }
+
         public Dish(int id, string name, string description, DishType dishType, decimal price) 
         {
             Id = id;

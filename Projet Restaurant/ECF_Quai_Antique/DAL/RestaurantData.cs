@@ -48,7 +48,6 @@ namespace ECF_Quai_Antique.DAL
 
                 SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
                 builder.ConnectionString = "Data Source=localhost\\SQLEXPRESS01;Initial Catalog=Restaurant;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False";
-
                 string sql = "EXEC [dbo].[GetRestaurant]";
 
                 using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
