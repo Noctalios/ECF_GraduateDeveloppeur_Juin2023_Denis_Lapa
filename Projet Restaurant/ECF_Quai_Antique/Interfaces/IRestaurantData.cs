@@ -4,7 +4,7 @@ namespace ECF_Quai_Antique.Interfaces
 {
     public interface IRestaurantData
     {
-        void CreateBookgings(DateTime datetime, string name, int guest, List<Allergie> allergies);
+        void CreateBookings(DateTime datetime, string name, int guest, List<Allergie> allergies);
         Restaurant GetRestaurant();
         List<Booking> GetBookings();
         void UpdateRestaurant(Restaurant restaurant);

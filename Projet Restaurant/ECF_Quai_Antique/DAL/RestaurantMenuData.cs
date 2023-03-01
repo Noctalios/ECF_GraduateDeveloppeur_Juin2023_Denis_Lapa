@@ -1,9 +1,10 @@
 ﻿using ECF_Quai_Antique.Entities;
 using Microsoft.Data.SqlClient;
+using ECF_Quai_Antique.Interfaces;
 
 namespace ECF_Quai_Antique.DAL
 {
-    public class RestaurantMenuData
+    public class RestaurantMenuData : IRestaurantMenuData
     {
         #region READ
 
