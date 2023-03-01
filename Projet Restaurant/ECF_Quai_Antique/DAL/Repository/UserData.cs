@@ -1,8 +1,8 @@
-﻿using ECF_Quai_Antique.Entities;
-using ECF_Quai_Antique.Interfaces;
+﻿using ECF_Quai_Antique.DAL.Interfaces;
+using ECF_Quai_Antique.Entities;
 using Microsoft.Data.SqlClient;
 
-namespace ECF_Quai_Antique.DAL
+namespace ECF_Quai_Antique.DAL.Repository
 {
     public class UserData : IUserData
     {

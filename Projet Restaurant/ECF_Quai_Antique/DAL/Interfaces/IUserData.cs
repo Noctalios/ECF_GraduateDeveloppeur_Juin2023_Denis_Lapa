@@ -1,8 +1,8 @@
 ﻿using ECF_Quai_Antique.Entities;
 
-namespace ECF_Quai_Antique.Interfaces
+namespace ECF_Quai_Antique.DAL.Interfaces
 {
-    public interface IUserServices
+    public interface IUserData
     {
         User GetUser(string email, string password);
 

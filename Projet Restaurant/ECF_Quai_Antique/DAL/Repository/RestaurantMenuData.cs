@@ -1,8 +1,8 @@
 ﻿using ECF_Quai_Antique.Entities;
 using Microsoft.Data.SqlClient;
-using ECF_Quai_Antique.Interfaces;
+using ECF_Quai_Antique.DAL.Interfaces;
 
-namespace ECF_Quai_Antique.DAL
+namespace ECF_Quai_Antique.DAL.Repository
 {
     public class RestaurantMenuData : IRestaurantMenuData
     {
@@ -76,7 +76,7 @@ namespace ECF_Quai_Antique.DAL
                                 Id = reader.GetInt32(reader.GetOrdinal("MenuId")),
                                 Name = reader.GetString(reader.GetOrdinal("MenuLabel")),
                                 // Add Formulas with FormulaId, FormulaDescription, FormulaPrice,
-                                    // DishTypes with DishId and DishTypeLabel
+                                // DishTypes with DishId and DishTypeLabel
                             };
                             menus.Add(menu);
                         }
@@ -94,7 +94,7 @@ namespace ECF_Quai_Antique.DAL
         #endregion
 
         #region SAVE
-        
+
         public void SaveDishes(List<Dish> dishes)
         {
             try
@@ -103,7 +103,7 @@ namespace ECF_Quai_Antique.DAL
                 builder.ConnectionString = "Data Source=localhost\\SQLEXPRESS01;Initial Catalog=Restaurant;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False";
                 string sql = "EXEC [dbo].[SaveDishes] @Dishes;";
 
-                using (SqlConnection connection = new SqlConnection(builder.ConnectionString)) 
+                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
                 {
                     SqlCommand command = new SqlCommand(sql, connection);
 
@@ -147,7 +147,7 @@ namespace ECF_Quai_Antique.DAL
             }
         }
 
-        public void SaveFormulas(List<Formula>formulas)
+        public void SaveFormulas(List<Formula> formulas)
         {
             try
             {

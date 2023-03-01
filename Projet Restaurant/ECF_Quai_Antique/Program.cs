@@ -1,3 +1,7 @@
+using ECF_Quai_Antique.BLL.Interfaces;
+using ECF_Quai_Antique.BLL.Services;
+using ECF_Quai_Antique.DAL.Interfaces;
+using ECF_Quai_Antique.DAL.Repository;
 using ECF_Quai_Antique.Entities;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -10,6 +14,15 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddMudServices();
+
+// Services related to DAL
+builder.Services.AddScoped<IUserData, UserData>();
+builder.Services.AddScoped<IRestaurantData, RestaurantData>();
+builder.Services.AddScoped<IRestaurantMenuData, RestaurantMenuData>();
+// Services related to BLL
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IRestaurantService, RestaurantService>();
+builder.Services.AddScoped<IRestaurantMenuService, RestaurantMenuService>();
 
 var app = builder.Build();
 

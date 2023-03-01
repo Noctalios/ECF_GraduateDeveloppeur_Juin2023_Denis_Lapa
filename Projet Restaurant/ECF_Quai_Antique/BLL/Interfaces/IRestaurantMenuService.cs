@@ -1,8 +1,8 @@
 ﻿using ECF_Quai_Antique.Entities;
 
-namespace ECF_Quai_Antique.Interfaces
+namespace ECF_Quai_Antique.BLL.Interfaces
 {
-    public interface IRestaurantMenuData
+    public interface IRestaurantMenuService
     {
         List<Dish> GetDishes();
         List<Menu> GetMenus();
