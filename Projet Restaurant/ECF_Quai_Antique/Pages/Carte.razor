@@ -1,0 +1,52 @@
+﻿@using ECF_Quai_Antique.BLL.Interfaces
+@using ECF_Quai_Antique.Entities
+
+@inject IUserService userService
+@inject IRestaurantMenuService restaurantMenuService
+
+@page "/carte"
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<p role="status">Current count: @currentCount</p>
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<div>Le nom d'utilisateur est @CurrentUser.Email et son rôle est @CurrentUser.Role.Label</div>
+<button class="btn btn-secondary" @onclick="CreateUser">Click to create User</button>
+@foreach(var dish in dishes)
+{
+    <div>@dish.Id : @dish.Name : @dish.Description : @dish.Price : @dish.DishType.Id : @dish.DishType.Name</div>
+}
+
+@code {
+    private int currentCount = 0;
+
+    private string email = "adressmailfictive@gmail.com";
+    private string password = "456";
+
+    private User CurrentUser = new User();
+    private List<Dish> dishes = new List<Dish>();
+
+    protected override void OnInitialized()
+    {
+        CurrentUser = userService.GetUser(email, password);
+        dishes = restaurantMenuService.GetDishes();
+    }
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+
+    private void CreateUser()
+    {
+        List<Allergie> allergies = new List<Allergie>()
+        {
+            new Allergie(19, "lait"){},
+            new Allergie(56, "opiacés"){}
+        };
+        userService.CreateUser("test", "test", 3, 2, allergies);
+    }
+}
