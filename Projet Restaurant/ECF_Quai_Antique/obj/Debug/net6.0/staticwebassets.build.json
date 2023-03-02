@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "6ZabfGP/XnMK8DzZMz1ujCy7QlkWuhIeXuXKj1e6ejc=",
+  "Hash": "KDVs3sSVs2XnqIKZOMEFQZFhtlIfUfNes0EzDwSmFBw=",
   "Source": "ECF_Quai_Antique",
   "BasePath": "_content/ECF_Quai_Antique",
   "Mode": "Default",
@@ -117,6 +117,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Identity": "D:\\ECF\\ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa\\Projet Restaurant\\ECF_Quai_Antique\\wwwroot\\css\\Image\\LogoQuaiAntique.png",
+      "SourceId": "ECF_Quai_Antique",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\ECF\\ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa\\Projet Restaurant\\ECF_Quai_Antique\\wwwroot\\",
+      "BasePath": "_content/ECF_Quai_Antique",
+      "RelativePath": "css/Image/LogoQuaiAntique.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\Image\\LogoQuaiAntique.png"
     },
     {
       "Identity": "D:\\ECF\\ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa\\Projet Restaurant\\ECF_Quai_Antique\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
