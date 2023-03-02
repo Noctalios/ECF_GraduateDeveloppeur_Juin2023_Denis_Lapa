@@ -3,8 +3,6 @@ using ECF_Quai_Antique.BLL.Services;
 using ECF_Quai_Antique.DAL.Interfaces;
 using ECF_Quai_Antique.DAL.Repository;
 using ECF_Quai_Antique.Entities;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
