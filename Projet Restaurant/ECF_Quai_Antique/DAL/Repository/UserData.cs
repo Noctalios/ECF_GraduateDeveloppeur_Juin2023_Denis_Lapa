@@ -1,6 +1,11 @@
 ﻿using ECF_Quai_Antique.DAL.Interfaces;
 using ECF_Quai_Antique.Entities;
 using Microsoft.Data.SqlClient;
+using System;
+using System.Data;
+using System.Collections.Generic;
+using System.Linq;
+using System.Data.Common;
 
 namespace ECF_Quai_Antique.DAL.Repository
 {
@@ -24,8 +29,11 @@ namespace ECF_Quai_Antique.DAL.Repository
                     command.Parameters.AddWithValue("@Password", password);
                     command.Parameters.AddWithValue("@Guest", guest);
                     command.Parameters.AddWithValue("@RoleId", roleId);
-                    //Fill parameter @AllergiesTableType with allergies.Name
-
+                    // Parameter Allergens
+                    SqlParameter parameter = command.Parameters.AddWithValue("@Allergens", CreateAllergiesDataTable(allergies));
+                    parameter.SqlDbType = SqlDbType.Structured;
+                    parameter.TypeName = "dbo.AllergiesTableType";
+ 
                     connection.Open();
                     command.ExecuteNonQuery();
                     connection.Close();
@@ -69,6 +77,7 @@ namespace ECF_Quai_Antique.DAL.Repository
                             CurrentUser.Password = reader.GetString(reader.GetOrdinal("Password"));
                             CurrentUser.Guest = reader.IsDBNull(reader.GetOrdinal("Guest")) ? null : reader.GetInt32(reader.GetOrdinal("Guest"));
                             CurrentUser.Role = new Role(reader.GetInt32(reader.GetOrdinal("Id")), reader.GetString(reader.GetOrdinal("Label")));
+                            
                             //CurrentUser.allergies a garnir mais c'est une liste
                         }
                     }
@@ -86,5 +95,23 @@ namespace ECF_Quai_Antique.DAL.Repository
         }
 
         #endregion
+
+        internal DataTable CreateAllergiesDataTable (List<Allergie> allergies)
+        {
+            var allergiesDataTable = new DataTable();
+            allergiesDataTable.Columns.Add("Label", typeof(string));
+
+            if(allergies != null) 
+            {
+                foreach (var allergie in allergies) 
+                {
+                    allergiesDataTable.LoadDataRow(new object[]
+                    {
+                        allergie.Name,
+                    }, true);
+                }
+            }
+            return allergiesDataTable;
+        }
     }
 }
