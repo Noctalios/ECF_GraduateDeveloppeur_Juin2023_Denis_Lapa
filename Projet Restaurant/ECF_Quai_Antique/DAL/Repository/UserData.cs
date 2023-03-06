@@ -29,7 +29,8 @@ namespace ECF_Quai_Antique.DAL.Repository
                     command.Parameters.AddWithValue("@Password", password);
                     command.Parameters.AddWithValue("@Guest", guest);
                     command.Parameters.AddWithValue("@RoleId", roleId);
-                    // Parameter Allergens
+
+                    // Parameter @Allergens
                     SqlParameter parameter = command.Parameters.AddWithValue("@Allergens", CreateAllergiesDataTable(allergies));
                     parameter.SqlDbType = SqlDbType.Structured;
                     parameter.TypeName = "dbo.AllergiesTableType";
@@ -96,22 +97,28 @@ namespace ECF_Quai_Antique.DAL.Repository
 
         #endregion
 
-        internal DataTable CreateAllergiesDataTable (List<Allergie> allergies)
+        #region DataTable
+        
+        private DataTable CreateAllergiesDataTable (List<Allergie> allergies)
         {
-            var allergiesDataTable = new DataTable();
+            DataTable allergiesDataTable = new DataTable();
             allergiesDataTable.Columns.Add("Label", typeof(string));
 
-            if(allergies != null) 
+            if (allergies != null) 
             {
                 foreach (var allergie in allergies) 
                 {
                     allergiesDataTable.LoadDataRow(new object[]
                     {
-                        allergie.Name,
-                    }, true);
+                        allergie.Name
+                    }, 
+                    true);
                 }
             }
+
             return allergiesDataTable;
         }
+
+        #endregion
     }
 }
