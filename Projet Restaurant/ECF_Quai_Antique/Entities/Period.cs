@@ -6,11 +6,13 @@
 
         public int Service { get; set; }
 
-        public TimeOnly? Open { get; set; }
+        public DateTime? Open { get; set; }
 
-        public TimeOnly? Close { get; set; }
+        public DateTime? Close { get; set; }
 
-        public Period(int id, int service, TimeOnly open, TimeOnly close)
+        public Period() { }
+
+        public Period(int id, int service, DateTime open, DateTime close)
         {
             Id = id;
             Service = service;

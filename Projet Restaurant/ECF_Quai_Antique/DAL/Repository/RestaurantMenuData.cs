@@ -57,15 +57,16 @@ namespace ECF_Quai_Antique.DAL.Repository
         {
             try
             {
-                Dictionary<int, Menu> result = new Dictionary<int, Menu>();
-
                 SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
                 builder.ConnectionString = "Data Source=localhost\\SQLEXPRESS01;Initial Catalog=Restaurant;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False";
                 string sql = "EXEC [dbo].[GetMenus]";
 
+                Dictionary<int, Menu> result = new Dictionary<int, Menu>();
+
                 using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
                 {
                     SqlCommand command = new SqlCommand(sql, connection);
+                    
                     connection.Open();
 
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -77,12 +78,11 @@ namespace ECF_Quai_Antique.DAL.Repository
                                 Formula currentFormula = menu.Formulas.FirstOrDefault(x => x.Id == reader.GetInt32("FormulaId"));
                                 if (currentFormula != null)
                                 {
-                                    currentFormula.DishTypes.Add(
-                                        new DishType()
-                                        {
-                                            Id = reader.GetInt32("DishId"),
-                                            Name = reader.GetString("DishTypeLabel"),
-                                        });
+                                    currentFormula.DishTypes.Add(new DishType()
+                                    {
+                                        Id = reader.GetInt32("DishId"),
+                                        Name = reader.GetString("DishTypeLabel"),
+                                    });
                                 }
                                 else
                                 {
@@ -92,62 +92,45 @@ namespace ECF_Quai_Antique.DAL.Repository
                                         Description = reader.GetString("FormulaDescription"),
                                         Price = reader.GetDecimal("FormulaPrice"),
                                         DishTypes = new List<DishType>()
-                                                {
-                                                    new DishType()
-                                                    {
-                                                        Id = reader.GetInt32("DishId"),
-                                                        Name = reader.GetString("DishTypeLabel"),
-                                                    }
-                                                }
+                                        {
+                                            new DishType()
+                                            {
+                                                Id = reader.GetInt32("DishId"),
+                                                Name = reader.GetString("DishTypeLabel"),
+                                            }
+                                        }
                                     });
                                 }
                             }
                             else
                             {
-                                Menu newMenu= new Menu()
+                                Menu newMenu = new Menu()
                                 {
                                     Id = reader.GetInt32("MenuId"),
                                     Name = reader.GetString("MenuLabel"),
                                     Formulas = new List<Formula>() 
-                                        { new Formula() 
-                                            { 
-                                                Id = reader.GetInt32("FormulaId"),
-                                                Description = reader.GetString("FormulaDescription"),
-                                                Price = reader.GetDecimal("FormulaPrice"),
-                                                DishTypes = new List<DishType>()
+                                    { 
+                                        new Formula() 
+                                        { 
+                                            Id = reader.GetInt32("FormulaId"),
+                                            Description = reader.GetString("FormulaDescription"),
+                                            Price = reader.GetDecimal("FormulaPrice"),
+                                            DishTypes = new List<DishType>()
+                                            {
+                                                new DishType()
                                                 {
-                                                    new DishType()
-                                                    {
-                                                        Id = reader.GetInt32("DishId"),
-                                                        Name = reader.GetString("DishTypeLabel"),
-                                                    }
+                                                    Id = reader.GetInt32("DishId"),
+                                                    Name = reader.GetString("DishTypeLabel"),
                                                 }
                                             }
                                         }
+                                    }
                                 };
                                 result.Add(reader.GetInt32("MenuId"), newMenu);
                             }
                         }
                     }
                 }
-                foreach (var m in result.Values)
-                {
-                    Console.WriteLine(m.Id);
-                    Console.WriteLine(m.Name);
-                    foreach (var formula in m.Formulas) 
-                    { 
-                        Console.WriteLine(formula.Id);
-                        Console.WriteLine(formula.Description);
-                        Console.WriteLine(formula.Price);
-                                     
-                        foreach (var dish in formula.DishTypes)
-                        {
-                            Console.WriteLine(dish.Id);
-                            Console.WriteLine(dish.Name);
-                        }
-                    }
-                }
-
                 return result.Values.ToList();
             }
             catch (SqlException e)
