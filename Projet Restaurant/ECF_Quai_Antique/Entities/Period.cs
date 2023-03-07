@@ -6,11 +6,11 @@
 
         public int Service { get; set; }
 
-        public decimal Open { get; set; }
+        public TimeOnly? Open { get; set; }
 
-        public decimal Close { get; set; }
+        public TimeOnly? Close { get; set; }
 
-        public Period(int id, int service, decimal open, decimal close)
+        public Period(int id, int service, TimeOnly open, TimeOnly close)
         {
             Id = id;
             Service = service;

@@ -30,14 +30,14 @@ namespace ECF_Quai_Antique.DAL.Repository
                         {
                             Dish dish = new Dish()
                             {
-                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                                Name = reader.GetString(reader.GetOrdinal("Label")),
-                                Description = reader.GetString(reader.GetOrdinal("Description")),
-                                Price = reader.GetDecimal(reader.GetOrdinal("Price")),
+                                Id = reader.GetInt32("Id"),
+                                Name = reader.GetString("Label"),
+                                Description = reader.GetString("Description"),
+                                Price = reader.GetDecimal("Price"),
                                 DishType = new DishType
                                 (
-                                    reader.GetInt32(reader.GetOrdinal("DishTypeId")),
-                                    reader.GetString(reader.GetOrdinal("DishTypeLabel"))
+                                    reader.GetInt32("DishTypeId"),
+                                    reader.GetString("DishTypeLabel")
                                 )
                             };
                             dishes.Add(dish);
@@ -57,7 +57,7 @@ namespace ECF_Quai_Antique.DAL.Repository
         {
             try
             {
-                List<Menu> menus = new List<Menu>();
+                Dictionary<int, Menu> result = new Dictionary<int, Menu>();
 
                 SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
                 builder.ConnectionString = "Data Source=localhost\\SQLEXPRESS01;Initial Catalog=Restaurant;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False";
@@ -72,18 +72,83 @@ namespace ECF_Quai_Antique.DAL.Repository
                     {
                         while (reader.Read())
                         {
-                            Menu menu = new Menu()
+                            if (result.TryGetValue(reader.GetInt32("MenuId"), out Menu menu))
                             {
-                                Id = reader.GetInt32(reader.GetOrdinal("MenuId")),
-                                Name = reader.GetString(reader.GetOrdinal("MenuLabel")),
-                                // Add Formulas with FormulaId, FormulaDescription, FormulaPrice,
-                                // DishTypes with DishId and DishTypeLabel
-                            };
-                            menus.Add(menu);
+                                Formula currentFormula = menu.Formulas.FirstOrDefault(x => x.Id == reader.GetInt32("FormulaId"));
+                                if (currentFormula != null)
+                                {
+                                    currentFormula.DishTypes.Add(
+                                        new DishType()
+                                        {
+                                            Id = reader.GetInt32("DishId"),
+                                            Name = reader.GetString("DishTypeLabel"),
+                                        });
+                                }
+                                else
+                                {
+                                    menu.Formulas.Add(new Formula()
+                                    {
+                                        Id = reader.GetInt32("FormulaId"),
+                                        Description = reader.GetString("FormulaDescription"),
+                                        Price = reader.GetDecimal("FormulaPrice"),
+                                        DishTypes = new List<DishType>()
+                                                {
+                                                    new DishType()
+                                                    {
+                                                        Id = reader.GetInt32("DishId"),
+                                                        Name = reader.GetString("DishTypeLabel"),
+                                                    }
+                                                }
+                                    });
+                                }
+                            }
+                            else
+                            {
+                                Menu newMenu= new Menu()
+                                {
+                                    Id = reader.GetInt32("MenuId"),
+                                    Name = reader.GetString("MenuLabel"),
+                                    Formulas = new List<Formula>() 
+                                        { new Formula() 
+                                            { 
+                                                Id = reader.GetInt32("FormulaId"),
+                                                Description = reader.GetString("FormulaDescription"),
+                                                Price = reader.GetDecimal("FormulaPrice"),
+                                                DishTypes = new List<DishType>()
+                                                {
+                                                    new DishType()
+                                                    {
+                                                        Id = reader.GetInt32("DishId"),
+                                                        Name = reader.GetString("DishTypeLabel"),
+                                                    }
+                                                }
+                                            }
+                                        }
+                                };
+                                result.Add(reader.GetInt32("MenuId"), newMenu);
+                            }
                         }
                     }
                 }
-                return menus;
+                foreach (var m in result.Values)
+                {
+                    Console.WriteLine(m.Id);
+                    Console.WriteLine(m.Name);
+                    foreach (var formula in m.Formulas) 
+                    { 
+                        Console.WriteLine(formula.Id);
+                        Console.WriteLine(formula.Description);
+                        Console.WriteLine(formula.Price);
+                                     
+                        foreach (var dish in formula.DishTypes)
+                        {
+                            Console.WriteLine(dish.Id);
+                            Console.WriteLine(dish.Name);
+                        }
+                    }
+                }
+
+                return result.Values.ToList();
             }
             catch (SqlException e)
             {

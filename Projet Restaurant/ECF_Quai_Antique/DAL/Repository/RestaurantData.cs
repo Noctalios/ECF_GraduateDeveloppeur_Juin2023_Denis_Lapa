@@ -1,6 +1,7 @@
 ﻿using ECF_Quai_Antique.DAL.Interfaces;
 using ECF_Quai_Antique.Entities;
 using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace ECF_Quai_Antique.DAL.Repository
 {
@@ -23,7 +24,11 @@ namespace ECF_Quai_Antique.DAL.Repository
                     command.Parameters.AddWithValue("@Date", datetime);
                     command.Parameters.AddWithValue("@Name", name);
                     command.Parameters.AddWithValue("@Guest", guest);
-                    // @ allergens = allergies
+                    
+                    // Parameter @Allergens
+                    SqlParameter parameter = command.Parameters.AddWithValue("@Allergens", CreateAllergiesDataTable(allergies));
+                    parameter.SqlDbType = SqlDbType.Structured;
+                    parameter.TypeName = "dbo.AllergiesTableType";
 
                     connection.Open();
                     command.ExecuteReader();
@@ -139,7 +144,10 @@ namespace ECF_Quai_Antique.DAL.Repository
 
                     command.Parameters.AddWithValue("@RestaurantId", restaurant.Id);
                     command.Parameters.AddWithValue("@Guest", restaurant.Guest);
-                    //Fill parameter @Periods with periods id open and close
+                    // Parameter @Periods
+                    SqlParameter parameter = command.Parameters.AddWithValue("@Periods", CreatePeriodsDataTable(restaurant));
+                    parameter.SqlDbType = SqlDbType.Structured;
+                    parameter.TypeName = "dbo.PeriodsTableType";
 
                     connection.Open();
                     command.ExecuteNonQuery();
@@ -150,6 +158,57 @@ namespace ECF_Quai_Antique.DAL.Repository
             {
                 Console.WriteLine(e.Message);
             }
+        }
+
+        #endregion
+
+        #region DataTable
+
+        private DataTable CreateAllergiesDataTable(List<Allergie> allergies)
+        {
+            DataTable allergiesDataTable = new DataTable();
+            allergiesDataTable.Columns.Add("Label", typeof(string));
+
+            if (allergies != null)
+            {
+                foreach (var allergie in allergies)
+                {
+                    allergiesDataTable.LoadDataRow(new object[]
+                    {
+                        allergie.Name
+                    },
+                    true);
+                }
+            }
+
+            return allergiesDataTable;
+        }
+
+        private DataTable CreatePeriodsDataTable(Restaurant restaurant)
+        {
+            DataTable periodsDataTable = new DataTable();
+            periodsDataTable.Columns.Add("Id", typeof(int));
+            periodsDataTable.Columns.Add("Open", typeof(TimeOnly));
+            periodsDataTable.Columns.Add("Close", typeof(TimeOnly));
+
+            if (restaurant != null)
+            {
+                foreach (var workDay in restaurant.WorkDays)
+                {
+                    foreach (var period in workDay.Periods)
+                    {
+                        periodsDataTable.LoadDataRow(new object[]
+                        {
+                            period.Id,
+                            period.Open,
+                            period.Close
+                        },
+                        true);
+                    }
+                }
+            }
+            
+            return periodsDataTable;
         }
 
         #endregion

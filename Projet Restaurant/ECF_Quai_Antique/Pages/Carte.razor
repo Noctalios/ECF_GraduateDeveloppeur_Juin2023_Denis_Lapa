@@ -32,7 +32,7 @@
     protected override void OnInitialized()
     {
         CurrentUser = userService.GetUser(email, password);
-        dishes = restaurantMenuService.GetDishes();
+        restaurantMenuService.GetMenus();
     }
 
     private void IncrementCount()

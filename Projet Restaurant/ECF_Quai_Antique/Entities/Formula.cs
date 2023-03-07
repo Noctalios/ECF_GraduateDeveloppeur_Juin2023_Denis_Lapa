@@ -10,6 +10,8 @@
 
         public List<DishType> DishTypes { get; set; }
 
+        public Formula() { }
+
         public Formula(int id, string description, decimal price, List<DishType>  dishTypes) 
         {
             Id = id;
