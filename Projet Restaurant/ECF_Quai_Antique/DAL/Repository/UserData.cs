@@ -54,11 +54,12 @@ namespace ECF_Quai_Antique.DAL.Repository
         {
             try
             {
-                User CurrentUser = new User();
-
                 SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
                 builder.ConnectionString = "Data Source=localhost\\SQLEXPRESS01;Initial Catalog=Restaurant;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False";
                 string sql = "EXEC [dbo].[GetUser] @Email, @Password ;";
+
+                Dictionary<int, User> result = new Dictionary<int, User>();
+                //User CurrentUser = new User();
 
                 using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
                 {
@@ -73,20 +74,40 @@ namespace ECF_Quai_Antique.DAL.Repository
                     {
                         while (reader.Read())
                         {
-                            CurrentUser.Id = reader.GetInt32(reader.GetOrdinal("Id"));
-                            CurrentUser.Email = reader.GetString(reader.GetOrdinal("Email"));
-                            CurrentUser.Password = reader.GetString(reader.GetOrdinal("Password"));
-                            CurrentUser.Guest = reader.IsDBNull(reader.GetOrdinal("Guest")) ? null : reader.GetInt32(reader.GetOrdinal("Guest"));
-                            CurrentUser.Role = new Role(reader.GetInt32(reader.GetOrdinal("Id")), reader.GetString(reader.GetOrdinal("Label")));
-                            
-                            //CurrentUser.allergies a garnir mais c'est une liste
+                            if (result.TryGetValue(reader.GetInt32("Id"), out User User))
+                            {
+                                User.Allergies.Add(new Allergie()
+                                {
+                                    Id = reader.GetInt32("AllergieId"),
+                                    Name = reader.GetString("AllergieLabel"),
+                                });
+                            }
+                            else
+                            {
+                                User newUser = new User()
+                                {
+                                    Id = reader.GetInt32("Id"),
+                                    Email = reader.GetString("Email"),
+                                    Password = reader.GetString("Password"),
+                                    Guest = reader.IsDBNull(reader.GetInt32("Guest")) ? null : reader.GetInt32(reader.GetOrdinal("Guest")),
+                                    Role = new Role(reader.GetInt32("RoleId"), reader.GetString("RoleLabel")),
+                                    Allergies = new List<Allergie>()
+                                    {
+                                        new Allergie()
+                                        {
+                                            Id = reader.GetInt32("AllergieId"),
+                                            Name = reader.GetString("AllergieLabel"),
+                                        }
+                                    }
+                                };
+                                result.Add(reader.GetInt32("Id"), newUser);
+                            }
                         }
                     }
 
                     connection.Close();
                 }
-
-                return CurrentUser;
+                return result.Values.FirstOrDefault();
             }
             catch (SqlException e)
             {

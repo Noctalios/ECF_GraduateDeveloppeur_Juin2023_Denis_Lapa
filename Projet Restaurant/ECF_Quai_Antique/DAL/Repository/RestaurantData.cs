@@ -53,8 +53,6 @@ namespace ECF_Quai_Antique.DAL.Repository
                 builder.ConnectionString = "Data Source=localhost\\SQLEXPRESS01;Initial Catalog=Restaurant;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False";
                 string sql = "EXEC [dbo].[GetRestaurant]";
 
-                //Restaurant restaurant = new Restaurant();
-                //restaurant.WorkDays = new List<WorkDay> { new WorkDay() };
                 Dictionary<int, Restaurant> result = new Dictionary<int, Restaurant>();
 
                 using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
@@ -124,13 +122,8 @@ namespace ECF_Quai_Antique.DAL.Repository
                                     }
                                 };
                             }
-                            //restaurant.Id = reader.GetInt32(reader.GetOrdinal("Id"));
-                            //restaurant.Name = reader.GetString(reader.GetOrdinal("Name"));
-                            //restaurant.Guest = reader.GetInt32(reader.GetOrdinal("Guest"));
-                            //restaurant.Workdays à garnir mais c'est une liste
                         }
                         return result.Values.FirstOrDefault();
-                        //return restaurant;
                     }
                 }
             }
