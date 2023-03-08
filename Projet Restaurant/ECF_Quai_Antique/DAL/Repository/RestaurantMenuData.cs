@@ -53,6 +53,43 @@ namespace ECF_Quai_Antique.DAL.Repository
             }
         }
 
+        public List<DishType> GetDishTypes()
+        {
+            try
+            {
+                List<DishType> dishTypes = new List<DishType>();
+
+                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+                builder.ConnectionString = "Data Source=localhost\\SQLEXPRESS01;Initial Catalog=Restaurant;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False";
+                string sql = "EXEC [dbo].[GetDishTypes]";
+
+                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                {
+                    SqlCommand command = new SqlCommand(sql, connection);
+                    connection.Open();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            DishType dish = new DishType()
+                            {
+                                Id = reader.GetInt32("Id"),
+                                Name = reader.GetString("Label"),
+                            };
+                            dishTypes.Add(dish);
+                        }
+                    }
+                }
+                return dishTypes;
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
+
         public List<Menu> GetMenus()
         {
             try
