@@ -1,4 +1,10 @@
-﻿/* Header */
+﻿/* Main Page */
+
+.main-page{
+    background-color: #E9DDBE;
+}
+
+/* Header */
 
 .header{
     padding-top: 1rem;
@@ -15,7 +21,7 @@
 .admin-body{
     display: flex;
     flex-direction: column;
-    padding: 0 2rem;
+    padding: 0 2rem 1rem;
 }
 
 /* Sections */
@@ -60,10 +66,7 @@
     border-radius: 0.9375rem;
     font-size: 1.125rem;
 }
-.input-field:focus{
-    outline: none ;
-    border: 0.0625rem solid #16110F;
-}
+
 
 /* WorkDay and WorkHours */
 
@@ -85,12 +88,13 @@
     flex-direction: column;
 }
 
-.day-column:first-child{
+.first-day-column{
     width: 10%;
 }
 
 .day-cell{
     height: 1.75rem;
+    width: 100%;
     display: inline-block;
     text-align: center;
     padding: 0.25rem 0;
@@ -98,4 +102,49 @@
     font-size: 1rem;
     color: #16110F;
     font-weight: 600;
+}
+
+/* Dishes */
+
+.dish-input-section {
+    display: flex;
+    flex-direction: column;
+    color: #16110F;
+    font-family: "Arial";
+}
+
+.dish-input-line{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom:0.5rem;
+}
+
+.dish-label {
+    border-radius: 0.9375rem;
+    align-self: center;
+    color: #16110F;
+    font-family: "Arial";
+    font-size: 1.25rem;
+}
+
+.dish-label > button{
+    margin-left: 2rem;
+}
+
+.dish-input-field {
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+    background-color: #E9DDBE;
+    border-radius: 0.9375rem;
+    font-size: 1.125rem;
+}
+
+textarea {
+    resize: none;
+}
+
+.label-adjuster{
+    display: flex;
 }

@@ -4,7 +4,7 @@
 @inject IRestaurantService restaurantService
 @inject IRestaurantMenuService restaurantMenuService
 
-<div>
+<div class="main-page">
     <div class="header">
         <h1>Administration</h1>
     </div>
@@ -13,10 +13,10 @@
             <h2 class="container-title">Restaurant :</h2>
             <div class="input-section">
                 <label class="label-style">Nom :
-                    <input class="input-field" type="text" @bind-value="@restaurant.Name" />
+                    <input class="input-field" type="text" readonly @bind="@restaurant.Name" />
                 </label>
                 <label class="label-style">Couvert :
-                    <input class="input-field" type="text" @bind-value="@restaurant.Guest" />
+                    <input class="input-field" type="number" min="0" max="1000" @bind="@restaurant.Guest" />
                 </label>
             </div>
             <div class="work-day-section">
@@ -27,19 +27,79 @@
                         <div class="day-cell">Midi</div>
                         <div class="day-cell">Soir</div>
                     </div>
-                    @for (int i = 0; i < 7; i++)
+@*                    @for (int i = 0; i < 7; i++)
                     {
                         <div class="day-column">
                             <div class="day-cell">@restaurant.WorkDays[i].Day.Name</div>
-                            <div class="day-cell">@DisplayShift(restaurant.WorkDays[i].Periods.Find(p => p.Service == 0).Open, restaurant.WorkDays[i].Periods.Find(p => p.Service == 0).Close)</div>
-                            <div class="day-cell">@DisplayShift(restaurant.WorkDays[i].Periods.Find(p => p.Service == 1).Open, restaurant.WorkDays[i].Periods.Find(p => p.Service == 1).Close)</div>
+                            <input class="input-cell" type="time" @bind-value=@restaurant.WorkDays[i].Periods.Find(p => p.Service == 0).Open />
+                            -
+                            <input class="input-cell" type="time" @bind-value=@restaurant.WorkDays[i].Periods.Find(p => p.Service == 0).Close  />
+                            <input class="input-cell" type="time" @bind-value=@restaurant.WorkDays[i].Periods.Find(p => p.Service == 1).Open />
+                            -
+                            <input class="input-cell" type="time" @bind-value=@restaurant.WorkDays[i].Periods.Find(p => p.Service == 1).Close  />
                         </div>
-                    }
+                    }*@
                 </div>
             </div>
         </div>
         <div class="setup-container">
             <h2 class="container-title">Plats :</h2>
+            <div>
+                <div class="dish-input-section">
+                    @foreach (var dish in dishes)
+                    {
+                        <div class="dish-input-line">
+                            <label class="dish-label">Nom :
+                                <input class="dish-input-field" type="text" @bind=@dish.Name />
+                            </label>
+                            <div class="label-adjuster">
+                                <label class="dish-label">Description :</label>
+                                <textarea class="dish-input-field" rows="2" cols="35" maxlength="300" @bind="@dish.Description" required />
+                            </div>
+                            <label class="dish-label">Prix :
+                                <input class="dish-input-field" type="number" min="0" max="99999999" step="any" @bind="@dish.Price" />
+                            </label>
+                            <label class="dish-label">Type de plat :
+                                <select class="dish-input-field" @bind="@dish.DishType.Id">
+                                    @foreach (var dishType in dishTypes)
+                                    {
+                                        <option value="@dishType.Id">@dishType.Name</option>
+                                    }
+                                </select>
+                                <button class="oi oi-minus" @onclick="()=>RemoveDish(dish)"></button>
+                            </label>
+                        </div>
+                    }
+                    <div class="dish-input-line">
+                        <label class="dish-label">Nom :
+                            <input class="dish-input-field" type="text" @bind=@newDish.Name />
+                        </label>
+                        <div class="label-adjuster">
+                            <label class="dish-label">Description :</label>
+                            <textarea 
+                                class="dish-input-field" 
+                                rows="2" 
+                                cols="35" 
+                                maxlength="300" 
+                                @bind="@newDish.Description"
+                                required 
+                            />
+                        </div>
+                        <label class="dish-label">Prix :
+                            <input class="dish-input-field" type="number" min="0" max="99999999" step="any" @bind="@newDish.Price" />
+                        </label>
+                        <label class="dish-label">Type de plat :
+                            <select class="dish-input-field" @bind="@newDish.DishType.Id">
+                            @foreach (var dishType in dishTypes)
+                            {
+                                        <option value="@dishType.Id">@dishType.Name</option>
+                            }
+                            </select>
+                            <button class="oi oi-plus" @onclick="()=>AddDish(newDish)"></button>
+                        </label>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="setup-container">
             <h2 class="container-title">Formules :</h2>
@@ -53,25 +113,56 @@
 
 @code {
     Restaurant restaurant = new Restaurant();
+
     List<Dish> dishes = new List<Dish>();
+    private Dish newDish;
+
+    List<DishType> dishTypes = new List<DishType>();
     List<Menu> menus = new List<Menu>();
+
+    Dictionary<int, DateTime> dates = new Dictionary<int, DateTime>();
 
     protected override void OnInitialized()
     {
         restaurant = restaurantService.GetRestaurant();
         dishes = restaurantMenuService.GetDishes();
+        dishTypes = restaurantMenuService.GetDishTypes();
         menus = restaurantMenuService.GetMenus();
+
+        newDish = new Dish(-1, "", "", new DishType(1, "Entrées"), 0m);
     }
 
-    private string DisplayShift(DateTime? dateOpen, DateTime? dateClose)
+    //private Dictionary<int, DateTime> DisplayDateTime(Restaurant restaurant)
+    //{
+    //    foreach (var workDay in restaurant.WorkDays)
+    //    {
+    //        foreach (var period in workDay.Periods)
+    //        {
+    //            if (period.Open == null || period.Close == null)
+    //            {
+
+    //            }
+    //        }
+    //    }
+    //}
+
+    private void RemoveDish(Dish dish)
     {
-        if (dateOpen == null || dateClose == null)
+        dishes.Remove(dish);
+    }
+
+    private void AddDish(Dish newDish)
+    {
+        if (!string.IsNullOrWhiteSpace(newDish.Name) && !string.IsNullOrWhiteSpace(newDish.Description) && newDish.Price > 0)
         {
-            return ($"Fermé");
+            Dish dishToAdd = new Dish(newDish.Id, newDish.Name, newDish.Description, new DishType(newDish.DishType.Id, newDish.DishType.Name), newDish.Price);
+            dishes.Add(dishToAdd);
+            newDish.Name = "";
+            newDish.Description = "";
+            newDish.Price = 0m;
+            newDish.DishType.Id = 1;
+            newDish.DishType.Name = "Entrées";
         }
-        else
-        {
-            return ($"{dateOpen?.Hour.ToString("D2")}:{dateOpen?.Minute.ToString("D2")} - {dateClose?.Hour.ToString("D2")}:{dateClose?.Minute.ToString("D2")}");
-        }
+        //faire la gestion des différents problèmes rencontrés
     }
 }

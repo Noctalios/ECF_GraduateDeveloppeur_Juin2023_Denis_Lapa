@@ -1,4 +1,10 @@
 /* _content/ECF_Quai_Antique/Pages/Administration.razor.rz.scp.css */
+/* Main Page */
+
+.main-page[b-ent861kblg]{
+    background-color: #E9DDBE;
+}
+
 /* Header */
 
 .header[b-ent861kblg]{
@@ -16,7 +22,7 @@
 .admin-body[b-ent861kblg]{
     display: flex;
     flex-direction: column;
-    padding: 0 2rem;
+    padding: 0 2rem 1rem;
 }
 
 /* Sections */
@@ -61,10 +67,7 @@
     border-radius: 0.9375rem;
     font-size: 1.125rem;
 }
-.input-field:focus[b-ent861kblg]{
-    outline: none ;
-    border: 0.0625rem solid #16110F;
-}
+
 
 /* WorkDay and WorkHours */
 
@@ -100,6 +103,51 @@
     font-size: 1rem;
     color: #16110F;
     font-weight: 600;
+}
+
+/* Dishes */
+
+.dish-input-section[b-ent861kblg] {
+    display: flex;
+    flex-direction: column;
+    color: #16110F;
+    font-family: "Arial";
+}
+
+.dish-input-line[b-ent861kblg]{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom:0.5rem;
+}
+
+.dish-label[b-ent861kblg] {
+    border-radius: 0.9375rem;
+    align-self: center;
+    color: #16110F;
+    font-family: "Arial";
+    font-size: 1.25rem;
+}
+
+.dish-label > button[b-ent861kblg]{
+    margin-left: 2rem;
+}
+
+.dish-input-field[b-ent861kblg] {
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+    background-color: #E9DDBE;
+    border-radius: 0.9375rem;
+    font-size: 1.125rem;
+}
+
+textarea[b-ent861kblg] {
+    resize: none;
+}
+
+.label-adjuster[b-ent861kblg]{
+    display: flex;
 }
 /* _content/ECF_Quai_Antique/Shared/FootHours.razor.rz.scp.css */
 /* WorkDay and WorkHours */
