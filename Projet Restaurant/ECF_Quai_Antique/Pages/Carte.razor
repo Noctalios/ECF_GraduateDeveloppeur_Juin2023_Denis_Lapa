@@ -2,6 +2,7 @@
 @using ECF_Quai_Antique.Entities
 
 @inject IUserService userService
+@inject IRestaurantService restaurantService
 @inject IRestaurantMenuService restaurantMenuService
 
 @page "/carte"
@@ -19,6 +20,7 @@
 {
     <div>@dish.Id : @dish.Name : @dish.Description : @dish.Price : @dish.DishType.Id : @dish.DishType.Name</div>
 }
+<FootHours restaurant="restaurant" />
 
 @code {
     private int currentCount = 0;
@@ -28,11 +30,13 @@
 
     private User CurrentUser = new User();
     private List<Dish> dishes = new List<Dish>();
+    private Restaurant restaurant = new Restaurant();
 
     protected override void OnInitialized()
     {
         CurrentUser = userService.GetUser(email, password);
         dishes = restaurantMenuService.GetDishes();
+        restaurant = restaurantService.GetRestaurant();
     }
 
     private void IncrementCount()
