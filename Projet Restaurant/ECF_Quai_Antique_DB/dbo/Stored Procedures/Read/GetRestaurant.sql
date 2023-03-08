@@ -7,7 +7,7 @@ CREATE PROCEDURE [dbo].[GetRestaurant]
 AS
 	BEGIN
 		SET NOCOUNT ON;
-		SELECT R.Id, R.Label, Guest, D.Id AS DayId, P.Id AS PeriodId, P.[Open], P.[Close]
+		SELECT R.Id, R.Label, Guest, D.Id AS DayId, D.Label AS DayLabel, P.Id AS PeriodId, P.[Open], P.[Close]
 		FROM [dbo].[Restaurant] AS R
 		LEFT JOIN [dbo].[Periods] AS P ON R.Id = P.RestaurantId
 		INNER JOIN [dbo].Days AS D ON D.Id = P.DayId

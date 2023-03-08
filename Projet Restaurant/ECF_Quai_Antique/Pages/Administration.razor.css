@@ -1,0 +1,101 @@
+﻿/* Header */
+
+.header{
+    padding-top: 1rem;
+    text-align: center;
+    font-family: "Karma";
+}
+
+.header > h1{
+    font-size: 3rem;
+}
+
+/* Body */
+
+.admin-body{
+    display: flex;
+    flex-direction: column;
+    padding: 0 2rem;
+}
+
+/* Sections */
+
+.setup-container{
+    display: block;
+    width: 100%;
+    background-color: rgba(160, 140, 90, 0.7);
+    padding: 1rem;
+    margin-top: 2rem;
+    border: 0.0625rem solid #785F37;
+    border-radius: 0.9375rem;
+}
+
+/* Containers */
+
+.container-title{
+    margin-bottom: 1rem;
+    font-family: "Karma";
+    font-size: 2rem;
+    color: #16110F;
+}
+
+/* Inputs */
+
+.input-section {
+    display: flex;
+    justify-content: space-around;
+    color: #16110F;
+    font-family: "Arial";
+}
+
+.label-style {
+    font-size: 1.5rem;
+    border-radius: 0.9375rem;
+}
+
+.input-field {
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+    background-color: #E9DDBE;
+    border-radius: 0.9375rem;
+    font-size: 1.125rem;
+}
+.input-field:focus{
+    outline: none ;
+    border: 0.0625rem solid #16110F;
+}
+
+/* WorkDay and WorkHours */
+
+.work-hours-title {
+    text-align: center;
+    color: #16110F;
+    font-size: 2rem;
+    font-family: "Karma";
+}
+
+.days-title{
+    display: flex;
+    flex-direction: row;
+}
+
+.day-column{
+    width: 12.5%;
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.day-column:first-child{
+    width: 10%;
+}
+
+.day-cell{
+    height: 1.75rem;
+    display: inline-block;
+    text-align: center;
+    padding: 0.25rem 0;
+    font-family: "Arial";
+    font-size: 1rem;
+    color: #16110F;
+    font-weight: 600;
+}

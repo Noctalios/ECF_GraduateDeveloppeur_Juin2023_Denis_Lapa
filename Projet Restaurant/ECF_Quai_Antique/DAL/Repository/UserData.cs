@@ -74,15 +74,7 @@ namespace ECF_Quai_Antique.DAL.Repository
                     {
                         while (reader.Read())
                         {
-                            if (result.TryGetValue(reader.GetInt32("Id"), out User User))
-                            {
-                                User.Allergies.Add(new Allergie()
-                                {
-                                    Id = reader.GetInt32("AllergieId"),
-                                    Name = reader.GetString("AllergieLabel"),
-                                });
-                            }
-                            else
+                            if (reader.IsDBNull(reader.GetOrdinal("AllergieId")))
                             {
                                 User newUser = new User()
                                 {
@@ -91,16 +83,39 @@ namespace ECF_Quai_Antique.DAL.Repository
                                     Password = reader.GetString("Password"),
                                     Guest = reader.IsDBNull(reader.GetInt32("Guest")) ? null : reader.GetInt32(reader.GetOrdinal("Guest")),
                                     Role = new Role(reader.GetInt32("RoleId"), reader.GetString("RoleLabel")),
-                                    Allergies = new List<Allergie>()
-                                    {
-                                        new Allergie()
-                                        {
-                                            Id = reader.GetInt32("AllergieId"),
-                                            Name = reader.GetString("AllergieLabel"),
-                                        }
-                                    }
                                 };
                                 result.Add(reader.GetInt32("Id"), newUser);
+                            }
+                            else 
+                            {
+                                if (result.TryGetValue(reader.GetInt32("Id"), out User User))
+                                {
+                                    User.Allergies.Add(new Allergie()
+                                    {
+                                        Id = reader.GetInt32("AllergieId"),
+                                        Name = reader.GetString("AllergieLabel"),
+                                    });
+                                }
+                                else
+                                {
+                                    User newUser = new User()
+                                    {
+                                        Id = reader.GetInt32("Id"),
+                                        Email = reader.GetString("Email"),
+                                        Password = reader.GetString("Password"),
+                                        Guest = reader.IsDBNull(reader.GetInt32("Guest")) ? null : reader.GetInt32(reader.GetOrdinal("Guest")),
+                                        Role = new Role(reader.GetInt32("RoleId"), reader.GetString("RoleLabel")),
+                                        Allergies = new List<Allergie>()
+                                        {
+                                            new Allergie()
+                                            {
+                                                Id = reader.GetInt32("AllergieId"),
+                                                Name = reader.GetString("AllergieLabel"),
+                                            }
+                                        }
+                                    };
+                                    result.Add(reader.GetInt32("Id"), newUser);
+                                }
                             }
                         }
                     }

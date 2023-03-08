@@ -12,7 +12,7 @@
 
         public Role Role { get; set; }
 
-        public List<Allergie> Allergies { get; set; }
+        public List<Allergie>? Allergies { get; set; }
 
         public User() { }
 

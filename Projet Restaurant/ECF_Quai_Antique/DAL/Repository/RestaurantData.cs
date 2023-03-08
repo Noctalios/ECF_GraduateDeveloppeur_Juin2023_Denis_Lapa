@@ -67,7 +67,7 @@ namespace ECF_Quai_Antique.DAL.Repository
                         {
                             if (result.TryGetValue(reader.GetInt32("Id"), out Restaurant restaurant))
                             {
-                                WorkDay currentWorkDay = restaurant.WorkDays.FirstOrDefault(x => x.DayOfWeek ==  (DayOfWeek)(reader.GetInt32("DayId") - 1));
+                                WorkDay currentWorkDay = restaurant.WorkDays.FirstOrDefault(x => x.Day.Id == reader.GetInt32("DayId"));
                                 if (currentWorkDay != null)
                                 {
                                     currentWorkDay.Periods.Add(new Period()
@@ -82,7 +82,7 @@ namespace ECF_Quai_Antique.DAL.Repository
                                 {
                                     restaurant.WorkDays.Add(new WorkDay()
                                     {
-                                        DayOfWeek = (DayOfWeek)(reader.GetInt32("DayId") - 1),
+                                        Day = new Day(reader.GetInt32("DayId"), reader.GetString("DayLabel")),
                                         Periods = new List<Period>()
                                         {
                                             new Period()
@@ -107,7 +107,7 @@ namespace ECF_Quai_Antique.DAL.Repository
                                     {
                                         new WorkDay()
                                         {
-                                            DayOfWeek = (DayOfWeek)(reader.GetInt32("DayId") - 1),
+                                            Day = new Day(reader.GetInt32("DayId"), reader.GetString("DayLabel")),
                                             Periods = new List<Period>()
                                             {
                                                 new Period()
@@ -121,6 +121,7 @@ namespace ECF_Quai_Antique.DAL.Repository
                                         }
                                     }
                                 };
+                                result.Add(reader.GetInt32("Id"), newRestaurant);
                             }
                         }
                         return result.Values.FirstOrDefault();

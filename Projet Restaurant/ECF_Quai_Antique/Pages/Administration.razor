@@ -1,53 +1,77 @@
 ﻿@page "/administration"
-
 @using ECF_Quai_Antique.Entities
 @using ECF_Quai_Antique.BLL.Interfaces
-
 @inject IRestaurantService restaurantService
 @inject IRestaurantMenuService restaurantMenuService
 
-@inject WeatherForecastService ForecastService
+<div>
+    <div class="header">
+        <h1>Administration</h1>
+    </div>
+    <div class="admin-body">
+        <div class="setup-container">
+            <h2 class="container-title">Restaurant :</h2>
+            <div class="input-section">
+                <label class="label-style">Nom :
+                    <input class="input-field" type="text" @bind-value="@restaurant.Name" />
+                </label>
+                <label class="label-style">Couvert :
+                    <input class="input-field" type="text" @bind-value="@restaurant.Guest" />
+                </label>
+            </div>
+            <div class="work-day-section">
+                <div class="work-hours-title">Horaires d'Ouvertures :</div>
+                <div class="days-title">
+                    <div class="first-day-column">
+                        <div class="day-cell"></div>
+                        <div class="day-cell">Midi</div>
+                        <div class="day-cell">Soir</div>
+                    </div>
+                    @for (int i = 0; i < 7; i++)
+                    {
+                        <div class="day-column">
+                            <div class="day-cell">@restaurant.WorkDays[i].Day.Name</div>
+                            <div class="day-cell">@DisplayShift(restaurant.WorkDays[i].Periods.Find(p => p.Service == 0).Open, restaurant.WorkDays[i].Periods.Find(p => p.Service == 0).Close)</div>
+                            <div class="day-cell">@DisplayShift(restaurant.WorkDays[i].Periods.Find(p => p.Service == 1).Open, restaurant.WorkDays[i].Periods.Find(p => p.Service == 1).Close)</div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="setup-container">
+            <h2 class="container-title">Plats :</h2>
+        </div>
+        <div class="setup-container">
+            <h2 class="container-title">Formules :</h2>
+        </div>
+        <div class="setup-container">
+            <h2 class="container-title">Menus :</h2>
+        </div>
+    </div>
+</div>
 
-<PageTitle>Weather forecast</PageTitle>
-
-<h1>Administration</h1>
-
-<p>This component demonstrates fetching data from a service.</p>
-
-@if (forecasts == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var forecast in forecasts)
-        {
-            <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
-                </tr>
-        }
-        </tbody>
-    </table>
-}
 
 @code {
-private WeatherForecast[]? forecasts;
+    Restaurant restaurant = new Restaurant();
+    List<Dish> dishes = new List<Dish>();
+    List<Menu> menus = new List<Menu>();
 
-protected override async Task OnInitializedAsync()
-{
-    forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
-}
+    protected override void OnInitialized()
+    {
+        restaurant = restaurantService.GetRestaurant();
+        dishes = restaurantMenuService.GetDishes();
+        menus = restaurantMenuService.GetMenus();
+    }
+
+    private string DisplayShift(DateTime? dateOpen, DateTime? dateClose)
+    {
+        if (dateOpen == null || dateClose == null)
+        {
+            return ($"Fermé");
+        }
+        else
+        {
+            return ($"{dateOpen?.Hour.ToString("D2")}:{dateOpen?.Minute.ToString("D2")} - {dateClose?.Hour.ToString("D2")}:{dateClose?.Minute.ToString("D2")}");
+        }
+    }
 }

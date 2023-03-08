@@ -1,0 +1,39 @@
+﻿@using ECF_Quai_Antique.Entities
+
+
+<div class="work-day-section">
+    <div class="work-hours-title">Horaires d'Ouvertures :</div>
+    <div class="days-title">
+        <div class="first-day-column">
+            <div class="day-cell"></div>
+            <div class="day-cell">Midi</div>
+            <div class="day-cell">Soir</div>
+        </div>
+        @for (int i = 0; i < 7; i++)
+        {
+            <div class="day-column">
+                <div class="day-cell">@restaurant.WorkDays[i].Day.Name</div>
+                <div class="day-cell">@DisplayShift(restaurant.WorkDays[i].Periods.Find(p => p.Service == 0).Open, restaurant.WorkDays[i].Periods.Find(p => p.Service == 0).Close)</div>
+                <div class="day-cell">@DisplayShift(restaurant.WorkDays[i].Periods.Find(p => p.Service == 1).Open, restaurant.WorkDays[i].Periods.Find(p => p.Service == 1).Close)</div>
+            </div>
+        }
+    </div>
+</div>
+
+
+@code {
+    [Parameter]
+    public Restaurant? restaurant { get; set; }
+
+    public string DisplayShift(DateTime? dateOpen, DateTime? dateClose)
+    {
+        if (dateOpen == null || dateClose == null)
+        {
+            return ($"Fermé");
+        }
+        else
+        {
+            return ($"{dateOpen?.Hour.ToString("D2")}:{dateOpen?.Minute.ToString("D2")} - {dateClose?.Hour.ToString("D2")}:{dateClose?.Minute.ToString("D2")}");
+        }
+    }
+}

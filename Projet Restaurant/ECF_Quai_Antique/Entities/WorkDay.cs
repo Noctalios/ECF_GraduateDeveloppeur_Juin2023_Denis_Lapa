@@ -2,15 +2,15 @@
 {
     public class WorkDay
     {
-        public DayOfWeek DayOfWeek { get; set; }
+        public Day Day { get; set; }
 
         public List<Period> Periods { get; set; }
 
         public WorkDay() { }
 
-        public WorkDay(DayOfWeek dayOfWeek, List<Period> periods)
+        public WorkDay(Day day, List<Period> periods)
         {
-            DayOfWeek = dayOfWeek;
+            Day = day;
             Periods = periods;
         }
     }
