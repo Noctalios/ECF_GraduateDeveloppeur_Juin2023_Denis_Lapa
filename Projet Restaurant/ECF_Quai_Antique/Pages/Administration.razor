@@ -3,6 +3,7 @@
 @using ECF_Quai_Antique.BLL.Interfaces
 @inject IRestaurantService restaurantService
 @inject IRestaurantMenuService restaurantMenuService
+@inject ISnackbar Snackbar
 
 <div class="main-page">
     <div class="header">
@@ -10,7 +11,10 @@
     </div>
     <div class="admin-body">
         <div class="setup-container">
-            <h2 class="container-title">Restaurant :</h2>
+            <div class="title">
+                <h2 class="section-title">Restaurant :</h2>
+                <button class="validation-button oi oi-check"></button>
+            </div>
             <div class="input-section">
                 <label class="label-style">Nom :
                     <input class="input-field" type="text" readonly @bind="@restaurant.Name" />
@@ -43,7 +47,10 @@
             </div>
         </div>
         <div class="setup-container">
-            <h2 class="container-title">Plats :</h2>
+            <div class="title">
+                <h2 class="section-title">Plats :</h2>
+                <button class="validation-button oi oi-check" @onclick="SaveDishes"></button>
+            </div>
             <div>
                 <div class="dish-input-section">
                     @foreach (var dish in dishes)
@@ -54,7 +61,7 @@
                             </label>
                             <div class="label-adjuster">
                                 <label class="dish-label">Description :</label>
-                                <textarea class="dish-input-field" rows="2" cols="35" maxlength="300" @bind="@dish.Description" required />
+                                <textarea class="dish-input-field" rows="2" cols="35" maxlength="300" @bind="@dish.Description" />
                             </div>
                             <label class="dish-label">Prix :
                                 <input class="dish-input-field" type="number" min="0" max="99999999" step="any" @bind="@dish.Price" />
@@ -102,10 +109,16 @@
             </div>
         </div>
         <div class="setup-container">
-            <h2 class="container-title">Formules :</h2>
+            <div class="title">
+                <h2 class="section-title">Formules :</h2>
+                <button class="validation-button oi oi-check"></button>
+            </div>
         </div>
         <div class="setup-container">
-            <h2 class="container-title">Menus :</h2>
+            <div class="title">
+                <h2 class="section-title">Menus :</h2>
+                <button class="validation-button oi oi-check"></button>
+            </div>
         </div>
     </div>
 </div>
@@ -146,10 +159,7 @@
     //    }
     //}
 
-    private void RemoveDish(Dish dish)
-    {
-        dishes.Remove(dish);
-    }
+    #region Dish
 
     private void AddDish(Dish newDish)
     {
@@ -163,6 +173,21 @@
             newDish.DishType.Id = 1;
             newDish.DishType.Name = "Entrées";
         }
-        //faire la gestion des différents problèmes rencontrés
     }
+
+    private void RemoveDish(Dish dish)
+    {
+        dishes.Remove(dish);
+    }
+
+    private void SaveDishes()
+    {
+        restaurantMenuService.SaveDishes(dishes);
+
+        Snackbar.Configuration.PositionClass = "Top-right";
+        Snackbar.Configuration.SnackbarVariant = Variant.Filled;
+        Snackbar.Add("Les plats ont été enregistrés", Severity.Info);
+    }
+    
+    #endregion
 }
