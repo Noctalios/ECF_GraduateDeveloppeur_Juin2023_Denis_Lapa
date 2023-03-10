@@ -90,6 +90,63 @@ namespace ECF_Quai_Antique.DAL.Repository
             }
         }
 
+        public List<Formula> GetFormulas()
+        {
+            try
+            {
+                Dictionary<int, Formula> result = new Dictionary<int, Formula>();
+
+                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+                builder.ConnectionString = "Data Source=localhost\\SQLEXPRESS01;Initial Catalog=Restaurant;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False";
+                string sql = "EXEC [dbo].[GetFormulas]";
+
+                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                {
+                    SqlCommand command = new SqlCommand(sql, connection);
+                    connection.Open();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            if (result.TryGetValue(reader.GetInt32("Id"), out Formula formula))
+                            {
+                                formula.DishTypes.Add(new DishType()
+                                {
+                                    Id = reader.GetInt32("DishTypeId"),
+                                    Name = reader.GetString("DishTypeLabel"),
+                                });
+                            }
+                            else
+                            {
+                                Formula newFormula = new Formula()
+                                {
+                                    Id = reader.GetInt32("Id"),
+                                    Description = reader.GetString("Description"),
+                                    Price = reader.GetDecimal("Price"),
+                                    DishTypes = new List<DishType> 
+                                    { 
+                                        new DishType()
+                                        {
+                                            Id = reader.GetInt32("DishTypeId"),
+                                            Name= reader.GetString("DishTypeLabel"),
+                                        }
+                                    }
+                                };
+                                result.Add(reader.GetInt32("Id"), newFormula);
+                            };
+                        }
+                    }
+                }
+                return result.Values.ToList();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
+
         public List<Menu> GetMenus()
         {
             try

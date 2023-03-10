@@ -23,6 +23,11 @@ namespace ECF_Quai_Antique.BLL.Interfaces
             return RestaurantMenuData.GetDishTypes();
         }
 
+        public List<Formula> GetFormulas()
+        {
+            return RestaurantMenuData.GetFormulas();
+        }
+
         public List<Menu> GetMenus()
         {
             return RestaurantMenuData.GetMenus();

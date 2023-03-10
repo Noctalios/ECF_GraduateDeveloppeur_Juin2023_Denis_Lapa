@@ -6,6 +6,7 @@ namespace ECF_Quai_Antique.BLL.Interfaces
     {
         List<Dish> GetDishes();
         List<Menu> GetMenus();
+        List<Formula> GetFormulas();
         List<DishType> GetDishTypes();
         void SaveDishes(List<Dish> dishes);
         void SaveMenus(List<Menu> menus);
