@@ -162,3 +162,49 @@ textarea {
     display: flex;
 }
 
+.select-zone{
+    display: flex;
+    flex-direction: column;
+}
+
+/* Formulas */
+
+.formula-input-line {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.multiple-select{
+    display: flex;
+    flex-direction: column;
+}
+
+.formula-label {
+    border-radius: 0.9375rem;
+    align-self: center;
+    color: #16110F;
+    font-family: "Arial";
+    font-size: 1.25rem;
+}
+
+.formula-input-field {
+    padding: 0.5rem;
+    margin-left: 0.5rem ;
+    background-color: #E9DDBE;
+    border-radius: 0.9375rem;
+    font-size: 1.125rem;
+}
+.dishtype-adjuster{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.formula-checkbox{
+    height: 1.25rem;
+    width: 1.25rem;
+    background-color: #E9DDBE;
+}
