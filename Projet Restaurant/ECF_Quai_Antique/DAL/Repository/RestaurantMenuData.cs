@@ -317,7 +317,7 @@ namespace ECF_Quai_Antique.DAL.Repository
                     formulasParameter.SqlDbType= SqlDbType.Structured;
                     formulasParameter.TypeName = "dbo.FormulaTableType";
 
-                    // Parameter @FormulasDishTypes whit Formula.Id and DishType Id
+                    // Parameter @FormulasDishTypes with Formula.Id and DishType Id
                     SqlParameter formulaDishTypeParameter = command.Parameters.AddWithValue("@FormulasDishType", CreateFormulaDishTypeDataTable(formulas));
                     formulaDishTypeParameter.SqlDbType = SqlDbType.Structured;
                     formulaDishTypeParameter.TypeName = "dbo.FormulaDishTypeTable";
@@ -392,6 +392,7 @@ namespace ECF_Quai_Antique.DAL.Repository
             DataTable menuFormulasDataTable = new DataTable();
             menuFormulasDataTable.Columns.Add("MenuId", typeof(int));
             menuFormulasDataTable.Columns.Add("FormulaId", typeof(int));
+            menuFormulasDataTable.Columns.Add("MenuLabel", typeof(string));
 
             if (menus != null)
             {
@@ -402,7 +403,8 @@ namespace ECF_Quai_Antique.DAL.Repository
                         menuFormulasDataTable.LoadDataRow(new object[]
                         {
                             menu.Id,
-                            formula.Id
+                            formula.Id,
+                            menu.Name
                         }, true);
                     }
                 }
@@ -441,6 +443,7 @@ namespace ECF_Quai_Antique.DAL.Repository
             DataTable formulaDishTypesDataTable = new DataTable();
             formulaDishTypesDataTable.Columns.Add("FormulaId", typeof(int));
             formulaDishTypesDataTable.Columns.Add("DishTypeId", typeof(int));
+            formulaDishTypesDataTable.Columns.Add("FormulaLabel", typeof(string));
 
             if (formulas != null)
             {
@@ -451,7 +454,8 @@ namespace ECF_Quai_Antique.DAL.Repository
                         formulaDishTypesDataTable.LoadDataRow(new object[]
                         {
                             formula.Id,
-                            dishtype.Id
+                            dishtype.Id,
+                            formula.Description 
                         }, 
                         true);
                     }

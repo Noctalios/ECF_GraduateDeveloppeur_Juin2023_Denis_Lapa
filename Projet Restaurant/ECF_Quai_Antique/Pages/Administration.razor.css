@@ -197,7 +197,8 @@ textarea {
     border-radius: 0.9375rem;
     font-size: 1.125rem;
 }
-.dishtype-adjuster{
+
+.formula-adjuster{
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
@@ -208,3 +209,9 @@ textarea {
     width: 1.25rem;
     background-color: #E9DDBE;
 }
+
+.formula-label > button{
+    margin-left: 2rem;
+}
+
+/* Menu */
