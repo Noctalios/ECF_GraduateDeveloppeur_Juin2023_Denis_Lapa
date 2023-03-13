@@ -9,12 +9,14 @@
             <div class="day-cell">Midi</div>
             <div class="day-cell">Soir</div>
         </div>
-        @for (int i = 0; i < 7; i++)
+        @foreach (var day in restaurant.WorkDays)
         {
             <div class="day-column">
-                <div class="day-cell">@restaurant.WorkDays[i].Day.Name</div>
-                <div class="day-cell">@DisplayShift(restaurant.WorkDays[i].Periods.Find(p => p.Service == 0).Open, restaurant.WorkDays[i].Periods.Find(p => p.Service == 0).Close)</div>
-                <div class="day-cell">@DisplayShift(restaurant.WorkDays[i].Periods.Find(p => p.Service == 1).Open, restaurant.WorkDays[i].Periods.Find(p => p.Service == 1).Close)</div>
+                <div class="day-cell">@day.Day.Name</div>
+                @foreach (var shift in day.Periods)
+                {
+                    <div class="day-cell">@DisplayShift(shift)</div>
+                }
             </div>
         }
     </div>
@@ -23,17 +25,17 @@
 
 @code {
     [Parameter]
-    public Restaurant? restaurant { get; set; }
+    public Restaurant restaurant { get; set; }
 
-    public string DisplayShift(DateTime? dateOpen, DateTime? dateClose)
+    public string DisplayShift(Period shift)
     {
-        if (dateOpen == null || dateClose == null)
+        if (shift.IsActive)
         {
-            return ($"Fermé");
+            return ($"{shift.Open.Hour.ToString("D2")}:{shift.Open.Minute.ToString("D2")} - {shift.Open.Hour.ToString("D2")}:{shift.Close.Minute.ToString("D2")}");
         }
         else
         {
-            return ($"{dateOpen?.Hour.ToString("D2")}:{dateOpen?.Minute.ToString("D2")} - {dateClose?.Hour.ToString("D2")}:{dateClose?.Minute.ToString("D2")}");
+            return ($"Fermé");
         }
     }
 }

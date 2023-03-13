@@ -13,7 +13,7 @@
         <div class="setup-container">
             <div class="title">
                 <h2 class="section-title">Restaurant :</h2>
-                <button class="validation-button oi oi-check"></button>
+                <button class="validation-button oi oi-check" @onclick="UpdateRestaurant"></button>
             </div>
             <div class="input-section">
                 <label class="label-style">Nom :
@@ -31,18 +31,21 @@
                         <div class="day-cell">Midi</div>
                         <div class="day-cell">Soir</div>
                     </div>
-@*                    @for (int i = 0; i < 7; i++)
+                    @foreach (var day in restaurant.WorkDays)
                     {
                         <div class="day-column">
-                            <div class="day-cell">@restaurant.WorkDays[i].Day.Name</div>
-                            <input class="input-cell" type="time" @bind-value=@restaurant.WorkDays[i].Periods.Find(p => p.Service == 0).Open />
-                            -
-                            <input class="input-cell" type="time" @bind-value=@restaurant.WorkDays[i].Periods.Find(p => p.Service == 0).Close  />
-                            <input class="input-cell" type="time" @bind-value=@restaurant.WorkDays[i].Periods.Find(p => p.Service == 1).Open />
-                            -
-                            <input class="input-cell" type="time" @bind-value=@restaurant.WorkDays[i].Periods.Find(p => p.Service == 1).Close  />
+                            <div class="day-cell">@day.Day.Name</div>
+                            @foreach (var shift in day.Periods)
+                            {
+                                <div class="day-cell">
+                                    <input class="time-input" type="time" @bind="@shift.Open"/>
+                                    -
+                                    <input class="time-input" type="time" @bind="@shift.Close"/>
+                                    <input class="isactive-switch" type="radio" @onclick="()=>SwitchWorkDayOpening(shift)" checked="@shift.IsActive"/>
+                                </div>
+                            }
                         </div>
-                    }*@
+                    }
                 </div>
             </div>
         </div>
@@ -261,18 +264,37 @@
     }
 
     #region Restaurant
-    //private Dictionary<int, DateTime> DisplayDateTime(Restaurant restaurant)
-    //{
-    //    foreach (var workDay in restaurant.WorkDays)
-    //    {
-    //        foreach (var period in workDay.Periods)
-    //        {
-    //            if (period.Open == null || period.Close == null)
-    //            {
-    //            }
-    //        }
-    //    }
-    //}
+
+    private void SwitchWorkDayOpening(Period periodToChange)
+    {
+        foreach (var day in restaurant.WorkDays)
+        {
+            foreach (var period in day.Periods)
+            {
+                Console.WriteLine(period.IsActive);
+            }
+        }
+
+        periodToChange.IsActive = !periodToChange.IsActive;
+
+        foreach (var day in restaurant.WorkDays)
+        {
+            foreach (var period in day.Periods)
+            {
+                Console.WriteLine(period.IsActive);
+            }
+        }
+    }
+
+    private void UpdateRestaurant()
+    {
+        restaurantService.UpdateRestaurant(restaurant);
+
+        Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopRight;
+        Snackbar.Configuration.SnackbarVariant = Variant.Filled;
+        Snackbar.Add("Les plats ont été enregistrés", Severity.Success);
+    }
+
     #endregion
 
     #region Dish

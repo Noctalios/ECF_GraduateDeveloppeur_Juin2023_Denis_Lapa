@@ -115,6 +115,17 @@
     font-weight: 600;
 }
 
+.time-input{
+    padding-left: 0.25rem;
+    background-color: #E9DDBE;
+    border-radius: 0.9375rem;
+}
+
+.isactive-switch{
+    height: 0.875rem;
+    width: 0.875rem;
+}
+
 /* Dishes */
 
 

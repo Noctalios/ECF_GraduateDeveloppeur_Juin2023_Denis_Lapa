@@ -75,7 +75,8 @@ namespace ECF_Quai_Antique.DAL.Repository
                                         Id = reader.GetInt32("PeriodId"),
                                         Service = reader.GetInt32("PeriodId") % 2,
                                         Open = reader.GetDateTime("Open"),
-                                        Close = reader.GetDateTime("Close")
+                                        Close = reader.GetDateTime("Close"),
+                                        IsActive = reader.GetBoolean("IsActive")
                                     });
                                 }
                                 else
@@ -90,7 +91,8 @@ namespace ECF_Quai_Antique.DAL.Repository
                                                 Id = reader.GetInt32("PeriodId"),
                                                 Service = reader.GetInt32("PeriodId") % 2,
                                                 Open = reader.GetDateTime("Open"),
-                                                Close = reader.GetDateTime("Close")
+                                                Close = reader.GetDateTime("Close"),
+                                                IsActive = reader.GetBoolean("IsActive")
                                             }
                                         }
                                     });
@@ -115,7 +117,8 @@ namespace ECF_Quai_Antique.DAL.Repository
                                                     Id = reader.GetInt32("PeriodId"),
                                                     Service = reader.GetInt32("PeriodId") % 2,
                                                     Open = reader.GetDateTime("Open"),
-                                                    Close = reader.GetDateTime("Close")
+                                                    Close = reader.GetDateTime("Close"),
+                                                    IsActive = reader.GetBoolean("IsActive")
                                                 }
                                             }
                                         }
@@ -205,7 +208,7 @@ namespace ECF_Quai_Antique.DAL.Repository
                 SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
                 builder.ConnectionString = "Data Source=localhost\\SQLEXPRESS01;Initial Catalog=Restaurant;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False";
 
-                string sql = "EXEC [dbo].[UpdateRestaurant] @RetstaurantId, @Guest, @Periods ;";
+                string sql = "EXEC [dbo].[UpdateRestaurant] @RestaurantId, @Guest, @Periods ;";
 
                 using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
                 {
@@ -257,8 +260,9 @@ namespace ECF_Quai_Antique.DAL.Repository
         {
             DataTable periodsDataTable = new DataTable();
             periodsDataTable.Columns.Add("Id", typeof(int));
-            periodsDataTable.Columns.Add("Open", typeof(TimeOnly));
-            periodsDataTable.Columns.Add("Close", typeof(TimeOnly));
+            periodsDataTable.Columns.Add("Open", typeof(DateTime));
+            periodsDataTable.Columns.Add("Close", typeof(DateTime));
+            periodsDataTable.Columns.Add("IsActive", typeof(bool));
 
             if (restaurant != null)
             {
@@ -270,7 +274,8 @@ namespace ECF_Quai_Antique.DAL.Repository
                         {
                             period.Id,
                             period.Open,
-                            period.Close
+                            period.Close,
+                            period.IsActive
                         },
                         true);
                     }
