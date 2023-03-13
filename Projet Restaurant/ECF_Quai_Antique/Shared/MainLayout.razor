@@ -3,18 +3,34 @@
 <MudThemeProvider/>
 <MudDialogProvider/>
 <MudSnackbarProvider/>
-<PageTitle>ECF_Quai_Antique</PageTitle>
 
 <div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
     <main>
-        <div class="top-row px-4" style="background-color: darkgoldenrod">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+        <div class="header">
+            <button class="oi oi-menu" @onclick="ToggleNavMenu"></button>
+            <img class="img-header" src="/css/Image/LogoQuaiAntique.png" />
+            <span class="connexion">Connexion</span>
         </div>
-        <article class="content px-4">
-            @Body
-        </article>    
+        <div class="body">
+            <div class="sidebar @displayMenu">
+                <NavMenu OnClickCallback="ToggleNavMenu"/>
+            </div>
+            <div class="content">
+                @Body
+            </div>    
+        </div>
     </main>
 </div>
+
+@code{
+    private bool collapseNavMenu = true;
+
+    private string? displayMenu => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+
+}

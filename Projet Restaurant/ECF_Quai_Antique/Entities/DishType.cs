@@ -6,6 +6,8 @@
 
         public string Name { get; set; }
 
+        public DishType() { }
+
         public DishType(int id, string name) 
         {
             Id = id;

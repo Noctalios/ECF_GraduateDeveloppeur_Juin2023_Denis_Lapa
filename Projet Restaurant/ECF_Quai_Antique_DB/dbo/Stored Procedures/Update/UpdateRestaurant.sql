@@ -19,7 +19,8 @@ AS
 		--UPDATE the Periods for the Restaurant
 		UPDATE dbo.Periods 
 		SET [Open] = P.[Open], 
-			[Close] = P.[Close]
+			[Close] = P.[Close],
+			[IsActive] = P.[IsActive]
 		FROM @Periods P
 		WHERE Periods.Id = P.Id
 	END

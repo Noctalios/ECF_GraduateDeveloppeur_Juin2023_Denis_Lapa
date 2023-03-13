@@ -9,7 +9,7 @@ CREATE PROCEDURE [dbo].[GetUser]
 AS
 	BEGIN
 		SET NOCOUNT ON;
-		SELECT u.Id, U.Email, U.Password, U.Guest, R.Label, A.Id, A.Label
+		SELECT u.Id, U.Email, U.Password, U.Guest, R.Id AS RoleId, R.Label AS RoleLabel, A.Id AS AllergieId, A.Label AS AllergieLabel
 		FROM Users U
 		LEFT JOIN Roles R ON R.Id = U.RoleId
 		LEFT JOIN Users_Allergies UA ON UA.UserId = U.Id

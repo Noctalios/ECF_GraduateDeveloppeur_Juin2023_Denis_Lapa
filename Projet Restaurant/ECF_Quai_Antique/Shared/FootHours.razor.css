@@ -1,0 +1,43 @@
+﻿/* WorkDay and WorkHours */
+
+.work-day-footer {
+    margin: 0.5rem 1rem 0.5rem 1rem;
+    background-color: rgba(160, 140, 90, 0.7);
+    border: 0.0625rem solid #16110F;
+    border-radius: 0.9375rem;
+}
+
+.work-hours-title {
+    text-align: center;
+    color: #16110F;
+    font-size: 2rem;
+    font-family: "Karma";
+}
+
+.days-zone{
+    display: flex;
+    flex-direction: row;
+}
+
+.day-column{
+    width: 12.5%;
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.first-day-column{
+    width: 10%;
+}
+
+.day-cell{
+    height: 2rem;
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    vertical-align: top;
+    padding: 0.25rem 0;
+    font-family: "Arial";
+    font-size: 1rem;
+    color: #16110F;
+    font-weight: 600;
+}

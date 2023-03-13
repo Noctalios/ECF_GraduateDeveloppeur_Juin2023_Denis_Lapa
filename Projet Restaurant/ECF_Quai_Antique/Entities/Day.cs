@@ -1,14 +1,14 @@
 ﻿namespace ECF_Quai_Antique.Entities
 {
-    public class Allergie
+    public class Day
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
 
-        public Allergie() { }
+        public Day() { }
 
-        public Allergie(int id, string name)
+        public Day(int id, string name)
         {
             Id = id;
             Name = name;

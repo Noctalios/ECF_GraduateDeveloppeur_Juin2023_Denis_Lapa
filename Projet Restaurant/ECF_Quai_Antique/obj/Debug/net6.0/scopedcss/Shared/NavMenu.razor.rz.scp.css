@@ -54,9 +54,4 @@
     .navbar-toggler[b-z630wsy62d] {
         display: none;
     }
-
-    .collapse[b-z630wsy62d] {
-        /* Never collapse the sidebar for wide screens */
-        display: block;
-    }
 }
