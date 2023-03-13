@@ -43,6 +43,12 @@ BEGIN
 		 FROM Formula_DishType FDT
 		 WHERE FDT.FormulaId = FDTT.FormulaId AND FDT.DishTypeId = FDTT.DishTypeId)
 
+	INSERT INTO Formula_DishType
+	SELECT F.Id, FDTT.DishTypeId
+	FROM @FormulasDishType FDTT
+	LEFT JOIN Formula AS F ON F.[Description] = FDTT.FormulaLabel
+	WHERE FDTT.FormulaLabel = F.Description AND FDTT.FormulaId <> F.Id
+
 	-- UPDATE existing formulas
 
 	UPDATE Formula

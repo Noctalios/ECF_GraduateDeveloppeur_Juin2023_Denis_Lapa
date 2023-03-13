@@ -7,6 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Pages\Administration.razor.css" />
+    <None Remove="Shared\FootHours.razor.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Pages\Administration.razor.css" />
+    <Content Include="Shared\FootHours.razor.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.0" />
     <PackageReference Include="MudBlazor" Version="6.1.9" />
   </ItemGroup>

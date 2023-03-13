@@ -40,6 +40,12 @@ BEGIN
 			 FROM Menu_Formula MF
 			 WHERE MF.MenuId = MFT.MenuId AND MF.FormulaId = MFT.FormulaId)
 
+	INSERT INTO Menu_Formula
+	SELECT M.Id, MFT.FormulaId
+	FROM @MenusFormulas MFT
+	LEFT JOIN Menu AS M ON M.[Label] = MFT.MenuLabel
+	WHERE MFT.MenuLabel = M.[Label] AND MFT.MenuId <> M.Id
+
 	--UPDATE Existing Menus
 
 	UPDATE Menu

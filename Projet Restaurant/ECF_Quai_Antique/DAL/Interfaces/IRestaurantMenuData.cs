@@ -5,6 +5,8 @@ namespace ECF_Quai_Antique.DAL.Interfaces
     public interface IRestaurantMenuData
     {
         List<Dish> GetDishes();
+        List<DishType> GetDishTypes();
+        List<Formula> GetFormulas();
         List<Menu> GetMenus();
         void SaveDishes(List<Dish> dishes);
         void SaveMenus(List<Menu> menus);

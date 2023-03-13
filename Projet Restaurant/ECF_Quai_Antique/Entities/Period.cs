@@ -6,16 +6,21 @@
 
         public int Service { get; set; }
 
-        public decimal Open { get; set; }
+        public DateTime Open { get; set; }
 
-        public decimal Close { get; set; }
+        public DateTime Close { get; set; }
 
-        public Period(int id, int service, decimal open, decimal close)
+        public bool IsActive { get; set; }
+
+        public Period() { }
+
+        public Period(int id, int service, DateTime open, DateTime close, bool isActive)
         {
             Id = id;
             Service = service;
             Open = open;
             Close = close;
+            IsActive = isActive;
         }
     }
 }

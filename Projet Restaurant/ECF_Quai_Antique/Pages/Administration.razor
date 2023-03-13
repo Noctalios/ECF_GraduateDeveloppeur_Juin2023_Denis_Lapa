@@ -1,47 +1,541 @@
 ﻿@page "/administration"
 @using ECF_Quai_Antique.Entities
-@inject WeatherForecastService ForecastService
+@using ECF_Quai_Antique.BLL.Interfaces
+@inject IRestaurantService restaurantService
+@inject IRestaurantMenuService restaurantMenuService
+@inject ISnackbar Snackbar
 
-<PageTitle>Weather forecast</PageTitle>
+<div class="main-page">
+    <div class="header">
+        <h1>Administration</h1>
+    </div>
+    <div class="admin-body">
+        <div class="setup-container">
+            <div class="title">
+                <h2 class="section-title">Restaurant :</h2>
+                <button class="validation-button oi oi-check" @onclick="UpdateRestaurant"></button>
+            </div>
+            <div class="input-section">
+                <label class="label-style">Nom :
+                    <input class="input-field" type="text" readonly @bind="@restaurant.Name" />
+                </label>
+                <label class="label-style">Couvert :
+                    <input class="input-field" type="number" min="0" max="1000" @bind="@restaurant.Guest" />
+                </label>
+            </div>
+            <div class="work-day-section">
+                <div class="work-hours-title">Horaires d'Ouvertures :</div>
+                <div class="days-title">
+                    <div class="first-day-column">
+                        <div class="day-cell"></div>
+                        <div class="day-cell">Midi</div>
+                        <div class="day-cell">Soir</div>
+                    </div>
+                    @foreach (var day in restaurant.WorkDays)
+                    {
+                        <div class="day-column">
+                            <div class="day-cell">@day.Day.Name</div>
+                            @foreach (var shift in day.Periods)
+                            {
+                                <div class="day-cell">
+                                    <input class="time-input" type="time" @bind="@shift.Open"/>
+                                    -
+                                    <input class="time-input" type="time" @bind="@shift.Close"/>
+                                    <input class="isactive-switch" type="radio" @onclick="()=>SwitchWorkDayOpening(shift)" checked="@shift.IsActive"/>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="setup-container">
+            <div class="title">
+                <h2 class="section-title">Plats :</h2>
+                <button class="validation-button oi oi-check" @onclick="SaveDishes"></button>
+            </div>
+            <div>
+                <div class="dish-input-section">
+                    @foreach (var dish in dishes.OrderBy(dt => dt.DishType.Id))
+                    {
+                        <div class="dish-input-line">
+                            <label class="dish-label">Nom :
+                                <input class="dish-input-field" type="text" @bind=@dish.Name />
+                            </label>
+                            <div class="label-adjuster">
+                                <label class="dish-label">Description :</label>
+                                <textarea class="dish-input-field" rows="2" cols="35" maxlength="300" @bind="@dish.Description" />
+                            </div>
+                            <label class="dish-label">Prix :
+                                <input class="dish-input-field" type="number" min="0" max="99999999" step="any" @bind="@dish.Price" />
+                            </label>
+                            <label class="dish-label">Type de plat :
+                                <select class="dish-input-field" @bind="@dish.DishType.Id">
+                                    @foreach (var dishType in dishTypes)
+                                    {
+                                        <option value="@dishType.Id">@dishType.Name</option>
+                                    }
+                                </select>
+                                <button class="oi oi-minus" @onclick="()=>RemoveDish(dish)"></button>
+                            </label>
+                        </div>
+                    }
+                    <div class="dish-input-line">
+                        <label class="dish-label">Nom :
+                            <input class="dish-input-field" type="text" @bind=@newDish.Name />
+                        </label>
+                        <div class="label-adjuster">
+                            <label class="dish-label">Description :</label>
+                            <textarea 
+                                class="dish-input-field" 
+                                rows="2" 
+                                cols="35" 
+                                maxlength="300" 
+                                @bind="@newDish.Description"
+                                required 
+                            />
+                        </div>
+                        <label class="dish-label">Prix :
+                            <input class="dish-input-field" type="number" min="0" max="99999999" step="any" @bind="@newDish.Price" />
+                        </label>
+                        <label class="dish-label">Type de plat :
+                            <select class="dish-input-field" @bind="@newDish.DishType.Id">
+                            @foreach (var dishType in dishTypes)
+                            {
+                                        <option value="@dishType.Id">@dishType.Name</option>
+                            }
+                            </select>
+                            <button class="oi oi-plus" @onclick="()=>AddDish(newDish)"></button>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="setup-container">
+            <div class="title">
+                <h2 class="section-title">Formules :</h2>
+                <button class="validation-button oi oi-check" @onclick="SaveFormulas"></button>
+            </div>
+            <div>
+                <div class="dish-input-section">
+                    @foreach (var formula in formulas.OrderBy(f => f.Id))
+                    {
+                        <div class="formula-input-line">
+                            <div class="label-adjuster">
+                                <label class="formula-label">Description :</label>
+                                <textarea class="dish-input-field" rows="2" cols="35" maxlength="300" @bind="@formula.Description" />
+                            </div>
+                            <div>
+                                <label class="formula-label">
+                                    Prix :
+                                    <input class="dish-input-field" type="number" min="0" max="99999999" step="any" @bind="@formula.Price" />
+                                </label>
+                            </div>
+                            <div class="dishtype-adjuster">
+                                <label class="formula-label">
+                                    Type de plat :
+                                    @foreach (var dt in dishTypes)
+                                    {
+                                        <label class="formula-input-field" >@dt.Name :
+                                                <input type="checkbox" class="formula-checkbox" checked="@formula.DishTypes.Any(d => d.Id == dt.Id)" @onchange="()=>ChangeDishType(dt, formula)" />
+                                        </label>
+                                    }
+                                    <button class="oi oi-minus" @onclick="()=>RemoveFormula(formula)"></button>
+                                </label>
+                            </div>
+                        </div>
+                    }
+                    <div class="formula-input-line">
+                            <div class="label-adjuster">
+                                <label class="formula-label">Description :</label>
+                                <textarea class="dish-input-field" rows="2" cols="35" maxlength="300" @bind="@newFormula.Description" />
+                            </div>
+                            <div>
+                                <label class="formula-label">
+                                    Prix :
+                                    <input class="dish-input-field" type="number" min="0" max="99999999" step="any" @bind="@newFormula.Price" />
+                                </label>
+                            </div>
+                            <div class="formula-adjuster">
+                                <label class="formula-label">
+                                    Type de plat :
+                                    @foreach (var dt in dishTypes)
+                                    {
+                                        <label class="formula-input-field" >@dt.Name :
+                                                <input type="checkbox" class="formula-checkbox" checked="@newFormula.DishTypes.Any(d => d.Id == dt.Id)" @onchange="()=>ChangeDishType(dt, newFormula)" />
+                                        </label>
+                                    }
+                                    <button class="oi oi-plus" @onclick="()=>AddFormula(newFormula)"></button>
+                                </label>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="setup-container">
+            <div class="title">
+                <h2 class="section-title">Menus :</h2>
+                <button class="validation-button oi oi-check" @onclick="SaveMenus"></button>
+            </div>
+            <div>
+                <div class="dish-input-section">
+                    @foreach (var menu in menus.OrderBy(m => m.Id))
+                    {
+                        <div class="formula-input-line">
+                            <label class="dish-label">
+                                Nom :
+                                <input class="dish-input-field" type="text" @bind=@menu.Name />
+                            </label>
+                            <div class="dishtype-adjuster">
+                                <label class="formula-label">
+                                    Formules :
+                                    @foreach (var formula in formulas)
+                                    {
+                                        <label class="formula-input-field" >@formula.Description :
+                                                <input type="checkbox" class="formula-checkbox" checked="@menu.Formulas.Any(f=> f.Id == formula.Id)" @onchange="()=>ChangeFormula(formula, menu)" />
+                                        </label>
+                                    }
+                                    <button class="oi oi-minus" @onclick="()=>RemoveMenu(menu)"></button>
+                                </label>
+                            </div>
+                        </div>
+                    }
+                    <div class="formula-input-line">
+                        <label class="dish-label">
+                            Nom :
+                            <input class="dish-input-field" type="text" @bind=@newMenu.Name />
+                        </label>
+                        <div class="formula-adjuster">
+                            <label class="formula-label">
+                                Formules :
+                                @foreach (var formula in formulas)
+                                {
+                                    <label class="formula-input-field" >@formula.Description :
+                                            <input type="checkbox" class="formula-checkbox" checked="@newMenu.Formulas.Any(f => f.Id == formula.Id)" @onchange="()=>ChangeFormula(formula, newMenu)" />
+                                    </label>
+                                }
+                                <button class="oi oi-plus" @onclick="()=>AddMenu(newMenu)"></button>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<h1>Weather forecast</h1>
-
-<p>This component demonstrates fetching data from a service.</p>
-
-@if (forecasts == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var forecast in forecasts)
-        {
-            <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
-                </tr>
-        }
-        </tbody>
-    </table>
-}
 
 @code {
-private WeatherForecast[]? forecasts;
+    Restaurant restaurant = new Restaurant();
 
-protected override async Task OnInitializedAsync()
-{
-    forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
-}
+    List<Dish> dishes = new List<Dish>();
+    private Dish newDish = new Dish(-1, "", "", new DishType(1, "Entrées"), 0m);
+
+    List<DishType> dishTypes = new List<DishType>();
+
+    List<Formula> formulas = new List<Formula>();
+    Formula newFormula = new Formula()
+    {
+        Id = -1,
+        Description = "",
+        Price = 0m,
+        DishTypes = new List<DishType>()
+    };
+
+    List<Menu> menus = new List<Menu>();
+    Menu newMenu = new Menu()
+    {
+        Id = -1,
+        Name = "",
+        Formulas = new List<Formula>()
+    };
+
+    Dictionary<int, DateTime> dates = new Dictionary<int, DateTime>();
+
+    protected override void OnInitialized()
+    {
+        restaurant = restaurantService.GetRestaurant();
+        dishes = restaurantMenuService.GetDishes();
+        dishTypes = restaurantMenuService.GetDishTypes();
+        formulas = restaurantMenuService.GetFormulas();
+        menus = restaurantMenuService.GetMenus();
+
+
+    }
+
+    #region Restaurant
+
+    private void SwitchWorkDayOpening(Period periodToChange)
+    {
+        foreach (var day in restaurant.WorkDays)
+        {
+            foreach (var period in day.Periods)
+            {
+                Console.WriteLine(period.IsActive);
+            }
+        }
+
+        periodToChange.IsActive = !periodToChange.IsActive;
+
+        foreach (var day in restaurant.WorkDays)
+        {
+            foreach (var period in day.Periods)
+            {
+                Console.WriteLine(period.IsActive);
+            }
+        }
+    }
+
+    private void UpdateRestaurant()
+    {
+        restaurantService.UpdateRestaurant(restaurant);
+
+        Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopRight;
+        Snackbar.Configuration.SnackbarVariant = Variant.Filled;
+        Snackbar.Add("Les plats ont été enregistrés", Severity.Success);
+    }
+
+    #endregion
+
+    #region Dish
+
+    private void AddDish(Dish newDish)
+    {
+        string warningMessage = "Ajout impossible:<br>";
+        if (string.IsNullOrWhiteSpace(newDish.Name))
+        {
+            warningMessage += "- Nom Manquant<br>";
+        }
+        if (dishes.Any(d => d.Name.ToLower() == newDish.Name.ToLower()))
+        {
+            warningMessage += "- Nom Existant<br>";
+        }
+        if (string.IsNullOrWhiteSpace(newDish.Description))
+        {
+            warningMessage += "- Description Manquante<br>";
+        }
+        if (newDish.Price <= 0)
+        {
+            warningMessage += "- Prix négatif<br>";
+        }
+
+        if (!string.IsNullOrWhiteSpace(newDish.Name) && !dishes.Any(d => d.Name.ToLower() == newDish.Name.ToLower()) && !string.IsNullOrWhiteSpace(newDish.Description) && newDish.Price > 0)
+        {
+            Dish dishToAdd = new Dish(newDish.Id, newDish.Name, newDish.Description, new DishType(newDish.DishType.Id, newDish.DishType.Name), newDish.Price);
+            dishes.Add(dishToAdd);
+            newDish.Name = "";
+            newDish.Description = "";
+            newDish.Price = 0m;
+            newDish.DishType.Id = 1;
+            newDish.DishType.Name = "Entrées";
+        }
+        else
+        {
+            Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopRight;
+            Snackbar.Configuration.SnackbarVariant = Variant.Filled;
+            Snackbar.Add($"{warningMessage}", Severity.Error);
+        }
+    }
+
+    private void RemoveDish(Dish dish)
+    {
+        dishes.Remove(dish);
+    }
+
+    private void SaveDishes()
+    {
+        restaurantMenuService.SaveDishes(dishes);
+
+        Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopRight;
+        Snackbar.Configuration.SnackbarVariant = Variant.Filled;
+        Snackbar.Add("Les plats ont été enregistrés", Severity.Success);
+    }
+
+    #endregion
+
+    #region Formula
+
+    private void AddFormula(Formula newFormula)
+    {
+        string warningMessage = "Ajout impossible:<br>";
+        if (string.IsNullOrWhiteSpace(newFormula.Description))
+        {
+            warningMessage += "- Description Manquante<br>";
+        }
+        if (formulas.Any(f => f.Description.ToLower() == newFormula.Description.ToLower()))
+        {
+            warningMessage += "- Description Existante<br>";
+        }
+        if (newFormula.Price <= 0)
+        {
+            warningMessage += "- Prix négatif<br>";
+        }
+        if (!newFormula.DishTypes.Any())
+        {
+            warningMessage += "- Aucun type de plat n'est sélectionné<br>";
+        }
+
+        if (!string.IsNullOrWhiteSpace(newFormula.Description) && !formulas.Any(f => f.Description.ToLower() == newFormula.Description.ToLower()) && newFormula.Price > 0 && newFormula.DishTypes.Any())
+        {
+            Formula formulaToAdd = new Formula()
+                {
+                    Id =  newFormula.Id,
+                    Description = newFormula.Description,
+                    Price = newFormula.Price,
+                    DishTypes = new List<DishType>()
+                };
+            foreach (var dt in newFormula.DishTypes)
+            {
+                formulaToAdd.DishTypes.Add(new DishType(dt.Id, dt.Name));
+            }
+
+            formulas.Add(formulaToAdd);
+
+            newFormula.Id -= 1;
+            newFormula.Description = "";
+            newFormula.Price = 0m;
+            newFormula.DishTypes.Clear();
+        }
+        else
+        {
+            Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopRight;
+            Snackbar.Configuration.SnackbarVariant = Variant.Filled;
+            Snackbar.Add($"{warningMessage}", Severity.Error);
+        }
+    }
+
+    private void RemoveFormula(Formula formula)
+    {
+        formulas.Remove(formula);   
+    }
+
+    private void ChangeDishType(DishType dt, Formula formula)
+    {
+        if (formula.DishTypes.Any(d => d.Id == dt.Id))
+        {
+            if (formulas.Find(f => f.Id == formula.Id) != null)
+            {
+                formulas.Find(f => f.Id == formula.Id)?.DishTypes.RemoveAll(d => d.Id == dt.Id);
+            }
+            else
+            {
+                newFormula.DishTypes.RemoveAll(d => d.Id == dt.Id);
+            }
+        }
+        else
+        {
+
+            if (formulas.Find(f => f.Id == formula.Id) != null)
+            {
+                formulas.Find(f => f.Id == formula.Id)?.DishTypes.Add(new DishType(dt.Id, dt.Name));
+            }
+            else
+            {
+                newFormula.DishTypes.Add(new DishType(dt.Id, dt.Name));
+            }
+
+        }
+    }
+
+    private void SaveFormulas()
+    {
+        restaurantMenuService.SaveFormulas(formulas);
+
+        Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopRight;
+        Snackbar.Configuration.SnackbarVariant = Variant.Filled;
+        Snackbar.Add("Les formules ont été enregistrés", Severity.Success);
+    }
+
+    #endregion
+
+    #region Menu
+
+        private void AddMenu(Menu newMenu)
+        {
+            string warningMessage = "Ajout impossible:<br>";
+            if (string.IsNullOrWhiteSpace(newMenu.Name))
+            {
+                warningMessage += "- Nom Manquant<br>";
+            }
+            if (newMenu.Name.Length > 50)
+            {
+                warningMessage += "- Nom trop long<br>";
+            }
+            if (menus.Any(m => m.Name.ToLower() == newMenu.Name.ToLower()))
+            {
+                warningMessage += "- Nom Existant<br>";
+            }
+            if (!newMenu.Formulas.Any())
+            {
+                warningMessage += "- Aucune formule n'est sélectionnée<br>";
+            }
+
+            if (!string.IsNullOrWhiteSpace(newMenu.Name) && !menus.Any(m => m.Name.ToLower() == newMenu.Name.ToLower()) && newMenu.Formulas.Any() && newMenu.Name.Length < 50)
+            {
+                Menu menuToAdd = new Menu()
+                    {
+                        Id = newMenu.Id,
+                        Name = newMenu.Name,
+                        Formulas = new List<Formula>()
+                    };
+                foreach (var f in newMenu.Formulas)
+                {
+                    menuToAdd.Formulas.Add(new Formula(f.Id, f.Description, f.Price, f.DishTypes));
+                }
+
+                menus.Add(menuToAdd);
+
+                newMenu.Id -= 1;
+                newMenu.Name = "";
+                newMenu.Formulas.Clear();
+            }
+            else
+            {
+                Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopRight;
+                Snackbar.Configuration.SnackbarVariant = Variant.Filled;
+                Snackbar.Add($"{warningMessage}", Severity.Error);
+            }
+        }
+
+        private void RemoveMenu(Menu menu)
+        {
+            menus.Remove(menu);
+        }
+
+        private void ChangeFormula(Formula formula, Menu menu)
+        {
+            if (menu.Formulas.Any(f => f.Id == formula.Id ))
+            {
+                if (menus.Find(m => m.Id == menu.Id) != null)
+                {
+                    menus.Find(m => m.Id == menu.Id)?.Formulas.RemoveAll(f => f.Id == formula.Id);
+                }
+                else
+                {
+                    newMenu.Formulas.RemoveAll(f => f.Id == formula.Id);
+                }
+            }
+            else
+            {
+                if (menus.Find(m => m.Id == menu.Id) != null)
+                {
+                    menus.Find(m => m.Id == menu.Id)?.Formulas.Add(new Formula(formula.Id, formula.Description, formula.Price, formula.DishTypes));
+                }
+                else
+                {
+                    newMenu.Formulas.Add(new Formula(formula.Id, formula.Description, formula.Price, formula.DishTypes));
+                }
+            }
+        }
+
+        private void SaveMenus()
+        {
+            restaurantMenuService.SaveMenus(menus);
+
+            Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopRight;
+            Snackbar.Configuration.SnackbarVariant = Variant.Filled;
+            Snackbar.Add("Les formules ont été enregistrés", Severity.Success);
+        }
+
+    #endregion
 }

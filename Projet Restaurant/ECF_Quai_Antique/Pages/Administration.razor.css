@@ -1,0 +1,228 @@
+﻿/* Main Page */
+
+.main-page{
+    background-color: #E9DDBE;
+}
+
+
+/* Header */
+
+.header{
+    padding-top: 1rem;
+    text-align: center;
+    font-family: "Karma";
+}
+
+.header > h1{
+    font-size: 3rem;
+}
+
+/* Body */
+
+.admin-body{
+    display: flex;
+    flex-direction: column;
+    padding: 0 2rem 1rem;
+}
+
+/* Sections */
+
+.setup-container{
+    display: block;
+    width: 100%;
+    background-color: rgba(160, 140, 90, 0.7);
+    padding: 1rem;
+    margin-top: 2rem;
+    border: 0.0625rem solid #785F37;
+    border-radius: 0.9375rem;
+}
+
+/* Title of sections */
+
+.title{
+    display: flex;
+    justify-content: space-between;
+    color: #16110F;
+    font-family: "Karma";
+    margin-bottom: 1rem;
+    margin-right: 1.25rem;
+}
+
+.section-title{
+    font-size: 2rem;
+}
+
+.validation-button{
+    font-size:1.5rem;
+}
+
+/* Inputs */
+
+.input-section {
+    display: flex;
+    justify-content: space-around;
+    color: #16110F;
+    font-family: "Arial";
+}
+
+.label-style {
+    font-size: 1.5rem;
+    border-radius: 0.9375rem;
+}
+
+.input-field {
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+    background-color: #E9DDBE;
+    border-radius: 0.9375rem;
+    font-size: 1.125rem;
+}
+
+
+/* WorkDay and WorkHours */
+
+.work-hours-title {
+    text-align: center;
+    color: #16110F;
+    font-size: 2rem;
+    font-family: "Karma";
+}
+
+.days-title{
+    display: flex;
+    flex-direction: row;
+}
+
+.day-column{
+    width: 12.5%;
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.first-day-column{
+    width: 10%;
+}
+
+.day-cell{
+    height: 1.75rem;
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    padding: 0.25rem 0;
+    font-family: "Arial";
+    font-size: 1rem;
+    color: #16110F;
+    font-weight: 600;
+}
+
+.time-input{
+    padding-left: 0.25rem;
+    background-color: #E9DDBE;
+    border-radius: 0.9375rem;
+}
+
+.isactive-switch{
+    height: 0.875rem;
+    width: 0.875rem;
+}
+
+/* Dishes */
+
+
+
+.dish-input-section {
+    display: flex;
+    flex-direction: column;
+    color: #16110F;
+    font-family: "Arial";
+}
+
+.dish-input-line{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom:0.5rem;
+}
+
+.dish-label {
+    border-radius: 0.9375rem;
+    align-self: center;
+    color: #16110F;
+    font-family: "Arial";
+    font-size: 1.25rem;
+}
+
+.dish-label > button{
+    margin-left: 2rem;
+}
+
+.dish-input-field {
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+    background-color: #E9DDBE;
+    border-radius: 0.9375rem;
+    font-size: 1.125rem;
+}
+
+textarea {
+    resize: none;
+}
+
+.label-adjuster{
+    display: flex;
+}
+
+.select-zone{
+    display: flex;
+    flex-direction: column;
+}
+
+/* Formulas */
+
+.formula-input-line {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.multiple-select{
+    display: flex;
+    flex-direction: column;
+}
+
+.formula-label {
+    border-radius: 0.9375rem;
+    align-self: center;
+    color: #16110F;
+    font-family: "Arial";
+    font-size: 1.25rem;
+}
+
+.formula-input-field {
+    padding: 0.5rem;
+    margin-left: 0.5rem ;
+    background-color: #E9DDBE;
+    border-radius: 0.9375rem;
+    font-size: 1.125rem;
+}
+
+.formula-adjuster{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.formula-checkbox{
+    height: 1.25rem;
+    width: 1.25rem;
+    background-color: #E9DDBE;
+}
+
+.formula-label > button{
+    margin-left: 2rem;
+}
+
+/* Menu */
