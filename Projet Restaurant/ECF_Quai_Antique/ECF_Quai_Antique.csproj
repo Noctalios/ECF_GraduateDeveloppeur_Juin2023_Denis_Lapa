@@ -8,12 +8,16 @@
 
   <ItemGroup>
     <None Remove="Pages\Administration.razor.css" />
+    <None Remove="Shared\DishElement.razor.css" />
     <None Remove="Shared\FootHours.razor.css" />
+    <None Remove="Shared\ReservationButton.razor.css" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Pages\Administration.razor.css" />
+    <Content Include="Shared\DishElement.razor.css" />
     <Content Include="Shared\FootHours.razor.css" />
+    <Content Include="Shared\ReservationButton.razor.css" />
   </ItemGroup>
 
   <ItemGroup>

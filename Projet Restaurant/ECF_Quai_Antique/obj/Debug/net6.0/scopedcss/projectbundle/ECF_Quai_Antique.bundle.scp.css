@@ -15,7 +15,7 @@
 }
 
 .header > h1[b-ent861kblg]{
-    font-size: 3rem;
+    font-size: 2.5rem;
 }
 
 /* Body */
@@ -227,6 +227,105 @@ textarea[b-ent861kblg] {
 }
 
 /* Menu */
+/* _content/ECF_Quai_Antique/Pages/Carte.razor.rz.scp.css */
+/* Page */
+
+.page-content[b-hkby1i3g8z]{
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Header */
+
+.header[b-hkby1i3g8z] {
+    padding-top: 1rem;
+    text-align: center;
+    color: #16110f;
+    font-family: "Karma";
+    font-size: 2.5rem;
+}
+
+/* Restaurant Menu */
+
+.restaurant-menu[b-hkby1i3g8z]{
+    display: flex;
+    flex-direction: row;
+    height: 60vh;
+    max-height: 60vh ;
+    overflow-y: auto;
+    margin: 0 1rem 0.5rem;
+    background-color: #A08C5A;
+    border: 0.0625rem solid #785F37;
+    border-radius: 0.9375rem;
+}
+
+.restaurant-menu > div[b-hkby1i3g8z]{
+    width: 33%;
+    margin: 0.75rem 0;
+    flex: auto;
+}
+
+.restaurant-menu-part[b-hkby1i3g8z]{
+    padding: 0 0.75rem;
+}
+
+/* Common */
+h2[b-hkby1i3g8z] {
+    color: #16110f;
+    font-family: "Karma";
+    font-size: 1.75rem;
+}
+
+/* Menu */
+
+.menu-element[b-hkby1i3g8z]{
+    display: flex;
+    flex-direction: column;
+    padding: 0.25rem;
+    margin: 0 0 0.25rem;
+    background-color: #785F37;
+    border: 0.0625rem solid #16110f;
+    border-radius: 0.5rem;
+    color: #E9DDBE;
+    font-family: "Arial";
+    font-size: 1rem;
+}
+
+.menu-name[b-hkby1i3g8z]{
+    align-self: center;
+    font-family: "Karma";
+    font-size: 1.5rem;
+}
+
+.formula[b-hkby1i3g8z] {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    font-family: "Arial";
+}
+/* _content/ECF_Quai_Antique/Shared/DishElement.razor.rz.scp.css */
+/* dish-element */
+
+.dish-element[b-whttfv2aq4]{
+    display: flex;
+    flex-direction: column;
+    padding: 0.25rem;
+    margin: 0 0 0.25rem;
+    background-color: #785F37;
+    border: 0.0625rem solid #16110f;
+    border-radius: 0.5rem;
+    color: #E9DDBE;
+    font-family: "Arial";
+    font-size: 1rem;
+}
+.dish-first-part[b-whttfv2aq4] {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 /* _content/ECF_Quai_Antique/Shared/FootHours.razor.rz.scp.css */
 /* WorkDay and WorkHours */
 
@@ -387,4 +486,18 @@ main[b-43kme8cigw] {
     .navbar-toggler[b-z630wsy62d] {
         display: none;
     }
+}
+/* _content/ECF_Quai_Antique/Shared/ReservationButton.razor.rz.scp.css */
+/* Reservation Button */
+
+.reservation-button[b-k771n9pi5i] {
+    height: 2rem;
+    align-self: center;
+    padding: 0.5rem;
+    background-color: #A08C5A;
+    border: 0.0625rem solid #785F37;
+    border-radius: 1.5rem;
+    color: #16110f;
+    font-family: "Arial";
+    font-size: 1.5rem;
 }
