@@ -7,50 +7,84 @@
 
 @page "/carte"
 
-<PageTitle>Counter</PageTitle>
-
-<h1>Counter</h1>
-
-<p role="status">Current count: @currentCount</p>
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
-<div>Le nom d'utilisateur est @CurrentUser.Email et son rôle est @CurrentUser.Role.Label</div>
-<button class="btn btn-secondary" @onclick="CreateUser">Click to create User</button>
-@foreach(var dish in dishes)
-{
-    <div>@dish.Id : @dish.Name : @dish.Description : @dish.Price : @dish.DishType.Id : @dish.DishType.Name</div>
-}
-<FootHours restaurant="restaurant" />
+<div class="page-content">
+    <PageTitle>Counter</PageTitle>
+    <h1 class="header">Carte du restaurant</h1>
+    <div class="restaurant-menu">
+        <div class="restaurant-menu-part">
+            <h2>Entrées :</h2>
+            @foreach (var dish in dishes.Where(d => d.DishType.Id == 1).OrderBy(d => d.Name))
+            {
+                <DishElement Dish="@dish"></DishElement>
+            }
+            <h2>Boissons :</h2>
+            @foreach (var dish in dishes.Where(d => d.DishType.Id == 2).OrderBy(d => d.Name))
+            {
+                <DishElement Dish="@dish"></DishElement>
+            }
+        </div>
+        <div>
+            <h2>Plats :</h2>
+            @foreach (var dish in dishes.Where(d => d.DishType.Id == 3).OrderBy(d => d.Name))
+            {
+                <DishElement Dish="@dish"></DishElement>
+            }
+        </div>
+        <div class="restaurant-menu-part">
+            <h2>Desserts :</h2>
+            @foreach (var dish in dishes.Where(d => d.DishType.Id == 4).OrderBy(d => d.Name))
+            {
+                <DishElement Dish="@dish"></DishElement>
+            }
+            <h2>Menus :</h2>
+            @foreach (var menu in menus)
+            {
+                <div class="menu-element">
+                    <div class="menu-name">@menu.Name</div>
+                    @foreach (var formula in menu.Formulas)
+                    {
+                        <div class="formula">
+                            <div>@formula.Description</div>
+                            <i>@DisplayFormulaDishTypes(formula.DishTypes)</i>
+                            <div>@formula.Price €</div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+    <ReservationButton Text="Réserver"/>
+    <FootHours restaurant="restaurant" />
+</div>
 
 @code {
-    private int currentCount = 0;
-
-    private string email = "adressmailfictive@gmail.com";
-    private string password = "456";
-
-    private User CurrentUser = new User();
     private List<Dish> dishes = new List<Dish>();
+    private List<Menu> menus = new List<Menu>();
     private Restaurant restaurant = new Restaurant();
 
     protected override void OnInitialized()
     {
-        CurrentUser = userService.GetUser(email, password);
         dishes = restaurantMenuService.GetDishes();
+        menus = restaurantMenuService.GetMenus();
         restaurant = restaurantService.GetRestaurant();
     }
 
-    private void IncrementCount()
+    private string DisplayFormulaDishTypes(List<DishType> dishTypes)
     {
-        currentCount++;
-    }
+        string dishTypeToDisplay = "";
 
-    private void CreateUser()
-    {
-        List<Allergie> allergies = new List<Allergie>()
+        foreach (var dish in dishTypes)
         {
-            new Allergie(19, "lait"){},
-            new Allergie(56, "opiacés"){}
-        };
-        userService.CreateUser("test", "test", 3, 2, allergies);
+            if (dish == dishTypes.First())
+            {
+                dishTypeToDisplay += $"{dish.Name}";
+            }
+            else
+            {
+                dishTypeToDisplay += $" + {dish.Name}";
+            }
+        }
+            
+        return dishTypeToDisplay += ".";
     }
 }
