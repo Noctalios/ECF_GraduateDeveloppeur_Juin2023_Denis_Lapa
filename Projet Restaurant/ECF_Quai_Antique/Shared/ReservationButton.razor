@@ -1,0 +1,38 @@
+﻿@using ECF_Quai_Antique.Entities
+@using ECF_Quai_Antique.BLL.Interfaces
+@using ECF_Quai_Antique.Pages;
+@inject IRestaurantService restaurantService
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+
+<button class="reservation-button" @onclick="CreateReservation">@Text</button>
+
+@code{
+    [Parameter]
+    public string Text { get; set; }
+
+    List<Booking> bookings = new List<Booking>();
+
+    private async Task CreateReservation()
+    {
+        bookings = restaurantService.GetBookings();
+
+        var options = new DialogOptions
+        {
+            CloseButton = true,
+            CloseOnEscapeKey = true,
+            FullWidth = true,
+            Position = DialogPosition.Center
+        };
+
+        var dialog = await DialogService.ShowAsync<Réservation>("Ma Réservation", options);
+        var result = await dialog.Result;
+
+        if (result.Data != null)
+        {
+            Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopRight;
+            Snackbar.Configuration.SnackbarVariant = Variant.Filled;
+            Snackbar.Add($"La réservation a été crée", Severity.Success);
+        }
+    }
+}

@@ -1,0 +1,14 @@
+﻿@using ECF_Quai_Antique.Entities
+
+<div class="dish-element">
+    <div class="dish-first-part">
+        <span>@Dish.Name</span>
+        <span>@Dish.Price €</span>
+    </div>
+    <i>@Dish.Description</i>
+</div>
+
+@code {
+    [Parameter]
+    public Dish Dish { get; set; }
+}

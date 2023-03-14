@@ -1,0 +1,19 @@
+﻿/* dish-element */
+
+.dish-element{
+    display: flex;
+    flex-direction: column;
+    padding: 0.25rem;
+    margin: 0 0 0.25rem;
+    background-color: #785F37;
+    border: 0.0625rem solid #16110f;
+    border-radius: 0.5rem;
+    color: #E9DDBE;
+    font-family: "Arial";
+    font-size: 1rem;
+}
+.dish-first-part {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

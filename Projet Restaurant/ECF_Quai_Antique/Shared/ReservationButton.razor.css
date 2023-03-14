@@ -1,0 +1,13 @@
+﻿/* Reservation Button */
+
+.reservation-button {
+    height: 2rem;
+    align-self: center;
+    padding: 0.5rem;
+    background-color: #A08C5A;
+    border: 0.0625rem solid #785F37;
+    border-radius: 1.5rem;
+    color: #16110f;
+    font-family: "Arial";
+    font-size: 1.5rem;
+}
