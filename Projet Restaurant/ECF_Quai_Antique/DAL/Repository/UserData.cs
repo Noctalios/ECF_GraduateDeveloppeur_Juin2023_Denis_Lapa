@@ -6,22 +6,33 @@ using System.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Common;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ECF_Quai_Antique.DAL.Repository
 {
     public class UserData : IUserData
     {
+        private IConfiguration Configuration;
+
+        public UserData(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        private string GetConnexionString()
+        {
+            return Configuration.GetConnectionString("DefaultConnection");
+        }
+
         #region CREATE
 
         public void CreateUser(string email, string password, int guest, int roleId, List<Allergie> allergies)
         {
             try
             {
-                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-                builder.ConnectionString = "Data Source=localhost\\SQLEXPRESS01;Initial Catalog=Restaurant;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False";
                 string sql = "EXEC [dbo].[CreateUser] @Email, @Password, @Guest, @RoleId, @Allergens ;";
 
-                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                using (SqlConnection connection = new SqlConnection(GetConnexionString()))
                 {
                     SqlCommand command = new SqlCommand(sql, connection);
 
@@ -54,14 +65,11 @@ namespace ECF_Quai_Antique.DAL.Repository
         {
             try
             {
-                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-                builder.ConnectionString = "Data Source=localhost\\SQLEXPRESS01;Initial Catalog=Restaurant;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False";
-                string sql = "EXEC [dbo].[GetUser] @Email, @Password ;";
-
                 Dictionary<int, User> result = new Dictionary<int, User>();
-                //User CurrentUser = new User();
 
-                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                string sql = "EXEC [dbo].[GetUser] @Emai4l, @Password ;";
+
+                using (SqlConnection connection = new SqlConnection(GetConnexionString()))
                 {
                     SqlCommand command = new SqlCommand(sql, connection);
 

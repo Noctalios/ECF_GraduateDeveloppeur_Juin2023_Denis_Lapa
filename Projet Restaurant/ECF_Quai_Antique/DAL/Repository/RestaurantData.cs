@@ -7,17 +7,27 @@ namespace ECF_Quai_Antique.DAL.Repository
 {
     public class RestaurantData : IRestaurantData
     {
+        private IConfiguration Configuration;
+
+        public RestaurantData(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        private string GetConnexionString()
+        {
+            return Configuration.GetConnectionString("DefaultConnection");
+        }
+
         #region CREATE
 
         public void CreateBookings(DateTime datetime, string name, int guest, List<Allergie> allergies)
         {
             try
             {
-                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-                builder.ConnectionString = "Data Source=localhost\\SQLEXPRESS01;Initial Catalog=Restaurant;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False";
                 string sql = "EXEC [dbo].[CreateBooking] @Date, @Name, @Guest, @Allergens ;";
 
-                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                using (SqlConnection connection = new SqlConnection(GetConnexionString()))
                 {
                     SqlCommand command = new SqlCommand(sql, connection);
 
@@ -49,13 +59,11 @@ namespace ECF_Quai_Antique.DAL.Repository
         {
             try
             {
-                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-                builder.ConnectionString = "Data Source=localhost\\SQLEXPRESS01;Initial Catalog=Restaurant;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False";
-                string sql = "EXEC [dbo].[GetRestaurant]";
-
                 Dictionary<int, Restaurant> result = new Dictionary<int, Restaurant>();
 
-                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                string sql = "EXEC [dbo].[GetRestaurant]";
+
+                using (SqlConnection connection = new SqlConnection(GetConnexionString()))
                 {
                     SqlCommand command = new SqlCommand(sql, connection);
 
@@ -142,13 +150,11 @@ namespace ECF_Quai_Antique.DAL.Repository
         {
             try
             {
-                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-                builder.ConnectionString = "Data Source=localhost\\SQLEXPRESS01;Initial Catalog=Restaurant;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False";
-                string sql = "EXEC [dbo].[GetBookings];";
-
                 Dictionary<int, Booking> result = new Dictionary<int, Booking>();
 
-                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                string sql = "EXEC [dbo].[GetBookings];";
+
+                using (SqlConnection connection = new SqlConnection(GetConnexionString()))
                 {
                     SqlCommand command = new SqlCommand(sql, connection);
 
@@ -220,12 +226,9 @@ namespace ECF_Quai_Antique.DAL.Repository
         {
             try
             {
-                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-                builder.ConnectionString = "Data Source=localhost\\SQLEXPRESS01;Initial Catalog=Restaurant;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False";
-
                 string sql = "EXEC [dbo].[UpdateRestaurant] @RestaurantId, @Guest, @Periods ;";
 
-                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                using (SqlConnection connection = new SqlConnection(GetConnexionString()))
                 {
                     SqlCommand command = new SqlCommand(sql, connection);
 

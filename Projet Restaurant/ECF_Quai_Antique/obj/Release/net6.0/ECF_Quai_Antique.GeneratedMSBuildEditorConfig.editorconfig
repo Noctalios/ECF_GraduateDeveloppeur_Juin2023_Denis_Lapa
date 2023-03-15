@@ -23,14 +23,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWNjZXVpbC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/ECF/ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa/Projet Restaurant/ECF_Quai_Antique/Pages/Administration.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5pc3RyYXRpb24ucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/ECF/ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa/Projet Restaurant/ECF_Quai_Antique/Pages/Carte.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FydGUucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/ECF/ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa/Projet Restaurant/ECF_Quai_Antique/Shared/SurveyPrompt.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -39,6 +31,26 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/ECF/ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa/Projet Restaurant/ECF_Quai_Antique/Pages/Administration.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5pc3RyYXRpb24ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-ent861kblg
+
+[D:/ECF/ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa/Projet Restaurant/ECF_Quai_Antique/Pages/Carte.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FydGUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-hkby1i3g8z
+
+[D:/ECF/ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa/Projet Restaurant/ECF_Quai_Antique/Pages/Réservation.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUsOpc2VydmF0aW9uLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-wbobh5sxgf
+
+[D:/ECF/ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa/Projet Restaurant/ECF_Quai_Antique/Shared/DishElement.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXERpc2hFbGVtZW50LnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-whttfv2aq4
+
+[D:/ECF/ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa/Projet Restaurant/ECF_Quai_Antique/Shared/FootHours.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXEZvb3RIb3Vycy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-nexupr79dx
+
 [D:/ECF/ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa/Projet Restaurant/ECF_Quai_Antique/Shared/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-43kme8cigw
@@ -46,6 +58,10 @@ build_metadata.AdditionalFiles.CssScope = b-43kme8cigw
 [D:/ECF/ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa/Projet Restaurant/ECF_Quai_Antique/Shared/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-z630wsy62d
+
+[D:/ECF/ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa/Projet Restaurant/ECF_Quai_Antique/Shared/ReservationButton.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFJlc2VydmF0aW9uQnV0dG9uLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-k771n9pi5i
 
 [D:/ECF/ECF_GraduateDeveloppeur_Juin2023_Denis_Lapa/Projet Restaurant/ECF_Quai_Antique/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
