@@ -168,22 +168,37 @@ namespace ECF_Quai_Antique.DAL.Repository
                             }
                             else
                             {
-                                Booking newBooking = new Booking()
-                                {
-                                    Id = reader.GetInt32("Id"),
-                                    Date = reader.GetDateTime(reader.GetOrdinal("Date")),
-                                    ClientName = reader.GetString(reader.GetOrdinal("Name")),
-                                    Guest = reader.GetInt32(reader.GetOrdinal("guest")),
-                                    Allergens = new List<Allergie>()
+                                if (!reader.IsDBNull("AllergieId")) 
+                                { 
+                                    Booking newBooking = new Booking()
                                     {
-                                        new Allergie()
+                                        Id = reader.GetInt32("Id"),
+                                        Date = reader.GetDateTime(reader.GetOrdinal("Date")),
+                                        ClientName = reader.GetString(reader.GetOrdinal("Name")),
+                                        Guest = reader.GetInt32(reader.GetOrdinal("guest")),
+                                        Allergens = new List<Allergie>()
                                         {
-                                            Id = reader.GetInt32("AllergieId"),
-                                            Name = reader.GetString("AllergieName")
+                                            new Allergie()
+                                            {
+                                                Id = reader.GetInt32("AllergieId"),
+                                                Name = reader.GetString("AllergieName")
+                                            }
                                         }
-                                    }
-                                };
-                                result.Add(reader.GetInt32("Id"), newBooking);
+                                    };
+                                    result.Add(reader.GetInt32("Id"), newBooking);
+                                }
+                                else
+                                {
+                                    Booking newBooking = new Booking()
+                                    {
+                                        Id = reader.GetInt32("Id"),
+                                        Date = reader.GetDateTime(reader.GetOrdinal("Date")),
+                                        ClientName = reader.GetString(reader.GetOrdinal("Name")),
+                                        Guest = reader.GetInt32(reader.GetOrdinal("guest")),
+                                        Allergens = new List<Allergie>(){}
+                                    };
+                                    result.Add(reader.GetInt32("Id"), newBooking);
+                                }
                             }
                         }
                     }

@@ -1,0 +1,259 @@
+﻿@using System
+@using System.Globalization
+@using ECF_Quai_Antique.Entities
+@using ECF_Quai_Antique.BLL.Interfaces
+
+@inject ISnackbar Snackbar
+@inject IRestaurantService restaurantService
+
+<style>
+    .mud-dialog-content, .mud-dialog-title {
+        background-color: #E9DDBE;
+    }
+
+    .mud-dialog-title{
+        text-align: center;
+    }
+
+</style>
+
+<MudDialog>
+    <DialogContent>
+        <div class="first-inputs">
+            <label>
+                Nom :
+                <input type="text" @bind="@booking.ClientName">
+            </label>
+            <label>
+                Couverts :
+                <input type="number" min="0" max="@restaurant.Guest" step="1" @bind="@booking.Guest" />
+            </label>
+        </div>
+        <div class="date-input">
+            <label>
+                Date :
+                <input type="date" min="@DateTime.Now" @bind="@booking.Date"/>
+            </label>
+        </div>
+        @foreach (var period in restaurant.WorkDays.Find(d => d.Day.Name.ToLower() == booking.Date.ToString("dddd", new CultureInfo("fr-FR"))).Periods)
+        {
+            <div>
+                <div class="period-title">@PeriodTitle(period.Service)</div>
+                @if(period.IsActive)
+                {
+                    <div class="booking-hours">
+                        @foreach(var value in HoursToDisplay(period.Open, period.Close).Values)
+                        {
+                            if (value.Hour == booking.Date.Hour && value.Minute == booking.Date.Minute)
+                            {
+                                <div class="booking-hour selected-date">@value.Hour.ToString("D2") : @value.Minute.ToString("D2")</div>
+                            }
+                            else
+                            {
+                                <div class="booking-hour" @onclick="()=>ChangeTime(value.Hour, value.Minute)">@value.Hour.ToString("D2") : @value.Minute.ToString("D2")</div>
+                            }
+                        }
+                    </div>
+                }
+                else
+                {
+                    <span class="closed-span">Fermé</span>
+                }
+            </div>
+        }
+        <label>Allergies: </label>
+        <div class="allergies-container">
+            @foreach (var allergie in booking.Allergens)
+            {
+                <div class="allergie-element">
+                    <input type="text" class="allergie-label" @bind="@allergie.Name"/>
+                    <button class="oi oi-minus" @onclick="()=>RemoveAllergie(allergie)"></button>
+                </div>
+            }
+            <div class="allergie-element">
+                <input type="text" class="allergie-label" @bind="@newAllergie.Name"/>
+                <button class="oi oi-plus" @onclick="()=>AddAllergie(newAllergie)"></button>
+            </div>
+        </div>
+        <div class="actions-buttons">
+            <button @onclick="CreateBooking">Créer</button>
+            <button @onclick="ClosePopUp">Annuler</button>
+        </div>
+    </DialogContent>
+</MudDialog>
+
+@code {
+    [CascadingParameter] 
+    MudDialogInstance MudDialog { get; set; }
+
+    private Booking booking = new Booking();
+
+    private Allergie newAllergie = new Allergie();
+
+    private Restaurant restaurant = new Restaurant();
+
+    private string PeriodTitle(int service)
+    {
+        if (service == 0)
+            return "Midi :";
+        else
+            return "Soir :";
+    }
+
+
+    protected override void OnInitialized()
+    {
+        booking.Id = -1;
+        booking.ClientName = "";
+        booking.Guest = 0;
+        booking.Date = DateTime.Now;
+        booking.Allergens = new List<Allergie>(){};
+        newAllergie = new Allergie(-1, "");
+
+        restaurant = restaurantService.GetRestaurant();
+    }
+
+    private void ClosePopUp()
+    {
+        MudDialog.Cancel();
+    }
+
+    private void CreateBooking()
+    {
+        int currentGuest = 0;
+        string warningMessage = "Création impossible:<br>";
+        bool checkDate = CheckDate(booking.Date);
+        List<Booking> bookings = restaurantService.GetBookings();
+
+        List<Booking> shiftBookings = new List<Booking>();
+        /* Get All the bookings related to the period where the new booking is created */
+        if (!checkDate)
+        {
+            Period periodOfSearch = restaurant.WorkDays
+                .Find(d => d.Day.Name.ToLower() == booking.Date.ToString("dddd", new CultureInfo("fr-FR"))).Periods
+                .Find(p => p.Open.TimeOfDay <= booking.Date.TimeOfDay && p.Close.TimeOfDay > booking.Date.TimeOfDay);
+
+            shiftBookings.AddRange
+            (
+                bookings.FindAll
+                (
+                    b => b.Date.TimeOfDay >= periodOfSearch.Open.TimeOfDay 
+                    && b.Date.TimeOfDay < periodOfSearch.Close.TimeOfDay 
+                    && b.Date.Date == booking.Date.Date
+                )
+            );
+        }
+        foreach (var shiftBooking in shiftBookings)
+        {
+            currentGuest += shiftBooking.Guest;
+        }
+
+        if (booking.Guest > restaurant.Guest - currentGuest) 
+        {
+            warningMessage += $"- Réservation impossible car il ne reste plus que {restaurant.Guest - currentGuest} places disponibles<br>";
+        }
+        if (booking.Guest <= 0)
+        {
+            warningMessage += $"- Veuillez saisir un nombre valide de couverts<br>";
+        }
+        if (checkDate)
+        {
+            warningMessage += $"- Merci de bien vouloir saisir un crénau horaire<br>";
+        }
+        if (string.IsNullOrWhiteSpace(booking.ClientName))
+        {
+            warningMessage += $"- Veuillez saisir un Nom<br>";
+        }
+
+        if ((booking.Guest <= restaurant.Guest - currentGuest) && (booking.Guest > 0) && !checkDate && !string.IsNullOrWhiteSpace(booking.ClientName))
+        {
+            restaurantService.CreateBookings(booking.Date, booking.ClientName, booking.Guest, booking.Allergens);
+            MudDialog.Close(DialogResult.Ok(booking));
+        }
+        else
+        {
+            Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopRight;
+            Snackbar.Configuration.SnackbarVariant = Variant.Filled;
+            Snackbar.Add($"{warningMessage}", Severity.Error);
+        }
+    }
+
+    private Dictionary<int, DateTime> HoursToDisplay(DateTime open, DateTime close)
+    {
+        Dictionary<int, DateTime> hoursToDisplay = new Dictionary<int, DateTime>();
+
+        close = close.AddHours(-1);
+        int i = 0;
+
+        while(open <= close)
+        {
+            hoursToDisplay.Add(i, open);
+            open = open.AddMinutes(15);
+            i++;
+        }
+        return hoursToDisplay;
+    }
+
+    private void ChangeTime(int hours, int minutes)
+    {
+        DateTime newDate = new DateTime
+        (
+            booking.Date.Year,
+            booking.Date.Month,
+            booking.Date.Day,
+            hours,
+            minutes,
+            booking.Date.Second,
+            booking.Date.Millisecond
+        );
+        booking.Date = newDate;
+    }
+
+    private void RemoveAllergie(Allergie allergie)
+    {
+        booking.Allergens.Remove(allergie);
+    }
+
+    private void AddAllergie(Allergie newAllergie)
+    {
+        string warningMessage = "Ajout impossible:<br>";
+        if (string.IsNullOrWhiteSpace(newAllergie.Name))
+        {
+            warningMessage += "- Nom Manquant<br>";
+        }
+        if (booking.Allergens.Any(a => a.Name.ToLower() == newAllergie.Name.ToLower()))
+        {
+            warningMessage += "- Nom Existant<br>";
+        }
+
+        if (!string.IsNullOrWhiteSpace(newAllergie.Name) && !booking.Allergens.Any(a => a.Name.ToLower() == newAllergie.Name.ToLower()))
+        {
+            Allergie allergieToAdd = new Allergie()
+            {
+                Id = newAllergie.Id,
+                Name = newAllergie.Name,
+            };
+
+            booking.Allergens.Add(allergieToAdd);
+
+            newAllergie.Id -= 1;
+            newAllergie.Name = "";
+        }
+        else
+        {
+            Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopRight;
+            Snackbar.Configuration.SnackbarVariant = Variant.Filled;
+            Snackbar.Add($"{warningMessage}", Severity.Error);
+        }
+    }
+
+    private bool CheckDate(DateTime dateToCheck)
+    {
+        foreach (var p in restaurant.WorkDays.Find(d => d.Day.Name.ToLower() == booking.Date.ToString("dddd", new CultureInfo("fr-FR"))).Periods.Where(p=>p.IsActive == true))
+        {
+            if (p.Open.TimeOfDay <= dateToCheck.TimeOfDay && p.Close.TimeOfDay > dateToCheck.TimeOfDay)
+                return false;
+        }
+        return true;
+    }
+}

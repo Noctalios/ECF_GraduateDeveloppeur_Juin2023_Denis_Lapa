@@ -1,0 +1,116 @@
+﻿/* Name and Guests */
+
+.first-inputs{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0.5rem;
+}
+
+/* Labels */
+
+label{
+    border-radius: 0.9375rem;
+    color: #16110F;
+    font-family: "Karma";
+    font-size: 1.25rem;
+}
+
+label > input{
+    width: 10rem;
+    padding: 0.25rem 0.5rem;
+    background-color: #A08C5A;
+    border: 0.0625rem solid #785f37;
+    border-radius: 0.9375rem;
+    font-family: "Arial";
+    font-size: 1rem;
+}
+
+label > input:first-child{
+    margin-right: 2rem;
+}
+
+/* Booking Hours */
+
+.period-title{
+    color: #16110F;
+    font-family: "Karma";
+    font-size: 1.25rem;
+}
+
+.booking-hours {
+    display: flex;
+    flex-direction: row;
+    cursor: default;
+    margin-bottom: 0.5rem;
+}
+
+.booking-hour {
+    padding: 0 0.5rem;
+    margin: 0 0.5rem 0 0;
+    background-color: #A08C5A;
+    border: 0.0625rem solid #785f37;
+    border-radius: 0.9375rem;
+    color: #16110F;
+    font-family: "Arial";
+    font-size: 1rem;
+}
+
+.selected-date {
+    border: 0.125rem solid #16110F;
+}
+
+.closed-span{
+    color: #16110F;
+    font-family:"Arial";
+    font-size: 1.125rem;
+}
+
+/* Date */
+
+.date-input{
+    margin-bottom: 0.5rem;
+}
+
+/* Action Button */
+
+.actions-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.actions-buttons > button:first-child{
+    margin-right:0.5rem;
+}
+
+.actions-buttons > button {
+    width: 5rem;
+    background-color: #A08C5A;
+    border: 0.0625rem solid #785f37;
+    border-radius: 0.9375rem;
+    color: #16110F;
+    font-family: "Arial";
+    font-size: 1rem;
+}
+
+/* Allergies */
+
+.allergies-container{
+    display:flex;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.allergie-element{
+    margin-right: 0.75rem;
+}
+
+.allergie-label{
+    width: 9rem;
+    padding-left: 0.5rem;
+    margin: 0 0.3125rem 0.25rem;
+    color: #16110F;
+    background: #A08C5A;
+    border: 0.0625rem solid #785f37;
+    border-radius: 0.9375rem;
+}
