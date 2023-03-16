@@ -12,6 +12,7 @@
     margin-bottom: 2rem;
 }
 
+
 .login-inputs > input {
     width: 100%;
     padding: 0.25rem 0.5rem;
@@ -23,15 +24,21 @@
     font-size: 1rem;
 }
 
-.edit-inputs > label{
-    display: block;
+/* Name and Guests */
+
+.first-inputs {
+    display: flex;
+    flex-direction: row;
+}
+
+.first-inputs > label{
     margin-bottom: 0.5rem;
     font-family: "Karma";
     font-size: 1.25rem;
 }
 
-.edit-inputs > input{
-    width: 9rem;
+.first-inputs> label > input{
+    width: 8.25rem;
     padding: 0 0.5rem;
     margin-bottom: 0.5rem;
     background-color: #A08C5A;
@@ -41,6 +48,12 @@
     font-size: 1rem;
 }
 
+.first-inputs > label:first-child{
+    margin-right: 1rem
+}
+.first-inputs > label:first-child >input{
+    width: 16rem;
+}
 /* Action Button */
 
 .actions-buttons {
@@ -73,6 +86,12 @@
 }
 
 /* Allergies */
+
+.edit-inputs > label {
+    font-family: "Karma";
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
 
 .allergies-container {
     display: flex;

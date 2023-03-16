@@ -13,7 +13,7 @@
     height: 10vh;
     color: #CBB681;
     border-bottom: 0.0625rem solid #E9DDBE;
-    background-color: #16110F
+    background-color: #16110F;
 }
 
 .header:first-child{
@@ -21,12 +21,22 @@
 }
 
 .img-header{
+    position:absolute;
+    left: 43%;
     height: 9vh;
     width: 18rem;
 }
 
 .connexion{
     padding-right: 2rem;
+}
+.connexion > span{
+    background-color: #CBB681;
+    padding:0.25rem 0.75rem; 
+    border-radius: 1.5rem;
+    color: #16110f;
+    font-family: "Arial";
+    font-size: 1rem;
 }
 
 /* NAV MENU*/

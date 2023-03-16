@@ -1,5 +1,5 @@
 ﻿@page "/administration"
-
+@attribute [Authorize(Roles = "Administrateur")]
 @using ECF_Quai_Antique.Entities
 @using ECF_Quai_Antique.BLL.Interfaces
 @inject IRestaurantService restaurantService

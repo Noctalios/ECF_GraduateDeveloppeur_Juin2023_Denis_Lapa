@@ -1,10 +1,11 @@
 ﻿@inherits LayoutComponentBase
-
 @using ECF_Quai_Antique.Pages
 @using ECF_Quai_Antique.Entities
-
+@using ECF_Quai_Antique.Authentication
 @inject IDialogService DialogService
 @inject ISnackbar Snackbar
+@inject AuthenticationStateProvider authStateProvider
+@inject NavigationManager navManager
 
 <MudThemeProvider/>
 <MudDialogProvider/>
@@ -19,7 +20,17 @@
         <div class="header">
             <button class="oi oi-menu" @onclick="ToggleNavMenu"></button>
             <img class="img-header" src="/css/Image/LogoQuaiAntique.png" />
-            <button class="connexion" @onclick="Connexion">Connexion</button>
+            <AuthorizeView>
+                <Authorized>
+                    <div class="connexion">
+                        <span>Bonjour @context.User.Identity.Name</span>
+                        <span @onclick="LogOut">Déconnexion</span>
+                    </div>
+                </Authorized>
+                <NotAuthorized>
+                    <button class="connexion" @onclick="Connexion">Connexion</button>
+                </NotAuthorized>
+            </AuthorizeView>
         </div>
         <div class="body">
             <div class="sidebar @displayMenu">
@@ -33,6 +44,9 @@
 </div>
 
 @code{
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationState{ get; set; }
+
     private bool collapseNavMenu = true;
 
     private string? displayMenu => collapseNavMenu ? "collapse" : null;
@@ -62,5 +76,12 @@
             Snackbar.Configuration.SnackbarVariant = Variant.Filled;
             Snackbar.Add($"Bonjour", Severity.Success);
         }
+    }
+
+    private async Task LogOut()
+    {
+        var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
+        await customAuthStateProvider.UpdateAuthenticationState(null);
+        navManager.NavigateTo("/", true);
     }
 }
