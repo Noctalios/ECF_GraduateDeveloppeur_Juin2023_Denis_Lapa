@@ -1,16 +1,22 @@
+using ECF_Quai_Antique.Authentication;
 using ECF_Quai_Antique.BLL.Interfaces;
 using ECF_Quai_Antique.BLL.Services;
 using ECF_Quai_Antique.DAL.Interfaces;
 using ECF_Quai_Antique.DAL.Repository;
 using ECF_Quai_Antique.Entities;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddAuthenticationCore();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddMudServices();
+builder.Services.AddScoped<ProtectedSessionStorage>();
+builder.Services.AddTransient<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 
 // Services related to DAL
 builder.Services.AddScoped<IUserData, UserData>();

@@ -3,7 +3,8 @@
 -- Create date: 23/02/2023
 -- Description:	Create a new User
 -- =============================================
-CREATE PROCEDURE [dbo].[CreateUser] 
+CREATE PROCEDURE [dbo].[CreateUser]
+	@Name		VARCHAR(MAX),
 	@Email		VARCHAR(255), 
 	@Password	VARCHAR(MAX),
 	@Guest		INT,
@@ -28,8 +29,8 @@ AS
 		--CREATE User
 
 		IF NOT EXISTS (SELECT Id FROM Users U WHERE U.Email = @Email AND U.[Password] = @Password)
-		INSERT INTO Users ([Email], [Password], [Guest], [RoleId])
-		VALUES (@Email, @Password, @Guest, @RoleId)
+		INSERT INTO Users ([Name], [Email], [Password], [Guest], [RoleId])
+		VALUES (@Name, @Email, @Password, @Guest, @RoleId)
 
 		--CREATE User allergens related 
 

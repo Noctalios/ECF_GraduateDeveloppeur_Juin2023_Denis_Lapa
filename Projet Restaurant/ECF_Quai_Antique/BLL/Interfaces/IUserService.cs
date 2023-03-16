@@ -6,6 +6,6 @@ namespace ECF_Quai_Antique.BLL.Interfaces
     {
         User GetUser(string email, string password);
 
-        void CreateUser(string email, string password, int guest, int roleId, List<Allergie> allergies);
+        void CreateUser(string name, string email, string password, int guest, int roleId, List<Allergie> allergies);
     }
 }

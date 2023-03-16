@@ -13,9 +13,9 @@ namespace ECF_Quai_Antique.BLL.Services
             UserData = userData;
         }
 
-        public void CreateUser(string email, string password, int guest, int roleId, List<Allergie> allergies)
+        public void CreateUser(string name, string email, string password, int guest, int roleId, List<Allergie> allergies)
         {
-            UserData.CreateUser(email, password, guest, roleId, allergies);
+            UserData.CreateUser(name, email, password, guest, roleId, allergies);
         }
 
         public User GetUser(string email, string password)

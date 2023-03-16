@@ -6,6 +6,6 @@ namespace ECF_Quai_Antique.DAL.Interfaces
     {
         User GetUser(string email, string password);
 
-        void CreateUser(string email, string password, int guest, int roleId, List<Allergie> allergies);
+        void CreateUser(string email, string password, string name, int guest, int roleId, List<Allergie> allergies);
     }
 }

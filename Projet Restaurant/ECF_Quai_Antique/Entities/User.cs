@@ -4,6 +4,8 @@
     {
         public int Id { get; set; }
 
+        public string Name { get; set; }
+
         public string Email { get; set; }
 
         public string Password { get; set; }
@@ -16,12 +18,13 @@
 
         public User() { }
 
-        public User(int id, string email, string password, int guest, List<Allergie> allergies, Role role) 
+        public User(int id, string name, string email, string password, int? guest, List<Allergie> allergies, Role role) 
         {
             Id = id;
+            Name = name;
             Email = email;
             Password = password;
-            Guest = guest;
+            Guest = guest ?? null;
             Allergies = allergies;
             Role = role;
         }

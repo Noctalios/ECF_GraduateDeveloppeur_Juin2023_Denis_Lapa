@@ -21,29 +21,29 @@ namespace ECF_Quai_Antique.DAL.Repository
             return Configuration.GetConnectionString("DefaultConnection");
         }
 
-        private string HashPassword(string password)
+        private string HashPassword(string password,string email)
         {
             SHA256 hash = SHA256.Create();
-            var passwordBytes = Encoding.Default.GetBytes($"{password}");
+            var passwordBytes = Encoding.Default.GetBytes($"{password}{email}");
             var hashedPassword = hash.ComputeHash(passwordBytes);
-
             return Convert.ToHexString(hashedPassword);
         }
 
         #region CREATE
 
-        public void CreateUser(string email, string password, int guest, int roleId, List<Allergie> allergies)
+        public void CreateUser(string name, string email, string password,int guest, int roleId, List<Allergie> allergies)
         {
             try
             {
-                string sql = "EXEC [dbo].[CreateUser] @Email, @Password, @Guest, @RoleId, @Allergens ;";
+                string sql = "EXEC [dbo].[CreateUser] @Name, @Email, @Password, @Guest, @RoleId, @Allergens ;";
 
                 using (SqlConnection connection = new SqlConnection(GetConnexionString()))
                 {
                     SqlCommand command = new SqlCommand(sql, connection);
 
+                    command.Parameters.AddWithValue("Name", name);
                     command.Parameters.AddWithValue("@Email", email);
-                    command.Parameters.AddWithValue("@Password", HashPassword(password));
+                    command.Parameters.AddWithValue("@Password", HashPassword(password, email));
                     command.Parameters.AddWithValue("@Guest", guest);
                     command.Parameters.AddWithValue("@RoleId", roleId);
 
@@ -80,7 +80,7 @@ namespace ECF_Quai_Antique.DAL.Repository
                     SqlCommand command = new SqlCommand(sql, connection);
 
                     command.Parameters.AddWithValue("@Email", email);
-                    command.Parameters.AddWithValue("@Password", HashPassword(password));
+                    command.Parameters.AddWithValue("@Password", HashPassword(password, email));
 
                     connection.Open();
 
@@ -93,9 +93,10 @@ namespace ECF_Quai_Antique.DAL.Repository
                                 User newUser = new User()
                                 {
                                     Id = reader.GetInt32("Id"),
+                                    Name = reader.GetString("Name"),
                                     Email = reader.GetString("Email"),
                                     Password = reader.GetString("Password"),
-                                    Guest = reader.IsDBNull(reader.GetInt32("Guest")) ? null : reader.GetInt32(reader.GetOrdinal("Guest")),
+                                    Guest = reader.IsDBNull(reader.GetOrdinal("Guest")) ? null : reader.GetInt32("Guest"),
                                     Role = new Role(reader.GetInt32("RoleId"), reader.GetString("RoleLabel")),
                                 };
                                 result.Add(reader.GetInt32("Id"), newUser);
@@ -115,9 +116,10 @@ namespace ECF_Quai_Antique.DAL.Repository
                                     User newUser = new User()
                                     {
                                         Id = reader.GetInt32("Id"),
+                                        Name = reader.GetString("Name"),
                                         Email = reader.GetString("Email"),
                                         Password = reader.GetString("Password"),
-                                        Guest = reader.IsDBNull(reader.GetInt32("Guest")) ? null : reader.GetInt32(reader.GetOrdinal("Guest")),
+                                        Guest = reader.IsDBNull(reader.GetOrdinal("Guest")) ? null : reader.GetInt32("Guest") ,
                                         Role = new Role(reader.GetInt32("RoleId"), reader.GetString("RoleLabel")),
                                         Allergies = new List<Allergie>()
                                         {

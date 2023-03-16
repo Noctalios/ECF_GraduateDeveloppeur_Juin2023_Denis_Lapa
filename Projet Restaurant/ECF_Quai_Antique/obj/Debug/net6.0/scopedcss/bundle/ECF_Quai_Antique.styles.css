@@ -347,6 +347,7 @@ h2[b-hkby1i3g8z] {
     margin-bottom: 2rem;
 }
 
+
 .login-inputs > input[b-7pmfnuw4k0] {
     width: 100%;
     padding: 0.25rem 0.5rem;
@@ -358,15 +359,21 @@ h2[b-hkby1i3g8z] {
     font-size: 1rem;
 }
 
-.edit-inputs > label[b-7pmfnuw4k0]{
-    display: block;
+/* Name and Guests */
+
+.first-inputs[b-7pmfnuw4k0] {
+    display: flex;
+    flex-direction: row;
+}
+
+.first-inputs > label[b-7pmfnuw4k0]{
     margin-bottom: 0.5rem;
     font-family: "Karma";
     font-size: 1.25rem;
 }
 
-.edit-inputs > input[b-7pmfnuw4k0]{
-    width: 9rem;
+.first-inputs> label > input[b-7pmfnuw4k0]{
+    width: 8.25rem;
     padding: 0 0.5rem;
     margin-bottom: 0.5rem;
     background-color: #A08C5A;
@@ -376,6 +383,12 @@ h2[b-hkby1i3g8z] {
     font-size: 1rem;
 }
 
+.first-inputs > label:first-child[b-7pmfnuw4k0]{
+    margin-right: 1rem
+}
+.first-inputs > label:first-child >input[b-7pmfnuw4k0]{
+    width: 16rem;
+}
 /* Action Button */
 
 .actions-buttons[b-7pmfnuw4k0] {
@@ -408,6 +421,12 @@ h2[b-hkby1i3g8z] {
 }
 
 /* Allergies */
+
+.edit-inputs > label[b-7pmfnuw4k0] {
+    font-family: "Karma";
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
 
 .allergies-container[b-7pmfnuw4k0] {
     display: flex;
