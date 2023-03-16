@@ -1,29 +1,3 @@
-/* _content/ECF_Quai_Antique/Pages/Acceuil.razor.rz.scp.css */
-/* Main Page */
-
-.main-page[b-0js013y8ly] {
-    background-color: #E9DDBE;
-    padding-bottom: 1rem;
-}
-
-/* Header */
-
-.header[b-0js013y8ly] {
-    padding-top: 1rem;
-    text-align: center;
-    font-family: "Karma";
-}
-
-.header > h1[b-0js013y8ly] {
-    font-size: 2.5rem;
-}
-
-/* Body */
-
-.acceuil-body[b-0js013y8ly] {
-    display: flex;
-    flex-direction: column;
-}
 /* _content/ECF_Quai_Antique/Pages/Administration.razor.rz.scp.css */
 /* Main Page */
 
@@ -37,7 +11,9 @@
 .header[b-ent861kblg]{
     padding-top: 1rem;
     text-align: center;
+    color: #16110F;
     font-family: "Karma";
+    border:none;
 }
 
 .header > h1[b-ent861kblg]{
@@ -253,6 +229,28 @@ textarea[b-ent861kblg] {
 }
 
 /* Menu */
+
+@media screen and (max-width: 1600px) {
+    .days-title[b-ent861kblg] {
+        flex-direction: column;
+    }
+
+    .day-column[b-ent861kblg], .first-day-column[b-ent861kblg] {
+        width: 100%;
+        flex-direction: row;
+    }
+
+    .day-cell[b-ent861kblg] {
+        width: 32%;
+    }
+
+    .dish-input-line[b-ent861kblg], .formula-input-line[b-ent861kblg]{
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        row-gap: 0.25rem;
+        margin-bottom: 2rem;
+    }
+}
 /* _content/ECF_Quai_Antique/Pages/Carte.razor.rz.scp.css */
 /* Page */
 
@@ -271,6 +269,7 @@ textarea[b-ent861kblg] {
     color: #16110f;
     font-family: "Karma";
     font-size: 2.5rem;
+    border: none;
 }
 
 /* Restaurant Menu */
@@ -608,7 +607,6 @@ label > input:first-child[b-wbobh5sxgf]{
 
 .day-column[b-nexupr79dx]{
     width: 12.5%;
-    display: inline-flex;
     flex-direction: column;
 }
 
@@ -627,6 +625,22 @@ label > input:first-child[b-wbobh5sxgf]{
     font-size: 1rem;
     color: #16110F;
     font-weight: 600;
+}
+
+@media screen and (max-width: 690px)
+{
+    .days-zone[b-nexupr79dx]{
+        flex-direction: column;
+    }
+
+    .day-column[b-nexupr79dx], .first-day-column[b-nexupr79dx]{
+        width: 100%;
+        flex-direction: row;
+    }
+
+    .day-cell[b-nexupr79dx]{
+        width: 32%;
+    }
 }
 /* _content/ECF_Quai_Antique/Shared/MainLayout.razor.rz.scp.css */
 .page[b-43kme8cigw] {

@@ -21,7 +21,6 @@
 
 .day-column{
     width: 12.5%;
-    display: inline-flex;
     flex-direction: column;
 }
 
@@ -40,4 +39,20 @@
     font-size: 1rem;
     color: #16110F;
     font-weight: 600;
+}
+
+@media screen and (max-width: 690px)
+{
+    .days-zone{
+        flex-direction: column;
+    }
+
+    .day-column, .first-day-column{
+        width: 100%;
+        flex-direction: row;
+    }
+
+    .day-cell{
+        width: 32%;
+    }
 }

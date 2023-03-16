@@ -30,11 +30,20 @@
                 <label>Email :</label>
                 <input type="email" @bind="@email" />
             </div>
-            <div class="login-inputs">
-                <label>Mot de passe :</label>
-                <input type="text" @bind="@password" />
-            </div>
-            @if(!EditingUser)
+                <div class="login-inputs">
+                <label>Mot de passe :
+                    <button class="oi oi-eye" @onclick="SwitchViewPassword"></button>
+                </label>
+                @if (viewPassword)
+                {
+                    <input type="text" @bind="@password" />
+                }
+                else
+                {
+                <input type="password" @bind="@password" />
+                }
+            </div>       
+            @if(!editingUser)
             {
                 <div class="edit-inputs">
                     <div class="first-inputs">
@@ -62,17 +71,17 @@
                     </div>
                 </div>
             }
-            @if (EditingUser)
+            @if (editingUser)
             {
-                <button class="editing-button" @onclick="SwitchBoolean">Créer un compte ?</button>
+                <button class="editing-button" @onclick="SwitchEditingUser">Créer un compte ?</button>
             }
             else
             {
-                <button class="editing-button" @onclick="SwitchBoolean">Se connecter ?</button>
+                <button class="editing-button" @onclick="SwitchEditingUser">Se connecter ?</button>
             }
         </div>
         <div class="actions-buttons">
-            @if (EditingUser)
+            @if (editingUser)
             {
                 <button @onclick="()=>OnLogin(email, password)">Se Connecter</button>
             }
@@ -95,18 +104,24 @@
     private int guest = 0;
     private List<Allergie> allergies = new List<Allergie>();
     private Allergie newAllergie = new Allergie();
-    private bool EditingUser = true;
-
     public User currentUser = new User();
+
+    private bool editingUser = true;
+    private bool viewPassword = false;
 
     protected override void OnInitialized()
     {
         newAllergie = new Allergie(-1, "");
     }
 
-    private void SwitchBoolean()
+    private void SwitchViewPassword()
     {
-        EditingUser = !EditingUser;
+        viewPassword = !viewPassword;
+    }
+
+    private void SwitchEditingUser()
+    {
+        editingUser = !editingUser;
     }
 
     #region Connect

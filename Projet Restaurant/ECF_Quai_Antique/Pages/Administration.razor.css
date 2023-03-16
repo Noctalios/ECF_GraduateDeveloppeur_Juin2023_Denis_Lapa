@@ -10,7 +10,9 @@
 .header{
     padding-top: 1rem;
     text-align: center;
+    color: #16110F;
     font-family: "Karma";
+    border:none;
 }
 
 .header > h1{
@@ -226,3 +228,25 @@ textarea {
 }
 
 /* Menu */
+
+@media screen and (max-width: 1600px) {
+    .days-title {
+        flex-direction: column;
+    }
+
+    .day-column, .first-day-column {
+        width: 100%;
+        flex-direction: row;
+    }
+
+    .day-cell {
+        width: 32%;
+    }
+
+    .dish-input-line, .formula-input-line{
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        row-gap: 0.25rem;
+        margin-bottom: 2rem;
+    }
+}
