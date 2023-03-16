@@ -1,3 +1,29 @@
+/* _content/ECF_Quai_Antique/Pages/Acceuil.razor.rz.scp.css */
+/* Main Page */
+
+.main-page[b-0js013y8ly] {
+    background-color: #E9DDBE;
+    padding-bottom: 1rem;
+}
+
+/* Header */
+
+.header[b-0js013y8ly] {
+    padding-top: 1rem;
+    text-align: center;
+    font-family: "Karma";
+}
+
+.header > h1[b-0js013y8ly] {
+    font-size: 2.5rem;
+}
+
+/* Body */
+
+.acceuil-body[b-0js013y8ly] {
+    display: flex;
+    flex-direction: column;
+}
 /* _content/ECF_Quai_Antique/Pages/Administration.razor.rz.scp.css */
 /* Main Page */
 
@@ -23,7 +49,7 @@
 .admin-body[b-ent861kblg]{
     display: flex;
     flex-direction: column;
-    padding: 0 2rem 1rem;
+    padding: 0 1rem 1rem;
 }
 
 /* Sections */
@@ -305,6 +331,102 @@ h2[b-hkby1i3g8z] {
     justify-content: space-between;
     margin-top: 0.5rem;
     font-family: "Arial";
+}
+/* _content/ECF_Quai_Antique/Pages/Connexion.razor.rz.scp.css */
+/* Labels */
+
+.login-inputs > label[b-7pmfnuw4k0] {
+    display: block;
+    border-radius: 0.9375rem;
+    color: #16110F;
+    font-family: "Karma";
+    font-size: 1.25rem;
+}
+
+.logins-container[b-7pmfnuw4k0]{
+    margin-bottom: 2rem;
+}
+
+.login-inputs > input[b-7pmfnuw4k0] {
+    width: 100%;
+    padding: 0.25rem 0.5rem;
+    margin: 0.5rem 0 1rem;
+    background-color: #A08C5A;
+    border: 0.0625rem solid #785f37;
+    border-radius: 0.9375rem;
+    font-family: "Arial";
+    font-size: 1rem;
+}
+
+.edit-inputs > label[b-7pmfnuw4k0]{
+    display: block;
+    margin-bottom: 0.5rem;
+    font-family: "Karma";
+    font-size: 1.25rem;
+}
+
+.edit-inputs > input[b-7pmfnuw4k0]{
+    width: 9rem;
+    padding: 0 0.5rem;
+    margin-bottom: 0.5rem;
+    background-color: #A08C5A;
+    border: 0.0625rem solid #785f37;
+    border-radius: 0.9375rem;
+    font-family: "Arial";
+    font-size: 1rem;
+}
+
+/* Action Button */
+
+.actions-buttons[b-7pmfnuw4k0] {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.actions-buttons > button:first-child[b-7pmfnuw4k0] {
+    margin-right: 0.5rem;
+}
+
+.actions-buttons > button[b-7pmfnuw4k0] {
+    width: 8rem;
+    background-color: #A08C5A;
+    border: 0.0625rem solid #785f37;
+    border-radius: 0.9375rem;
+    color: #16110F;
+    font-family: "Arial";
+    font-size: 1rem;
+}
+
+/* Editing button */
+
+.editing-button[b-7pmfnuw4k0]{
+    font-family: "Arial";
+    font-size: 1rem;
+    text-decoration: underline solid #785f37;
+    font-style: italic;
+}
+
+/* Allergies */
+
+.allergies-container[b-7pmfnuw4k0] {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.allergie-element[b-7pmfnuw4k0] {
+    margin-right: 0.75rem;
+}
+
+.allergie-label[b-7pmfnuw4k0] {
+    width: 9rem;
+    padding-left: 0.5rem;
+    margin: 0 0.3125rem 0.25rem;
+    color: #16110F;
+    background: #A08C5A;
+    border: 0.0625rem solid #785f37;
+    border-radius: 0.9375rem;
 }
 /* _content/ECF_Quai_Antique/Pages/Réservation.razor.rz.scp.css */
 /* Name and Guests */

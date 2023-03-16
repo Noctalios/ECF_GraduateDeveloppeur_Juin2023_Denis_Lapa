@@ -1,0 +1,216 @@
+﻿@using System
+@using System.Globalization
+@using ECF_Quai_Antique.Entities
+@using ECF_Quai_Antique.BLL.Interfaces
+
+@inject IUserService userService
+@inject ISnackbar Snackbar
+@inject IRestaurantService restaurantService
+
+<style>
+    .mud-dialog-content, .mud-dialog-title {
+        background-color: #E9DDBE;
+    }
+
+    .mud-dialog-title {
+        text-align: center;
+    }
+
+</style>
+
+<MudDialog>
+    <DialogContent>
+        <div class="logins-container">
+            <div class="login-inputs">
+                <label>Email :</label>
+                <input type="email" @bind="@email" />
+            </div>
+            <div class="login-inputs">
+                <label>Mot de passe :</label>
+                <input type="text" @bind="@password" />
+            </div>
+            @if(!EditingUser)
+            {
+                <div class="edit-inputs">
+                    <label>Couverts :</label>
+                    <input type="number" min="0" @bind="@guest"/>
+                    <label>Allergies: </label>
+                    <div class="allergies-container">
+                        @foreach (var allergie in allergies)
+                        {
+                            <div class="allergie-element">
+                                <input type="text" class="allergie-label" @bind="@allergie.Name" />
+                                <button class="oi oi-minus" @onclick="()=>RemoveAllergie(allergie)"></button>
+                            </div>
+                        }
+                        <div class="allergie-element">
+                            <input type="text" class="allergie-label" @bind="@newAllergie.Name" />
+                            <button class="oi oi-plus" @onclick="()=>AddAllergie(newAllergie)"></button>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (EditingUser)
+            {
+                <button class="editing-button" @onclick="SwitchBoolean">Créer un compte ?</button>
+            }
+            else
+            {
+                <button class="editing-button" @onclick="SwitchBoolean">Se connecter ?</button>
+            }
+        </div>
+        <div class="actions-buttons">
+            @if (EditingUser)
+            {
+                <button @onclick="()=>OnLogin(email, password)">Se Connecter</button>
+            }
+            else
+            {
+                <button @onclick="()=>OnCreate(email, password, guest, allergies)">Créer</button>
+            }
+            <button @onclick="ClosePopUp">Annuler</button>
+        </div>
+    </DialogContent>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    MudDialogInstance MudDialog { get; set; }
+
+    private string email = "";
+    private string password = "";
+    private int guest = 0;
+    private List<Allergie> allergies = new List<Allergie>();
+    private Allergie newAllergie = new Allergie();
+    private bool EditingUser = true;
+
+    public User currentUser = new User();
+
+    protected override void OnInitialized()
+    {
+        newAllergie = new Allergie(-1, "");
+    }
+
+    private void SwitchBoolean()
+    {
+        EditingUser = !EditingUser;
+    }
+
+    #region Connect
+
+    private void OnLogin(string email, string password)
+    {
+        string warningMessage = "Création impossible:<br>";
+        if (string.IsNullOrWhiteSpace(email))
+        {
+            warningMessage += $"- Veuillez saisir un Email<br>";
+        }
+        if (string.IsNullOrWhiteSpace(password))
+        {
+            warningMessage += $"- Veuillez saisir un Mot de Passe<br>";
+        }
+
+        if (!string.IsNullOrWhiteSpace(email) && !string.IsNullOrWhiteSpace(password))
+        {
+            currentUser = userService.GetUser(email, password);
+            if (currentUser == null)
+            {
+                Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopRight;
+                Snackbar.Configuration.SnackbarVariant = Variant.Filled;
+                Snackbar.Add($"Email ou Mot de passe invalide", Severity.Error);
+            }
+            else
+            {
+                MudDialog.Close(DialogResult.Ok(currentUser));
+            }
+        }
+        else
+        {
+            Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopRight;
+            Snackbar.Configuration.SnackbarVariant = Variant.Filled;
+            Snackbar.Add($"{warningMessage}", Severity.Error);
+        }
+    }
+
+    private void ClosePopUp()
+    {
+        MudDialog.Cancel();
+    }
+
+
+    #endregion
+
+    #region Edit
+
+    private void OnCreate(string email, string password, int guest, List<Allergie> allergies)
+    {
+        string warningMessage = "Création impossible:<br>";
+        if (string.IsNullOrWhiteSpace(email))
+        {
+            warningMessage += $"- Veuillez saisir un Email<br>";
+        }
+        if (string.IsNullOrWhiteSpace(password))
+        {
+            warningMessage += $"- Veuillez saisir un Mot de Passe<br>";
+        }
+        if ( guest <= 0)
+        {
+            warningMessage += $"- Les couverts ne peuvent pas être nuls";
+        }
+
+        if (!string.IsNullOrWhiteSpace(email) && !string.IsNullOrWhiteSpace(password) && guest > 0)
+        {
+            userService.CreateUser(email, password, guest, 2, allergies);
+
+            Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopRight;
+            Snackbar.Configuration.SnackbarVariant = Variant.Filled;
+            Snackbar.Add($"Vous avez bien été enregistré", Severity.Error);
+        }
+        else
+        {
+            Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopRight;
+            Snackbar.Configuration.SnackbarVariant = Variant.Filled;
+            Snackbar.Add($"{warningMessage}", Severity.Error);
+        }
+    }
+
+    private void RemoveAllergie(Allergie allergie)
+    {
+        allergies.Remove(allergie);
+    }
+
+    private void AddAllergie(Allergie newAllergie)
+    {
+        string warningMessage = "Ajout impossible:<br>";
+        if (string.IsNullOrWhiteSpace(newAllergie.Name))
+        {
+            warningMessage += "- Nom Manquant<br>";
+        }
+        if (allergies.Any(a => a.Name.ToLower() == newAllergie.Name.ToLower()))
+        {
+            warningMessage += "- Nom Existant<br>";
+        }
+
+        if (!string.IsNullOrWhiteSpace(newAllergie.Name) && !allergies.Any(a => a.Name.ToLower() == newAllergie.Name.ToLower()))
+        {
+            Allergie allergieToAdd = new Allergie()
+                {
+                    Id = newAllergie.Id,
+                    Name = newAllergie.Name,
+                };
+
+            allergies.Add(allergieToAdd);
+
+            newAllergie.Id -= 1;
+            newAllergie.Name = "";
+        }
+        else
+        {
+            Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopRight;
+            Snackbar.Configuration.SnackbarVariant = Variant.Filled;
+            Snackbar.Add($"{warningMessage}", Severity.Error);
+        }
+    }
+
+    #endregion
+}

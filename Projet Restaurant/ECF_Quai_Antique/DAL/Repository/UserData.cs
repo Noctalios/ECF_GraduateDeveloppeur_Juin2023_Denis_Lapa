@@ -1,12 +1,9 @@
 ﻿using ECF_Quai_Antique.DAL.Interfaces;
 using ECF_Quai_Antique.Entities;
 using Microsoft.Data.SqlClient;
-using System;
 using System.Data;
-using System.Collections.Generic;
-using System.Linq;
-using System.Data.Common;
-using Microsoft.AspNetCore.Mvc;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace ECF_Quai_Antique.DAL.Repository
 {
@@ -24,6 +21,15 @@ namespace ECF_Quai_Antique.DAL.Repository
             return Configuration.GetConnectionString("DefaultConnection");
         }
 
+        private string HashPassword(string password)
+        {
+            SHA256 hash = SHA256.Create();
+            var passwordBytes = Encoding.Default.GetBytes($"{password}");
+            var hashedPassword = hash.ComputeHash(passwordBytes);
+
+            return Convert.ToHexString(hashedPassword);
+        }
+
         #region CREATE
 
         public void CreateUser(string email, string password, int guest, int roleId, List<Allergie> allergies)
@@ -37,7 +43,7 @@ namespace ECF_Quai_Antique.DAL.Repository
                     SqlCommand command = new SqlCommand(sql, connection);
 
                     command.Parameters.AddWithValue("@Email", email);
-                    command.Parameters.AddWithValue("@Password", password);
+                    command.Parameters.AddWithValue("@Password", HashPassword(password));
                     command.Parameters.AddWithValue("@Guest", guest);
                     command.Parameters.AddWithValue("@RoleId", roleId);
 
@@ -67,14 +73,14 @@ namespace ECF_Quai_Antique.DAL.Repository
             {
                 Dictionary<int, User> result = new Dictionary<int, User>();
 
-                string sql = "EXEC [dbo].[GetUser] @Emai4l, @Password ;";
+                string sql = "EXEC [dbo].[GetUser] @Email, @Password ;";
 
                 using (SqlConnection connection = new SqlConnection(GetConnexionString()))
                 {
                     SqlCommand command = new SqlCommand(sql, connection);
 
                     command.Parameters.AddWithValue("@Email", email);
-                    command.Parameters.AddWithValue("@Password", password);
+                    command.Parameters.AddWithValue("@Password", HashPassword(password));
 
                     connection.Open();
 
@@ -127,7 +133,6 @@ namespace ECF_Quai_Antique.DAL.Repository
                             }
                         }
                     }
-
                     connection.Close();
                 }
                 return result.Values.FirstOrDefault();

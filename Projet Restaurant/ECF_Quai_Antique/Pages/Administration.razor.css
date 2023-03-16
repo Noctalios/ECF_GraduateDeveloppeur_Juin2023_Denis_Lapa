@@ -22,7 +22,7 @@
 .admin-body{
     display: flex;
     flex-direction: column;
-    padding: 0 2rem 1rem;
+    padding: 0 1rem 1rem;
 }
 
 /* Sections */

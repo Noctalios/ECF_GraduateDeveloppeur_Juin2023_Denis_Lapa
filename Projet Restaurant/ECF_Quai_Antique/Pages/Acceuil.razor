@@ -3,11 +3,15 @@
 @using ECF_Quai_Antique.BLL.Interfaces
 @inject IRestaurantService restaurantService
 
-
-<PageTitle>Acceuil</PageTitle>
-
-<ReservationButton Text="Réserver" />
-<FootHours restaurant="restaurant" />
+<div class="main-page">
+    <div class="header">
+        <h1>Acceuil</h1>
+    </div>
+    <div class="acceuil-body">
+        <ReservationButton Text="Réserver" />
+        <FootHours restaurant="restaurant" />
+    </div>
+</div>
 
 @code{
     Restaurant restaurant = new Restaurant();

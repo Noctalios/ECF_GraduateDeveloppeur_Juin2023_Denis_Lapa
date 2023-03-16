@@ -1,15 +1,25 @@
 ﻿@inherits LayoutComponentBase
 
+@using ECF_Quai_Antique.Pages
+@using ECF_Quai_Antique.Entities
+
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+
 <MudThemeProvider/>
 <MudDialogProvider/>
 <MudSnackbarProvider/>
+
+<style>
+
+</style>
 
 <div class="page">
     <main>
         <div class="header">
             <button class="oi oi-menu" @onclick="ToggleNavMenu"></button>
             <img class="img-header" src="/css/Image/LogoQuaiAntique.png" />
-            <span class="connexion">Connexion</span>
+            <button class="connexion" @onclick="Connexion">Connexion</button>
         </div>
         <div class="body">
             <div class="sidebar @displayMenu">
@@ -32,5 +42,25 @@
         collapseNavMenu = !collapseNavMenu;
     }
 
+    private async Task Connexion()
+    {
+        var options = new DialogOptions
+            {
+                CloseButton = true,
+                CloseOnEscapeKey = true,
+                FullWidth = true,
+                Position = DialogPosition.Center
+            };
 
+        var dialog = await DialogService.ShowAsync<Connexion>("Connexion", options);
+        var result = await dialog.Result;
+
+        if (result.Data != null)
+        {
+            User currentUser = (User)result.Data;
+            Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopRight;
+            Snackbar.Configuration.SnackbarVariant = Variant.Filled;
+            Snackbar.Add($"Bonjour", Severity.Success);
+        }
+    }
 }
