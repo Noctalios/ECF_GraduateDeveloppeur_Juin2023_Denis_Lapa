@@ -8,6 +8,6 @@
         
         public string Role { get; set; }
         
-
+        public string Hash { get; set; }
     }
 }

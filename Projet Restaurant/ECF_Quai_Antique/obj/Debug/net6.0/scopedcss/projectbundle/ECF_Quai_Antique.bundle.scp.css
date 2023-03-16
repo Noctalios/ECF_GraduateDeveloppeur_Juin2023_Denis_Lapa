@@ -489,13 +489,13 @@ label > input:first-child[b-wbobh5sxgf]{
 .booking-hours[b-wbobh5sxgf] {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     cursor: default;
-    margin-bottom: 0.5rem;
 }
 
 .booking-hour[b-wbobh5sxgf] {
     padding: 0 0.5rem;
-    margin: 0 0.5rem 0 0;
+    margin: 0 0.5rem 0.5rem 0;
     background-color: #A08C5A;
     border: 0.0625rem solid #785f37;
     border-radius: 0.9375rem;

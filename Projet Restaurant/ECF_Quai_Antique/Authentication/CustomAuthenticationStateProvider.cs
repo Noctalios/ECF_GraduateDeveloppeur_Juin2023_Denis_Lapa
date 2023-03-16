@@ -28,7 +28,8 @@ namespace ECF_Quai_Antique.Authentication
                 {
                     new Claim(ClaimTypes.Name, userSession.Name),
                     new Claim(ClaimTypes.Role, userSession.Role),
-                    new Claim(ClaimTypes.Email, userSession.Email)
+                    new Claim(ClaimTypes.Email, userSession.Email),
+                    new Claim(ClaimTypes.Hash, userSession.Hash)
                 }, "CustomAuth"));
                 NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(claimsPrincipal)));
                 return await Task.FromResult(new AuthenticationState(claimsPrincipal));
@@ -51,7 +52,8 @@ namespace ECF_Quai_Antique.Authentication
                 {
                     new Claim(ClaimTypes.Name, userSession.Name),
                     new Claim(ClaimTypes.Role, userSession.Role),
-                    new Claim(ClaimTypes.Email, userSession.Email)
+                    new Claim(ClaimTypes.Email, userSession.Email),
+                    new Claim(ClaimTypes.Hash, userSession.Hash)
                 }));
             }
             else

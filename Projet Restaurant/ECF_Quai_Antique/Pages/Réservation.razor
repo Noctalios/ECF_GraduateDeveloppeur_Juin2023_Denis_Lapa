@@ -3,6 +3,7 @@
 @using ECF_Quai_Antique.Entities
 @using ECF_Quai_Antique.BLL.Interfaces
 
+@inject IUserService userService
 @inject ISnackbar Snackbar
 @inject IRestaurantService restaurantService
 
@@ -86,6 +87,9 @@
     [CascadingParameter] 
     MudDialogInstance MudDialog { get; set; }
 
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationState { get; set; }
+
     private Booking booking = new Booking();
 
     private Allergie newAllergie = new Allergie();
@@ -101,13 +105,25 @@
     }
 
 
-    protected override void OnInitialized()
+    protected override async void OnInitialized()
     {
+        var authState = await authenticationState;
+
+        if (authState.User.Identity.Name != null)
+        {
+            User currentUser = userService.GetUser(authState.User.Claims.ElementAt(2).Value, authState.User.Claims.ElementAt(3).Value);
+            booking.ClientName = currentUser.Name;
+            booking.Guest = currentUser.Guest ?? 0;
+            booking.Allergens = currentUser.Allergies ?? new List<Allergie>(){};
+        }
+        else
+        {
+            booking.ClientName = "";
+            booking.Guest = 0;
+            booking.Allergens = new List<Allergie>(){};
+        }
         booking.Id = -1;
-        booking.ClientName = "";
-        booking.Guest = 0;
         booking.Date = DateTime.Now;
-        booking.Allergens = new List<Allergie>(){};
         newAllergie = new Allergie(-1, "");
 
         restaurant = restaurantService.GetRestaurant();
@@ -185,7 +201,7 @@
         close = close.AddHours(-1);
         int i = 0;
 
-        while(open <= close)
+        while(open.TimeOfDay <= close.TimeOfDay)
         {
             hoursToDisplay.Add(i, open);
             open = open.AddMinutes(15);

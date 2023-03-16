@@ -154,7 +154,8 @@
                 {
                     Name = currentUser.Name,
                     Email = currentUser.Email,
-                    Role = currentUser.Role.Label
+                    Role = currentUser.Role.Label,
+                    Hash = password
                 });
                 navManager.NavigateTo("/", true);
 
