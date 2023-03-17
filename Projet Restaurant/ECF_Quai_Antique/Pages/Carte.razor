@@ -18,21 +18,21 @@
                 <DishElement Dish="@dish"></DishElement>
             }
             <h2>Boissons :</h2>
-            @foreach (var dish in dishes.Where(d => d.DishType.Id == 2).OrderBy(d => d.Name))
+            @foreach (var dish in dishes.Where(d => d.DishType.Id == 4).OrderBy(d => d.Name))
             {
                 <DishElement Dish="@dish"></DishElement>
             }
         </div>
         <div>
             <h2>Plats :</h2>
-            @foreach (var dish in dishes.Where(d => d.DishType.Id == 3).OrderBy(d => d.Name))
+            @foreach (var dish in dishes.Where(d => d.DishType.Id == 2).OrderBy(d => d.Name))
             {
                 <DishElement Dish="@dish"></DishElement>
             }
         </div>
         <div class="restaurant-menu-part">
             <h2>Desserts :</h2>
-            @foreach (var dish in dishes.Where(d => d.DishType.Id == 4).OrderBy(d => d.Name))
+            @foreach (var dish in dishes.Where(d => d.DishType.Id == 3).OrderBy(d => d.Name))
             {
                 <DishElement Dish="@dish"></DishElement>
             }
