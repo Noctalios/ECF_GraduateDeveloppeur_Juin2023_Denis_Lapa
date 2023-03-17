@@ -228,7 +228,19 @@ textarea[b-ent861kblg] {
     margin-left: 2rem;
 }
 
-/* Menu */
+/* Réservation */
+
+.reservation-label[b-ent861kblg]{
+    padding: 0.25rem 0.25rem;
+    margin-right: 0.5rem;
+    background-color: #E9DDBE;
+    border: 0.0625rem solid #785F37;
+    border-radius: 0.5rem;
+}
+
+.reservation-line[b-ent861kblg]{
+    margin-bottom: 0.5rem;
+}
 
 @media screen and (max-width: 1600px) {
     .days-title[b-ent861kblg] {

@@ -222,6 +222,25 @@
                 </div>
             </div>
         </div>
+        <div class="setup-container">
+            <div class="title">
+                <h2 class="section-title">Réservations :</h2>
+                <input class="input-field" type="date" @bind="@selectedDate"/>
+            </div>
+            @foreach (var booking in bookings.Where(b => b.Date.Date == selectedDate.Date))
+            {
+                <div class="reservation-line">
+                    <label class="reservation-label">Nom: @booking.ClientName</label>
+                    <label class="reservation-label">Couverts: @booking.Guest</label>
+                    <label class="reservation-label">Horaire: @booking.Date.Hour.ToString("D2"):@booking.Date.Minute.ToString("D2")</label>
+                    <label class="reservation-label">Allergies : </label>
+                    @foreach(var allergie in booking.Allergens)
+                    {
+                        <span>- @allergie</span>
+                    }
+                </div>
+            }
+        </div>
     </div>
 </div>
 
@@ -229,10 +248,10 @@
 @code {
     Restaurant restaurant = new Restaurant();
 
+    List<DishType> dishTypes = new List<DishType>();
+
     List<Dish> dishes = new List<Dish>();
     private Dish newDish = new Dish(-1, "", "", new DishType(1, "Entrées"), 0m);
-
-    List<DishType> dishTypes = new List<DishType>();
 
     List<Formula> formulas = new List<Formula>();
     Formula newFormula = new Formula()
@@ -251,6 +270,9 @@
         Formulas = new List<Formula>()
     };
 
+    private List<Booking> bookings = new List<Booking>();
+    private DateTime selectedDate = DateTime.Now;
+
     Dictionary<int, DateTime> dates = new Dictionary<int, DateTime>();
 
     protected override void OnInitialized()
@@ -260,7 +282,7 @@
         dishTypes = restaurantMenuService.GetDishTypes();
         formulas = restaurantMenuService.GetFormulas();
         menus = restaurantMenuService.GetMenus();
-
+        bookings = restaurantService.GetBookings();
 
     }
 
